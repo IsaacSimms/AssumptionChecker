@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace AssumptionChecker.Contracts
 {
+    // == parameters of the assumption object == //
     public class Assumption
     {
         // == Properties == //
