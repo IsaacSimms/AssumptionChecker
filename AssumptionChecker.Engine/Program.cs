@@ -1,44 +1,15 @@
-var builder = WebApplication.CreateBuilder(args);
+// == namespaces == //
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using AssumptionChecker.Contracts;
+using AssumptionChecker.Engine.Services;
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+var builder = WebApplication.CreateBuilder(args); // initialize web application builder
 
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+builder.Services.AddSingleton<ILlmClient, OpenAILlmClient>(); // register OpenAILlmClient as the implementation for ILlmClient in the dependency injection container
+builder.Services.ConfigureHttpJsonOptions(options => // configure JSON options for HTTP requests and responses
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    options.SerializerOptions.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase)); // ensure enums are serialized in camelCase
+});
 
-app.UseHttpsRedirection();
-
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
-
-app.Run();
-
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+var app = builder.Build(); // build the web application
