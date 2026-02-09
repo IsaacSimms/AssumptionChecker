@@ -80,7 +80,20 @@ while (true)
             Console.WriteLine();
         }
 
+        var questions = string.Join("\n", result.Assumptions
+            .Where(assumption => assumption.RiskLevel == RiskLevel.Medium)
+            .Select(assumption => $"- {assumption.ClarifyingQuestion}"));
+        if (!string.IsNullOrEmpty(questions))
+        {
+            Console.WriteLine("// == Suggested Clarifying Questions == //");
+            Console.WriteLine(questions);
+            Console.WriteLine();
+        }
     }
-
-
+    catch (HttpRequestException ex)
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine($"Request error: {ex.Message}");
+        Console.ResetColor();
+    }
 }
