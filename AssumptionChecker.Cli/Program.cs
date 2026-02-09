@@ -80,9 +80,12 @@ while (true)
             Console.WriteLine();
         }
 
+        // compile clarifying questions for medium risk assumptions
         var questions = string.Join("\n", result.Assumptions
             .Where(assumption => assumption.RiskLevel == RiskLevel.Medium)
             .Select(assumption => $"- {assumption.ClarifyingQuestion}"));
+
+        // print suggested clarifying questions for medium risk assumptions
         if (!string.IsNullOrEmpty(questions))
         {
             Console.WriteLine("// == Suggested Clarifying Questions == //");
@@ -90,6 +93,7 @@ while (true)
             Console.WriteLine();
         }
     }
+    // handle HTTP request errors
     catch (HttpRequestException ex)
     {
         Console.ForegroundColor = ConsoleColor.Red;
