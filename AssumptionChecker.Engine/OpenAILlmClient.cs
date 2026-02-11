@@ -97,7 +97,7 @@ namespace AssumptionChecker.Engine.Services
 
         // == defines system prompt and instructions for model                                                           == //
         // == includes instruction to return only JSON, and to limit the number of assumptions based on the user request == //
-        private static string BuildSystemPrompt(int maxAssumptions) => $"""
+        private static string BuildSystemPrompt(int maxAssumptions) => $$"""
             You are a prompt analysis engine that identifies assumptions in user prompts.
             You will be given a user's prompt that will later be sent to a seperate AI system for processing. 
             An assumption is any explicit or implicit condition that is required for the success or validity of the plan, is not fully verified or guaranteed by the text itself, and would materially affect outcomes if false.
@@ -105,15 +105,15 @@ namespace AssumptionChecker.Engine.Services
 
             For each assumption, return a JSON object with the following content:
             - id: a unique identifier for the assumption (e.g., "assumption-1")
-            - assumption: a concise statement of the assumption
+            - assumptionText: a concise statement of the assumption
             - rationale: a brief explanation of why this is an assumption, how it relates to the user's prompt, and why it is important.
             - category: "userContext", "domainContext", "constraintsDefaults", "outputFormat", "ambiguity"
             - riskLevel: one of "low", "medium", "high"
-            - clarificationQuestion: a question that could be asked to the user to clarify or verify the assumption. Asking a clarifying question is OPTIONAL and should only be included if absolutely necessary to clarify the assumption. The question should be concise and directly related to the assumption.
+            - clarifyingQuestion: a question that could be asked to the user to clarify or verify the assumption. Asking a clarifying question is OPTIONAL and should only be included if absolutely necessary to clarify the assumption. The question should be concise and directly related to the assumption.
             - confidence: a number between 0 and 1 indicating how confident you are that this is an assumption relevant to the prompt, where 0 means not confident at all and 1 means extremely confident.
             
-            Return at most { maxAssumptions} assumptions, orderd by riskLevel (high to low) and confidence (high to low).
-            Return ONLY a JSON object: "assumptions": [ ... ] 
+            Return at most {{maxAssumptions}} assumptions, ordered by riskLevel (high to low) and confidence (high to low).
+            Return ONLY a JSON object with this structure: { "assumptions": [ ... ] }
             """;
     }
 }

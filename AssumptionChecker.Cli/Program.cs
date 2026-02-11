@@ -7,7 +7,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using AssumptionChecker.Contracts;
 
-var baseUrl      = args.Length > 0 ? args[0] : "http://localhost:5000"; // get the base URL from command-line arguments or use default
+var baseUrl      = args.Length > 0 ? args[0] : "http://localhost:5046"; // get the base URL from command-line arguments or use default
 using var client = new HttpClient { BaseAddress = new Uri(baseUrl) };   // create an HttpClient with the specified base URL
 
 // == initialize JSON options == //
