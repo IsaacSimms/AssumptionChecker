@@ -1,4 +1,5 @@
 ﻿///// CLI tool to use, test, and debug the AssumptionChecker library and functionalities /////
+// == To use the CLI in debugger, you need to make sure that the startup project is set to multiple projects with the Engine starting up first == // 
 
 // == namespaces == //
 using System;
