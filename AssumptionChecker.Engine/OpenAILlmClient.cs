@@ -51,13 +51,14 @@ namespace AssumptionChecker.Engine.Services
 
                 try
                 {
-                    var assumptions = ParseAssumptions(raw);
+                    var (assumptions, suggestedPrompts) = ParseResponse(raw);
                     sw.Stop();
 
                     // returns the assumptions along with metadata about the response (latency, model used, tokens used) == // 
                     return new AnalyzeResponse
                     {
                         Assumptions = assumptions,
+                        SuggestedPrompts = suggestedPrompts,
                         Metadata = new ResponseMetadata
                         {
                             LatencyMs = sw.ElapsedMilliseconds,
@@ -67,7 +68,7 @@ namespace AssumptionChecker.Engine.Services
                     };
                 }
                 // error handling 
-                catch (JsonException) when (attempt == 0)
+                catch (JsonException) when (attempt < 3)
                 {
                     //reprompt
                     messages.Add(new AssistantChatMessage(raw));
@@ -80,19 +81,32 @@ namespace AssumptionChecker.Engine.Services
         }
 
         // == parse the assumption JSON == //
-        private List<Assumption> ParseAssumptions(string raw)
+        private (List<Assumption> assumptions, List<string> suggestedPrompts) ParseResponse(string raw)
         {
-            using var jsonDoc = JsonDocument.Parse(raw);
+            using var jsonDoc = JsonDocument.Parse(raw); // parse the raw JSON response
 
-            // handle { "assumptions": [...] } and bare [...]
-            if (jsonDoc.RootElement.TryGetProperty("assumptions", out var arr))
+            List<Assumption> assumptions;                // initialize the assumptions list
+
+            // parse assumptions - if the response includes the full JSON structure, parse out the assumptions from the "assumptions" property.
+            if (jsonDoc.RootElement.TryGetProperty("assumptions", out var assumptionsArray))
             {
-                return JsonSerializer.Deserialize<List<Assumption>>(arr.GetRawText(), _jsonOptions)
+                assumptions = JsonSerializer.Deserialize<List<Assumption>>(assumptionsArray.GetRawText(), _jsonOptions)
                     ?? throw new JsonException("Null assumptions");
             }
+            else
+            {
+                assumptions = JsonSerializer.Deserialize<List<Assumption>>(raw, _jsonOptions) ?? throw new JsonException("Null assumptions");
+            }
 
-            return JsonSerializer.Deserialize<List<Assumption>>(raw, _jsonOptions)
-                ?? throw new JsonException("Failed to deserialize assumptions.");
+            // parse suggested prompts
+            List<string> suggestedPrompts = new();
+            if (jsonDoc.RootElement.TryGetProperty("suggestedPrompts", out var promptsArray))
+            {
+                suggestedPrompts = JsonSerializer.Deserialize<List<string>>(promptsArray.GetRawText(), _jsonOptions)
+                    ?? throw new JsonException("Null suggested prompts");
+            }
+
+            return (assumptions, suggestedPrompts);
         }
 
         // == defines system prompt and instructions for model                                                           == //
@@ -107,13 +121,21 @@ namespace AssumptionChecker.Engine.Services
             - id: a unique identifier for the assumption (e.g., "assumption-1")
             - assumptionText: a concise statement of the assumption
             - rationale: a brief explanation of why this is an assumption, how it relates to the user's prompt, and why it is important.
-            - category: "userContext", "domainContext", "constraintsDefaults", "outputFormat", "ambiguity"
+            - category: "userContext", "domainContext", "constraints", "outputFormat", "ambiguity", or "other" (use "other" if uncertain)
             - riskLevel: one of "low", "medium", "high"
             - clarifyingQuestion: a question that could be asked to the user to clarify or verify the assumption. Asking a clarifying question is OPTIONAL and should only be included if absolutely necessary to clarify the assumption. The question should be concise and directly related to the assumption.
             - confidence: a number between 0 and 1 indicating how confident you are that this is an assumption relevant to the prompt, where 0 means not confident at all and 1 means extremely confident.
+
+            Additionally, generate 2-3 improved versions of the original prompt to reduce assumptions and ambiguity. These should prioritize the most critical assumptions you identified (medium and high risk).
+            Each improved prompt should be specific, reduce ambiguity, and target one or more of the critical assumptions. The improved prompts should be actionable, ready to use, and directly address the issues in the original prompt.
+            The improved prompts need to maintain the original intent of the user's prompt while enhancing clarity and reducing reliance on unverified assumptions.
             
             Return at most {{maxAssumptions}} assumptions, ordered by riskLevel (high to low) and confidence (high to low).
-            Return ONLY a JSON object with this structure: { "assumptions": [ ... ] }
+            Return ONLY a JSON object with this structure: 
+            { 
+            "assumptions": [ ... ],
+            "suggestedPrompts": [ ... improved prompt 1 ..., ... improved prompt 2 ..., ... improved prompt 3 ...]
+            }
             """;
     }
 }

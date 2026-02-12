@@ -12,7 +12,8 @@ namespace AssumptionChecker.Contracts
     public class AnalyzeResponse
     {
         // == Properties == //
-        public required List<Assumption> Assumptions { get; set; } // The list of assumptions identified in the analysis, along with their details.
-        public required ResponseMetadata Metadata    { get; set; } // Metadata about the analysis response, such as processing time, model used, etc.
+        public required List<Assumption> Assumptions { get; set; }          // The list of assumptions identified in the analysis, along with their details.
+        public required ResponseMetadata Metadata    { get; set; }          // Metadata about the analysis response, such as processing time, model used, etc.
+        public List<string> SuggestedPrompts         { get; set; } = new(); // List of suggested imrpoved prompts to reduce assumptions and ambiguity (optional, can be empty)
     }
 }

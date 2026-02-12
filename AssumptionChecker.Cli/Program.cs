@@ -93,7 +93,21 @@ while (true)
             Console.WriteLine(questions);
             Console.WriteLine();
         }
+
+        // handle suggested prompts
+        if (result.SuggestedPrompts.Any())
+        {
+            Console.WriteLine("// == Suggested Improved Prompts == //");
+            Console.ForegroundColor = ConsoleColor.Green;
+            for (int i = 0; i < result.SuggestedPrompts.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {result.SuggestedPrompts[i]}");
+            }
+            Console.ResetColor();
+            Console.WriteLine();
+        }
     }
+
     // handle HTTP request errors
     catch (HttpRequestException ex)
     {
