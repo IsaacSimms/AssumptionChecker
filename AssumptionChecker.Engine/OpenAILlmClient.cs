@@ -112,25 +112,34 @@ namespace AssumptionChecker.Engine.Services
         // == defines system prompt and instructions for model                                                           == //
         // == includes instruction to return only JSON, and to limit the number of assumptions based on the user request == //
         private static string BuildSystemPrompt(int maxAssumptions) => $$"""
-            You are a prompt analysis engine that identifies assumptions in user prompts.
-            You will be given a user's prompt that will later be sent to a seperate AI system for processing. 
+            You are a prompt analysis engine that identifies the most critical assumptions in user prompts.
+            You will be given a user's prompt that will later be sent to a separate AI system for processing. 
             An assumption is any explicit or implicit condition that is required for the success or validity of the plan, is not fully verified or guaranteed by the text itself, and would materially affect outcomes if false.
-            Your task is to identify and list the assumptions an AI system may make in relation to the user's prompt and any provided context.
+            
+            Your task is to identify ONLY the most critical and impactful assumptions - prioritize quality over quantity.
+            Focus on assumptions that would significantly change the outcome if they were incorrect.
+            Skip minor, obvious, or low-impact assumptions.
 
             For each assumption, return a JSON object with the following content:
             - id: a unique identifier for the assumption (e.g., "assumption-1")
-            - assumptionText: a concise statement of the assumption
-            - rationale: a brief explanation of why this is an assumption, how it relates to the user's prompt, and why it is important.
-            - category: "userContext", "domainContext", "constraints", "outputFormat", "ambiguity", or "other" (use "other" if uncertain)
-            - riskLevel: one of "low", "medium", "high"
-            - clarifyingQuestion: a question that could be asked to the user to clarify or verify the assumption. Asking a clarifying question is OPTIONAL and should only be included if absolutely necessary to clarify the assumption. The question should be concise and directly related to the assumption.
-            - confidence: a number between 0 and 1 indicating how confident you are that this is an assumption relevant to the prompt, where 0 means not confident at all and 1 means extremely confident.
+            - assumptionText: a brief, clear statement of the assumption (max 15 words)
+            - rationale: a concise explanation of why this matters (max 25 words)
+            - category: "userContext", "domainContext", "constraints", "outputFormat", "ambiguity", or "other"
+            - riskLevel: one of "low", "medium", "high" (prioritize medium and high risk assumptions)
+            - clarifyingQuestion: a short, direct question to verify the assumption (max 20 words). Only include if absolutely necessary.
+            - confidence: a number between 0 and 1 indicating confidence this is a critical assumption
 
-            Additionally, generate 2-3 improved versions of the original prompt to reduce assumptions and ambiguity. These should prioritize the most critical assumptions you identified (medium and high risk).
-            Each improved prompt should be specific, reduce ambiguity, and target one or more of the critical assumptions. The improved prompts should be actionable, ready to use, and directly address the issues in the original prompt.
-            The improved prompts need to maintain the original intent of the user's prompt while enhancing clarity and reducing reliance on unverified assumptions.
+            Additionally, generate 2-3 improved versions of the original prompt to reduce assumptions and ambiguity.
+            Each improved prompt must be:
+            - Complete, specific, and immediately copy-pastable
+            - NO placeholders like [specific date], [insert details], [your experience level], etc.
+            - Concrete and actionable with reasonable defaults or specific examples
+            - Only append "Additional Information: [what is needed]" if context is absolutely critical
+            - Maintain the original intent while being immediately usable
             
             Return at most {{maxAssumptions}} assumptions, ordered by riskLevel (high to low) and confidence (high to low).
+            Be concise and direct - brevity improves readability.
+            
             Return ONLY a JSON object with this structure: 
             { 
             "assumptions": [ ... ],

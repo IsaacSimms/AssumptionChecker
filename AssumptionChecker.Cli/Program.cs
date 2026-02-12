@@ -76,14 +76,20 @@ while (true)
             Console.ResetColor();
             Console.WriteLine(assumption.AssumptionText);
             Console.WriteLine($"     Category:  {assumption.Category}");
-            Console.WriteLine($"     Ask:       {assumption.ClarifyingQuestion}\"");
+            
+            // Only print clarifying question if it exists
+            if (!string.IsNullOrWhiteSpace(assumption.ClarifyingQuestion))
+            {
+                Console.WriteLine($"     Ask:       {assumption.ClarifyingQuestion}");
+            }
+            
             Console.WriteLine($"     Rationale: {assumption.Rationale}");
             Console.WriteLine();
         }
 
         // compile clarifying questions for medium risk assumptions
         var questions = string.Join("\n", result.Assumptions
-            .Where(assumption => assumption.RiskLevel == RiskLevel.Medium)
+            .Where(assumption => assumption.RiskLevel == RiskLevel.Medium && !string.IsNullOrWhiteSpace(assumption.ClarifyingQuestion))
             .Select(assumption => $"- {assumption.ClarifyingQuestion}"));
 
         // print suggested clarifying questions for medium risk assumptions
