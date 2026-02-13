@@ -3,6 +3,7 @@
 using AssumptionChecker.Contracts;
 namespace AssumptionChecker.Core
 {
+    // == takes interaction from .NET front ends and defines the contract for analyzing prompts for assumptions == // 
     public interface IAssumptionCheckerService
     {
         // == summary == //
