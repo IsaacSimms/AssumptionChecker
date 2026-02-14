@@ -10,15 +10,28 @@
 1. **Clone or download** the AssumptionChecker repository
 2. **Navigate to the Engine project:**
    ```bash
-   cd AssumptionChecker.Engine
+   cd C:\AssumptionChecker\AssumptionChecker\AssumptionChecker.Engine
    ```
 
 3. **Set your OpenAI API key** using .NET User Secrets:
+
+# Initialize user secrets (if not already done)
    ```bash
-   dotnet user-secrets init
-   dotnet user-secrets set "OpenAI:ApiKey" "sk-your-actual-api-key-here"
+dotnet user-secrets init
+   ```
+# Set your OpenAI API key
+   ```bash
+dotnet user-secrets set "OpenAI:ApiKey" "sk-proj-your-actual-api-key-here"
    ```
 
+# Verify that it worked by running:
+   ```bash
+dotnet user-secrets list
+   ```
+  You should see:
+     ```bash
+OpenAI:ApiKey = sk-proj-...
+      ```
 4. **(Optional) Choose your OpenAI model:**
    ```bash
    dotnet user-secrets set "OpenAI:Model" "gpt-4o"
@@ -26,14 +39,17 @@
    Default: `gpt-4o-mini` (cheaper, faster)
 
 5. **Start the Engine:**
+ # From the engine directory
    ```bash
    dotnet run
    ```
    
    You should see:
    ```
-   info: Microsoft.Hosting.Lifetime[14]
-         Now listening on: http://localhost:5046
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://localhost:5046
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
    ```
 
 ### Step 2: Install the VS Extension
