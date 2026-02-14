@@ -9,9 +9,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.Extensibility.Sdk" Version="17.13. *-preview.*" />
+    <PackageReference Include="Microsoft.VisualStudio.Extensibility.Sdk" Version="17.13.*" />
     <ProjectReference Include="..\AssumptionChecker.Core\AssumptionChecker.Core.csproj" />
     <ProjectReference Include="..\AssumptionChecker.Contracts\AssumptionChecker.Contracts.csproj" />
+  </ItemGroup>
+
+  <!-- Bundle the Engine with the VSIX -->
+  <ItemGroup>
+    <Content Include="..\AssumptionChecker.Engine\bin\$(Configuration)\net8.0\**\*.*">
+      <Link>Engine\%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
   </ItemGroup>
 
 </Project>

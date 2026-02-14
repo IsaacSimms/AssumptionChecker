@@ -1,15 +1,18 @@
 ﻿///// used by VS extension to get into engine/API service /////
 
 // == namespaces == //
+using System.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.Extensibility;
 using AssumptionChecker.Core;
 
 namespace AssumptionChecker.VsExtension
 {
-    [VisualStudioContribution] // marks this class as the entry point for the VS extension
+    [VisualStudioContribution]                  // marks this class as the entry point for the VS extension
     internal class ExtensionEntrypoint : Extension
     {
+        private static Process? _engineProcess; // tracks engine process
+
         // == extension metadata == //
         public override ExtensionConfiguration ExtensionConfiguration => new()
         {
@@ -32,7 +35,72 @@ namespace AssumptionChecker.VsExtension
             var engineUrl = Environment.GetEnvironmentVariable("ASSUMPTION_CHECKER_ENGINE_URL") 
                             ?? "http://localhost:5046";
 
+            EnsureEngineIsRunning(); // Auto-start the Engine if it's not already running
+
             serviceCollection.AddAssumptionChecker(engineUrl);
+        }
+
+
+        // == Engine management == //
+        private static void EnsureEngineIsRunning()
+        {
+            // Check if Engine is already running
+            if (IsEngineRunning())
+                return;
+
+            // Get the Engine executable path (bundled with the extension)
+            var extensionDir = Path.GetDirectoryName(typeof(ExtensionEntrypoint).Assembly.Location);
+            var enginePath   = Path.Combine(extensionDir!, "Engine", "AssumptionChecker.Engine.exe");
+
+            if (!File.Exists(enginePath))
+            {
+                // Fallback: try to find it in the solution (dev scenario)
+                enginePath = Path.Combine(extensionDir!, "..", "..", "..", "..", "AssumptionChecker.Engine", "bin", "Debug", "net8.0", "AssumptionChecker.Engine.exe");
+                
+                if (!File.Exists(enginePath))
+                    return; // Can't auto-start, user must start manually
+            }
+
+            // Start the Engine as a background process
+            _engineProcess = Process.Start(new ProcessStartInfo
+            {
+                FileName = enginePath,
+                UseShellExecute        = false,
+                CreateNoWindow         = true, // Run in background
+                RedirectStandardOutput = true,
+                RedirectStandardError  = true
+            });
+
+            // Give it a moment to start listening
+            Thread.Sleep(2000);
+        }
+
+        private static bool IsEngineRunning()
+        {
+            // is engine API responsive
+            try
+            {
+                using var client = new HttpClient { Timeout = TimeSpan.FromSeconds(2) };
+                var response = client.GetAsync("http://localhost:5046/health").Result;
+                return response.IsSuccessStatusCode;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        // == Cleanup == //
+        protected override void Dispose(bool disposing)
+        {
+            // Clean up: stop the Engine when VS closes
+            if (disposing && _engineProcess != null && !_engineProcess.HasExited)
+            {
+                _engineProcess.Kill();
+                _engineProcess.Dispose();
+            }
+
+            base.Dispose(disposing);
         }
     }
 }
