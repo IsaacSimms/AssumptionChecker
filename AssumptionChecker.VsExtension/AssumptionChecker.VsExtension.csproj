@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.Extensibility.Sdk" Version="17.13.*" />
+    <PackageReference Include="Microsoft.VisualStudio.Extensibility.Sdk" Version="17.13. *-preview.*" />
     <ProjectReference Include="..\AssumptionChecker.Core\AssumptionChecker.Core.csproj" />
     <ProjectReference Include="..\AssumptionChecker.Contracts\AssumptionChecker.Contracts.csproj" />
   </ItemGroup>
