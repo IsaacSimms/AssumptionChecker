@@ -11,6 +11,6 @@ namespace AssumptionChecker.Core
         // Non-.NET clients need to call the API endpoint using JSON contracts
 
         // == AnalyzeAsync == //
-        Task<AnalyzeResponse> AnalyzeAsync(string prompt, int maxAssumptions, CancellationToken cancellationToken = default);
+        Task<AnalyzeResponse> AnalyzeAsync(string prompt, int maxAssumptions, List<FileContext>? fileContexts = null, CancellationToken cancellationToken = default);
     }
 }

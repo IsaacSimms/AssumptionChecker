@@ -4,6 +4,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
+using Microsoft.VisualStudio.Extensibility;
 using Microsoft.VisualStudio.Extensibility.UI;
 using AssumptionChecker.Contracts;
 using AssumptionChecker.Core;
@@ -15,14 +16,16 @@ namespace AssumptionChecker.VsExtension
     {
         // == private variables == //
         private readonly IAssumptionCheckerService _service;
-        private string _promptText = string.Empty;
-        private string _resultText = string.Empty;
+        private readonly VisualStudioExtensibility _extensibility;
+        private string _promptText  = string.Empty;
+        private string _resultText  = string.Empty;
         private string _isAnalyzing = "Collapsed";
 
         // == constructor == //
-        public AssumptionCheckerData(IAssumptionCheckerService service)
+        public AssumptionCheckerData(IAssumptionCheckerService service, VisualStudioExtensibility extensibility)
         {
             _service = service;
+            _extensibility = extensibility;
             AnalyzeCommand = new AsyncCommand(async (parameter, cancellationToken) =>
             {
                 await AnalyzeAsync(cancellationToken);
@@ -74,6 +77,45 @@ namespace AssumptionChecker.VsExtension
         [DataMember]
         public IAsyncCommand AnalyzeCommand { get; } // analyzes the prompt when the button is clicked
 
+        // == gathers content from all open documents in VS == //
+        private async Task<List<FileContext>> GatherOpenFileContextsAsync(CancellationToken cancellationToken)
+        {
+            var fileContexts = new List<FileContext>();
+
+            var documents = _extensibility.Documents();
+
+            var openDocs  = await documents.GetOpenDocumentsAsync(cancellationToken);
+
+            foreach (var doc in openDocs)
+            {
+                try
+                {
+                    // Get the document's file path
+                    var filePath = doc.Moniker.ToString();
+
+                    // Read the file content from disk
+                    var content = await File.ReadAllTextAsync(filePath, cancellationToken);
+
+                    // Skip very large files to keep the API payload reasonable
+                    if (content.Length > 10_000)
+                        content = content[..10_000] + "\n// ... (truncated)";
+
+                    fileContexts.Add(new FileContext
+                    {
+                        FilePath = filePath,
+                        Content = content
+                    });
+                }
+                catch
+                {
+                    // Skip documents that can't be read (e.g., unsaved files, non-file documents)
+                    continue;
+                }
+            }
+
+            return fileContexts;
+        }
+
         // == driver method for analyzing the prompt using the AssumptionChecker API == //
         private async Task AnalyzeAsync(CancellationToken cancellationToken)
         {
@@ -90,7 +132,10 @@ namespace AssumptionChecker.VsExtension
             // == call the service and handle results/errors == //
             try
             {
-                var result = await _service.AnalyzeAsync(PromptText, maxAssumptions: 10, cancellationToken);
+                // Gather context from open files
+                var fileContexts = await GatherOpenFileContextsAsync(cancellationToken);
+
+                var result = await _service.AnalyzeAsync(PromptText, maxAssumptions: 10, fileContexts, cancellationToken);
                 ResultText = FormatResults(result);
             }
             catch (Exception ex)

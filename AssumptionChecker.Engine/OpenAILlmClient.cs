@@ -34,11 +34,21 @@ namespace AssumptionChecker.Engine.Services
             var systemPrompt = BuildSystemPrompt(request.MaxAssumptions); // call function that specifies the system prompt
             var sw           = Stopwatch.StartNew();                      // start a stopwatch to track latency
 
-            // build the message list with the system prompt and user prompt
+            // == build the message list with the system prompt and user prompt == //
+            // optional file context
+            var userMessage = request.Prompt;
+            if (request.FileContexts.Count > 0)
+            {
+                var contextBlock = string.Join("\n\n", request.FileContexts.Select(f =>
+                    $"--- File: {f.FilePath} ---\n{f.Content}"));
+                userMessage = $"{request.Prompt}\n\n[Open File Context]\n{contextBlock}";
+            }
+
+            // initialize the message list with the system prompt and user prompt
             List<ChatMessage> messages =
                 [
                 new SystemChatMessage(systemPrompt),
-                new UserChatMessage(request.Prompt)
+                new UserChatMessage(userMessage)
                 ];
 
             var options = new ChatCompletionOptions { ResponseFormat = ChatResponseFormat.CreateJsonObjectFormat() }; // forces JSON format

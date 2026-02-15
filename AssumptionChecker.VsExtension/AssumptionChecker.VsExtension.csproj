@@ -12,6 +12,8 @@
     <PackageReference Include="Microsoft.VisualStudio.Extensibility.Sdk" Version="17.13.*" />
     <ProjectReference Include="..\AssumptionChecker.Core\AssumptionChecker.Core.csproj" />
     <ProjectReference Include="..\AssumptionChecker.Contracts\AssumptionChecker.Contracts.csproj" />
+    <!-- Ensure Engine builds before VsExtension so its binaries exist for bundling -->
+    <ProjectReference Include="..\AssumptionChecker.Engine\AssumptionChecker.Engine.csproj" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
   <!-- Embed the Remote UI XAML resource -->

@@ -19,8 +19,8 @@ namespace AssumptionChecker.VsExtension
         public AssumptionCheckerToolWindow(VisualStudioExtensibility extensibility, IAssumptionCheckerService service) 
             : base(extensibility)
         {
-            _service = service;
-            this.Title = "Assumption Checker";
+            _service   = service;              // Store the injected service for later use in the tool window
+            this.Title = "Assumption Checker"; // Set the title of the tool window
         }
 
         // == configure the tool window placement == //
@@ -33,7 +33,7 @@ namespace AssumptionChecker.VsExtension
         public override Task<IRemoteUserControl> GetContentAsync(CancellationToken cancellationToken)
         {
             return Task.FromResult<IRemoteUserControl>(
-                new AssumptionCheckerControl(new AssumptionCheckerData(_service)));
+                new AssumptionCheckerControl(new AssumptionCheckerData(_service, this.Extensibility)));
         }
     }
 }

@@ -28,12 +28,13 @@ namespace AssumptionChecker.Core
         }
 
         // == implements AnalyzeResponse method that connects to AssumptionChecker API== //
-        public async Task<AnalyzeResponse> AnalyzeAsync(string prompt, int maxAssumptions, CancellationToken cancellationToken = default)
+        public async Task<AnalyzeResponse> AnalyzeAsync(string prompt, int maxAssumptions, List<FileContext>? fileContexts = null, CancellationToken cancellationToken = default)
         {
             var request = new AnalyzeRequest
             {
-                Prompt = prompt,                // the user made prompt to analyze
-                MaxAssumptions = maxAssumptions // the maximum number of assumptions to return
+                Prompt         = prompt,                // the user made prompt to analyze
+                MaxAssumptions = maxAssumptions,        // the maximum number of assumptions to return
+                FileContexts   = fileContexts ?? new()  // optional file context from the IDE
             };
 
             // Send the request to the AssumptionChecker API and ensure a successful response
