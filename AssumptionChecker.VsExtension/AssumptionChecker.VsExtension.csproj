@@ -14,6 +14,11 @@
     <ProjectReference Include="..\AssumptionChecker.Contracts\AssumptionChecker.Contracts.csproj" />
   </ItemGroup>
 
+  <!-- Embed the Remote UI XAML resource -->
+  <ItemGroup>
+    <EmbeddedResource Include="AssumptionCheckerControl.xaml" LogicalName="AssumptionChecker.VsExtension.AssumptionCheckerControl.xaml" />
+  </ItemGroup>
+
   <!-- Bundle the Engine with the VSIX -->
   <ItemGroup>
     <Content Include="..\AssumptionChecker.Engine\bin\$(Configuration)\net8.0\**\*.*">

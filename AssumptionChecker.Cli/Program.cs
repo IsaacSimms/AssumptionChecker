@@ -3,21 +3,18 @@
 
 // == namespaces == //
 using System;
-using System.Net.Http.Json;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+using Microsoft.Extensions.DependencyInjection;
 using AssumptionChecker.Contracts;
+using AssumptionChecker.Core;
 
-var baseUrl      = args.Length > 0 ? args[0] : "http://localhost:5046"; // get the base URL from command-line arguments or use default
-using var client = new HttpClient { BaseAddress = new Uri(baseUrl) };   // create an HttpClient with the specified base URL
+var baseUrl = args.Length > 0 ? args[0] : "http://localhost:5046"; // get the base URL from command-line arguments or use default
 
-// == initialize JSON options == //
-var jsonOptions = new JsonSerializerOptions
-{
-    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,                                  // use camelCase for JSON property names
-    Converters           = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) }, // ensure enums are serialized in camelCase
-    WriteIndented        = true                                                         // format JSON output with indentation for readability
-};
+// == set up dependency injection using the shared Core registration == //
+var services = new ServiceCollection();
+services.AddAssumptionChecker(baseUrl);
+using var provider = services.BuildServiceProvider();
+
+var service = provider.GetRequiredService<IAssumptionCheckerService>();
 
 // == headering of CLI output == //
 Console.WriteLine("//=== AssumptionChecker CLI ===//");
@@ -45,17 +42,10 @@ while (true)
         break;
     }
 
-    var request = new AnalyzeRequest { Prompt = input }; // create object of AnalyzeRequest with the user input as prompt
-
     // attempt to develop and print assumptions
     try
     {
-        var response = await client.PostAsJsonAsync("/analyze", request, jsonOptions); // send a POST request to the /analyze endpoint with the request object serialized as JSON
-        response.EnsureSuccessStatusCode();
-
-        var result = await response.Content.ReadFromJsonAsync<AnalyzeResponse>(jsonOptions);
-
-        if (result is null ) { Console.WriteLine("empty response"); continue; } // still print if no response is provided
+        var result = await service.AnalyzeAsync(input, maxAssumptions: 10);
 
         Console.WriteLine($"\nFound {result.Assumptions.Count} assumptions " +
                           $"({result.Metadata.ModelUsed}, {result.Metadata.LatencyMs}ms)\n");
