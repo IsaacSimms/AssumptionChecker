@@ -10,7 +10,7 @@ namespace AssumptionChecker.VsExtension
     [VisualStudioContribution]
     internal class AssumptionCheckCommand : Command
     {
-        public override CommandConfiguration CommandConfiguration => new("Analyze Prompt Assumptions")
+        public override CommandConfiguration CommandConfiguration => new("%AssumptionCheckCommand.DisplayName%")
         {
             Placements = new[] { CommandPlacement.KnownPlacements.ToolsMenu },
             Icon = new(ImageMoniker.KnownValues.StatusInformation, IconSettings.None),

@@ -81,7 +81,7 @@ namespace AssumptionChecker.VsExtension
             try
             {
                 using var client = new HttpClient { Timeout = TimeSpan.FromSeconds(2) };
-                var response = client.GetAsync("http://localhost:5046/health").Result;
+                var response = client.GetAsync("http://localhost:5046/health").GetAwaiter().GetResult();
                 return response.IsSuccessStatusCode;
             }
             catch

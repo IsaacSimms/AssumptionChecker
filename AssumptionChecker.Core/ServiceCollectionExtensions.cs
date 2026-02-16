@@ -20,6 +20,8 @@ namespace AssumptionChecker.Core
                 client.Timeout = TimeSpan.FromSeconds(timeoutSeconds); // set the timeout for API calls
             });
 
+            services.AddSingleton<ISecureSettingsManager, WindowsSecureSettingsManager>(); // register the secure settings manager (Windows-specific implementation)
+
             return services;
         }
     }
