@@ -8,6 +8,8 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args); // initialize web application builder
 
+builder.WebHost.UseUrls("http://localhost:5046"); // set the URL for the web application to listen on
+
 // Register secure settings manager
 builder.Services.AddSingleton<ISecureSettingsManager, WindowsSecureSettingsManager>();
 
@@ -44,8 +46,15 @@ app.MapPost("/analyze", async (AnalyzeRequest request, ILlmClient client, Cancel
         return Results.BadRequest(new { error = "Prompt cannot be empty." });
     }
 
-    var result = await client.AnalyzeAsync(request, ct); // call the AnalyzeAsync method of the ILlmClient to analyze the prompt for assumptions
-    return Results.Ok(result);                           // return the analysis result as an HTTP response
+    try
+    {
+        var result = await client.AnalyzeAsync(request, ct); // call the AnalyzeAsync method of the ILlmClient to analyze the prompt for assumptions
+        return Results.Ok(result);                           // return the analysis result as an HTTP response
+    }
+    catch (Exception ex)
+    {
+        return Results.Problem(detail: ex.Message, title: "Error analyzing prompt", statusCode: 500); // return an error response if the analysis fails
+    }
 });
 
 app.Run(); // run the web application

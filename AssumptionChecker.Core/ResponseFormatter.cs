@@ -35,7 +35,7 @@ namespace AssumptionChecker.Core
                 if (!string.IsNullOrWhiteSpace(a.ClarifyingQuestion))
                     sb.AppendLine($"- **Ask:** {a.ClarifyingQuestion}");
                 sb.AppendLine($"- **Rationale:** {a.Rationale}");
-                sb.AppendLine($"- **Confidence:** {a.ConfidenceScore:P0}");
+                sb.AppendLine($"- **Confidence:** {a.Confidence:P0}");
                 sb.AppendLine();
             }
 

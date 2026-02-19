@@ -1,0 +1,5 @@
+{
+  "msbuild-sdks": {
+    "Microsoft.VisualStudio.Extensibility.Sdk": "17.13.*"
+  }
+}
