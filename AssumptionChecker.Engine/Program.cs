@@ -1,11 +1,25 @@
 // == namespaces == //
-using System.Text.Json;
-using System.Text.Json.Serialization;
+using AssumptionChecker.Core;
 using AssumptionChecker.Contracts;
 using AssumptionChecker.Engine;
 using AssumptionChecker.Engine.Services;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args); // initialize web application builder
+
+// Register secure settings manager
+builder.Services.AddSingleton<ISecureSettingsManager, WindowsSecureSettingsManager>();
+
+// Load API key from secure storage and add to configuration
+var tempServiceProvider = builder.Services.BuildServiceProvider();
+var secureSettings = tempServiceProvider.GetRequiredService<ISecureSettingsManager>();
+var apiKey = secureSettings.GetApiKey();
+
+if (!string.IsNullOrEmpty(apiKey))
+{
+    builder.Configuration["OpenAI:ApiKey"] = apiKey;
+}
 
 builder.Services.AddSingleton<ILlmClient, OpenAILlmClient>(); // register OpenAILlmClient as the implementation for ILlmClient in the dependency injection container
 builder.Services.ConfigureHttpJsonOptions(options =>          // configure JSON options for HTTP requests and responses
