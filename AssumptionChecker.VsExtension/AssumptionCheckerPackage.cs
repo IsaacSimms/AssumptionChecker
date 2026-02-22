@@ -38,20 +38,31 @@ namespace AssumptionChecker.VsExtension
         {
             await base.InitializeAsync(cancellationToken, progress);
 
-            // Read engine URL from environment or use default
             var engineUrl = Environment.GetEnvironmentVariable("ASSUMPTION_CHECKER_ENGINE_URL")
                             ?? "http://localhost:5046";
 
-            // Auto-start the engine in the background
-            await System.Threading.Tasks.Task.Run(() => EnsureEngineIsRunning(engineUrl), cancellationToken);
+            // Engine startup: fire-and-forget so a timeout never blocks command registration
+            _ = Task.Run(() =>
+            {
+                try { EnsureEngineIsRunning(engineUrl); }
+                catch { /* non-fatal: extension still works once engine is manually started */ }
+            }, cancellationToken);
 
-            // Build services using the same Core extension method
-            var services = new ServiceCollection();
-            services.AddAssumptionChecker(engineUrl);
-            var provider = services.BuildServiceProvider();
-            CheckerService = provider.GetRequiredService<IAssumptionCheckerService>();
+            // Service registration: guard against DI failures
+            try
+            {
+                var services = new ServiceCollection();
+                services.AddAssumptionChecker(engineUrl);
+                var provider = services.BuildServiceProvider();
+                CheckerService = provider.GetRequiredService<IAssumptionCheckerService>();
+            }
+            catch (Exception ex)
+            {
+                // Log and continue — command must still be registered
+                Debug.WriteLine($"[AssumptionChecker] Service init failed: {ex.Message}");
+            }
 
-            // Switch to UI thread to register the command
+            // Always register the command, regardless of engine/service state
             await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             await AssumptionCheckerToolWindowCommand.InitializeAsync(this);
         }
