@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable"
+              xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <Extern href="stdidcmd.h"/>
+  <Extern href="vsshlids.h"/>
+  <Extern href="KnownImageIds.vsct"/>
+
+  <Commands package="guidAssumptionCheckerPackage">
+    <Groups>
+      <Group guid="guidAssumptionCheckerCmdSet" id="AssumptionCheckerMenuGroup" priority="0x0600">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS"/>
+      </Group>
+    </Groups>
+
+    <Buttons>
+      <Button guid="guidAssumptionCheckerCmdSet" id="ToolWindowCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidAssumptionCheckerCmdSet" id="AssumptionCheckerMenuGroup" />
+        <Icon guid="ImageCatalogGuid" id="StatusInformation"/>
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <Strings>
+          <ButtonText>Analyze Prompt Assumptions</ButtonText>
+        </Strings>
+      </Button>
+    </Buttons>
+  </Commands>
+
+  <Symbols>
+    <GuidSymbol name="guidAssumptionCheckerPackage" value="{9a3d7b1e-4f2c-4e8a-b5d6-1c0e3f2a4b7d}" />
+    <GuidSymbol name="guidAssumptionCheckerCmdSet"  value="{e8b4c2f1-7d3a-4a6e-9c5b-8f1d2e3a4b6c}">
+      <IDSymbol name="AssumptionCheckerMenuGroup" value="0x1020" />
+      <IDSymbol name="ToolWindowCommandId"        value="0x0100" />
+    </GuidSymbol>
+  </Symbols>
+
+</CommandTable>

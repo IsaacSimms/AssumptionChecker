@@ -1,39 +1,23 @@
-﻿///// Controls the tool window which handles UI for VS extension of Assumption Checker /////
+﻿///// tool window pane — VS creates this, no source generator involved /////
 
 // == namespaces == //
-using Microsoft.VisualStudio.Extensibility;
-using Microsoft.VisualStudio.Extensibility.ToolWindows;
-using Microsoft.VisualStudio.RpcContracts.RemoteUI;
+using System;
+using System.Runtime.InteropServices;
+using Microsoft.VisualStudio.Shell;
 using AssumptionChecker.Core;
 
 namespace AssumptionChecker.VsExtension
 {
-    [VisualStudioContribution]
-
-    // == defines the tool window == //
-    internal class AssumptionCheckerToolWindow : ToolWindow
+    [Guid("b7e1d3a9-2c4f-4a8e-b6d5-0c1e3f2a4b7e")]
+    public class AssumptionCheckerToolWindow : ToolWindowPane
     {
-        private readonly IAssumptionCheckerService _service; // Service to analyze assumptions, injected via constructor
-
-        // == constructor with dependency injection == //
-        public AssumptionCheckerToolWindow(VisualStudioExtensibility extensibility, IAssumptionCheckerService service) 
-            : base(extensibility)
+        public AssumptionCheckerToolWindow() : base(null)
         {
-            _service   = service;              // Store the injected service for later use in the tool window
-            this.Title = "Assumption Checker"; // Set the title of the tool window
-        }
+            Caption = "Assumption Checker";
 
-        // == configure the tool window placement == //
-        public override ToolWindowConfiguration ToolWindowConfiguration => new()
-        {
-            Placement = ToolWindowPlacement.DocumentWell,
-        };
-
-        // == creates the content of the tool window == //
-        public override Task<IRemoteUserControl> GetContentAsync(CancellationToken cancellationToken)
-        {
-            return Task.FromResult<IRemoteUserControl>(
-                new AssumptionCheckerControl(new AssumptionCheckerData(_service, this.Extensibility)));
+            // == create the WPF content with services from the Package == //
+            var viewModel = new AssumptionCheckerViewModel(AssumptionCheckerPackage.CheckerService!);
+            Content = new AssumptionCheckerControl(viewModel);
         }
     }
 }

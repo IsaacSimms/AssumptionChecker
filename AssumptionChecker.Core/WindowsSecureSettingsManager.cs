@@ -4,7 +4,9 @@ using System.Text;
 
 namespace AssumptionChecker.Core
 {
+#if !NETSTANDARD2_0
     [SupportedOSPlatform("windows")]
+#endif
     public class WindowsSecureSettingsManager : ISecureSettingsManager
     {
         // == settings file path == //

@@ -1,31 +1,70 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0-windows</TargetFramework>
-    <OutputType>Exe</OutputType>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <LangVersion>12.0</LangVersion>
+    <TargetFramework>net472</TargetFramework>
+    <OutputType>Library</OutputType>
     <RootNamespace>AssumptionChecker.VsExtension</RootNamespace>
+    <AssemblyName>AssumptionChecker.VsExtension</AssemblyName>
+    <Nullable>enable</Nullable>
+    <LangVersion>11.0</LangVersion>
+    <UseWPF>true</UseWPF>
+
+    <!-- == VSSDK packaging == -->
+    <GeneratePkgDefFile>true</GeneratePkgDefFile>
+    <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
+    <IncludeDebugSymbolsInVSIXContainer>false</IncludeDebugSymbolsInVSIXContainer>
+    <IncludeDebugSymbolsInLocalVSIXDeployment>false</IncludeDebugSymbolsInLocalVSIXDeployment>
+    <CopyBuildOutputToOutputDirectory>true</CopyBuildOutputToOutputDirectory>
+    <UseCodebase>true</UseCodebase>
+
+    <!-- == F5 debugging: launches VS experimental instance == -->
+    <StartAction>Program</StartAction>
+    <StartProgram>$(DevEnvDir)devenv.exe</StartProgram>
+    <StartArguments>/rootsuffix Exp</StartArguments>
   </PropertyGroup>
 
+  <!-- == WPF support for .NET Framework == -->
   <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.Extensibility.Sdk" Version="17.12.40390" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="System.Xaml" />
+  </ItemGroup>
+
+  <!-- == VSSDK + VS SDK (single meta-package replaces individual Shell packages) == -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="17.*">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.SDK" Version="17.*" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
+  </ItemGroup>
+
+  <!-- == project references == -->
+  <ItemGroup>
     <ProjectReference Include="..\AssumptionChecker.Core\AssumptionChecker.Core.csproj" />
     <ProjectReference Include="..\AssumptionChecker.Contracts\AssumptionChecker.Contracts.csproj" />
-    <ProjectReference Include="..\AssumptionChecker.Engine\AssumptionChecker.Engine.csproj" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
+  <!-- == VSCT command table compilation == -->
   <ItemGroup>
-    <EmbeddedResource Include="AssumptionCheckerControl.xaml" LogicalName="AssumptionChecker.VsExtension.AssumptionCheckerControl.xaml" />
+    <VSCTCompile Include="AssumptionCheckerPackage.vsct">
+      <ResourceName>Menus.ctmenu</ResourceName>
+    </VSCTCompile>
   </ItemGroup>
 
+  <!-- == bundle engine binaries into VSIX == -->
   <ItemGroup>
     <Content Include="..\AssumptionChecker.Engine\bin\$(Configuration)\net8.0\**\*.*">
       <Link>Engine\%(RecursiveDir)%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="source.extension.vsixmanifest" />
   </ItemGroup>
 
 </Project>

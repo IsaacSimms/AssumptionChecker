@@ -1,7 +1,6 @@
 ﻿////// Defines the parameters for an analysis request to the assumption checker service. /////
 
 // == namespaces == //
-using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 
