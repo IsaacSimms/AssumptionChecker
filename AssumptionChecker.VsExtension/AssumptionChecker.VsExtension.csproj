@@ -16,12 +16,20 @@
     <IncludeDebugSymbolsInVSIXContainer>false</IncludeDebugSymbolsInVSIXContainer>
     <IncludeDebugSymbolsInLocalVSIXDeployment>false</IncludeDebugSymbolsInLocalVSIXDeployment>
     <CopyBuildOutputToOutputDirectory>true</CopyBuildOutputToOutputDirectory>
-    <DeployExtension>true</DeployExtension>
 
     <!-- == F5 debugging: launches VS experimental instance == -->
     <StartAction>Program</StartAction>
     <StartProgram>$(DevEnvDir)devenv.exe</StartProgram>
     <StartArguments>/rootsuffix Exp /log</StartArguments>
+  </PropertyGroup>
+
+  <!-- == Deploy to experimental hive only during Debug builds == -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <DeployExtension>true</DeployExtension>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <DeployExtension>false</DeployExtension>
   </PropertyGroup>
 
   <!-- == WPF support for .NET Framework == -->
@@ -32,13 +40,13 @@
     <Reference Include="System.Xaml" />
   </ItemGroup>
 
-  <!-- == VSSDK + VS SDK (single meta-package replaces individual Shell packages) == -->
+  <!-- == VSSDK + VS SDK == -->
   <ItemGroup>
-    <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="17.*">
+    <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="18.*">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.SDK" Version="17.*" />
+    <PackageReference Include="Microsoft.VisualStudio.SDK" Version="18.*" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
   </ItemGroup>
 
@@ -46,6 +54,14 @@
   <ItemGroup>
     <ProjectReference Include="..\AssumptionChecker.Core\AssumptionChecker.Core.csproj" />
     <ProjectReference Include="..\AssumptionChecker.Contracts\AssumptionChecker.Contracts.csproj" />
+  </ItemGroup>
+
+  <!-- == build-order-only dependency on Engine (ensures Engine builds before this project) == -->
+  <ItemGroup>
+    <ProjectReference Include="..\AssumptionChecker.Engine\AssumptionChecker.Engine.csproj">
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <SkipGetTargetFrameworkProperties>true</SkipGetTargetFrameworkProperties>
+    </ProjectReference>
   </ItemGroup>
 
   <!-- == VSCT command table compilation == -->
