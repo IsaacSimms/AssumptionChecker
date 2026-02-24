@@ -1,0 +1,251 @@
+﻿<Window x:Class="AssumptionChecker.WPFApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:AssumptionChecker.WPFApp"
+        xmlns:models="clr-namespace:AssumptionChecker.WPFApp.Models"
+        xmlns:converters="clr-namespace:AssumptionChecker.WPFApp.Converters"
+        Title="Assumption Checker"
+        Height="720" Width="1060"
+        MinHeight="500" MinWidth="700"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource MainBg}">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- ═══════════════════════ SIDEBAR ═══════════════════════ -->
+        <Border Grid.Column="0" Background="{StaticResource SidebarBg}">
+            <DockPanel Margin="0,12">
+
+                <!-- App title -->
+                <StackPanel DockPanel.Dock="Top" Margin="16,4,16,16">
+                    <TextBlock Text="Assumption" FontSize="18" FontWeight="SemiBold"
+                               Foreground="{StaticResource TextPrimary}"/>
+                    <TextBlock Text="Checker" FontSize="18" FontWeight="Light"
+                               Foreground="{StaticResource TextSecondary}" Margin="0,-2,0,0"/>
+                </StackPanel>
+
+                <!-- New Chat button -->
+                <Button DockPanel.Dock="Top" Content="＋  New Chat"
+                        Command="{Binding NewChatCommand}"
+                        Style="{StaticResource NewChatButtonStyle}"
+                        Margin="0,0,0,12"/>
+
+                <!-- Navigation items -->
+                <StackPanel DockPanel.Dock="Top">
+                    <Button Content="💬  Chat"
+                            Command="{Binding NavigateToChatCommand}"
+                            Style="{StaticResource SidebarButtonStyle}"/>
+                    <Button Content="⚙  Settings"
+                            Command="{Binding NavigateToSettingsCommand}"
+                            Style="{StaticResource SidebarButtonStyle}"/>
+                </StackPanel>
+
+                <!-- Spacer -->
+                <Border/>
+
+                <!-- Footer -->
+                <TextBlock DockPanel.Dock="Bottom"
+                           Text="Engine: localhost:5046"
+                           Foreground="{StaticResource TextSecondary}"
+                           FontSize="11" Margin="18,0,0,4"/>
+            </DockPanel>
+        </Border>
+
+        <!-- ═══════════════════════ CONTENT AREA ═══════════════════════ -->
+        <Grid Grid.Column="1">
+
+            <!-- ────── CHAT VIEW ────── -->
+            <Grid Visibility="{Binding IsSettingsVisible,
+                    Converter={StaticResource BoolToVisConverter},
+                    ConverterParameter=Invert}">
+
+                <!-- Use a custom inverse: hidden when settings visible.
+                     We handle this via the FallbackValue trick + code-behind toggle. -->
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Chat messages -->
+                <ScrollViewer x:Name="ChatScrollViewer" Grid.Row="0"
+                              VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Disabled"
+                              Padding="0,8">
+                    <ItemsControl ItemsSource="{Binding Messages}" Margin="20,0">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type models:ChatMessage}">
+                                <Grid Margin="0,6">
+                                    <Grid HorizontalAlignment="{Binding IsUser,
+                                              Converter={StaticResource BoolToAlignmentConverter}}"
+                                          MaxWidth="620">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <!-- Role label -->
+                                        <TextBlock Grid.Row="0" Text="{Binding Role}"
+                                                   Foreground="{StaticResource TextSecondary}"
+                                                   FontSize="11" Margin="6,0,6,3"/>
+
+                                        <!-- Message bubble -->
+                                        <Border Grid.Row="1" CornerRadius="12" Padding="14,10">
+                                            <Border.Style>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="Background" Value="{StaticResource AssistantBubbleBg}"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsUser}" Value="True">
+                                                            <Setter Property="Background" Value="{StaticResource UserBubbleBg}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding IsThinking}" Value="True">
+                                                            <Setter Property="Background" Value="#3a3b45"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+                                            <TextBox Text="{Binding Content, Mode=OneWay}"
+                                                     IsReadOnly="True"
+                                                     TextWrapping="Wrap"
+                                                     Background="Transparent"
+                                                     Foreground="{StaticResource TextPrimary}"
+                                                     BorderThickness="0"
+                                                     FontSize="14"
+                                                     FontFamily="Segoe UI"
+                                                     Cursor="Arrow"
+                                                     IsTabStop="False">
+                                                <TextBox.Style>
+                                                    <Style TargetType="TextBox">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsThinking}" Value="True">
+                                                                <Setter Property="FontStyle" Value="Italic"/>
+                                                                <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBox.Style>
+                                            </TextBox>
+                                        </Border>
+
+                                        <!-- Suggested prompts (only for assistant messages) -->
+                                        <ItemsControl Grid.Row="2"
+                                                      ItemsSource="{Binding SuggestedPrompts}"
+                                                      Visibility="{Binding HasSuggestedPrompts,
+                                                          Converter={StaticResource BoolToVisConverter}}"
+                                                      Margin="4,6,0,0">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel Orientation="Horizontal"/>
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Button Content="{Binding}"
+                                                            Command="{Binding DataContext.LoadSuggestedPromptCommand,
+                                                                      RelativeSource={RelativeSource AncestorType=Window}}"
+                                                            CommandParameter="{Binding}"
+                                                            Style="{StaticResource SuggestedPromptButtonStyle}"/>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </Grid>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+
+                <!-- Input area -->
+                <Border Grid.Row="1" Background="{StaticResource InputBg}"
+                        CornerRadius="12" Margin="20,8,20,16" Padding="6">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox x:Name="InputBox" Grid.Column="0"
+                                 Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}"
+                                 AcceptsReturn="True"
+                                 TextWrapping="Wrap"
+                                 MaxHeight="120"
+                                 VerticalScrollBarVisibility="Auto"
+                                 Background="Transparent"
+                                 Foreground="{StaticResource TextPrimary}"
+                                 CaretBrush="{StaticResource TextPrimary}"
+                                 BorderThickness="0"
+                                 FontSize="14"
+                                 VerticalContentAlignment="Center"
+                                 Padding="8,8"
+                                 PreviewKeyDown="InputBox_PreviewKeyDown">
+                        </TextBox>
+
+                        <Button Grid.Column="1" Content="➤"
+                                Command="{Binding SendCommand}"
+                                Style="{StaticResource SendButtonStyle}"
+                                Margin="4,0,2,0"
+                                VerticalAlignment="Bottom"
+                                ToolTip="Send (Enter)"/>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <!-- ────── SETTINGS VIEW ────── -->
+            <ScrollViewer Visibility="{Binding IsSettingsVisible,
+                              Converter={StaticResource BoolToVisConverter}}"
+                          VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Disabled">
+                <StackPanel DataContext="{Binding Settings}"
+                            MaxWidth="500" Margin="40,30"
+                            HorizontalAlignment="Left">
+
+                    <TextBlock Text="⚙  Settings" FontSize="24" FontWeight="SemiBold"
+                               Foreground="{StaticResource TextPrimary}" Margin="0,0,0,24"/>
+
+                    <!-- Engine URL -->
+                    <TextBlock Text="Engine URL" Foreground="{StaticResource TextSecondary}"
+                               FontSize="13" Margin="0,0,0,6"/>
+                    <TextBox Text="{Binding EngineUrl, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource SettingsTextBoxStyle}" Margin="0,0,0,6"/>
+                    <TextBlock Text="ℹ Changes to Engine URL require an app restart."
+                               Foreground="{StaticResource TextSecondary}"
+                               FontSize="11" FontStyle="Italic" Margin="0,0,0,20"/>
+
+                    <!-- API Key -->
+                    <TextBlock Text="OpenAI API Key" Foreground="{StaticResource TextSecondary}"
+                               FontSize="13" Margin="0,0,0,6"/>
+                    <TextBox Text="{Binding ApiKey, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource SettingsTextBoxStyle}" Margin="0,0,0,6"/>
+                    <TextBlock Text="Stored securely with Windows DPAPI encryption."
+                               Foreground="{StaticResource TextSecondary}"
+                               FontSize="11" FontStyle="Italic" Margin="0,0,0,20"/>
+
+                    <!-- Max Assumptions -->
+                    <TextBlock Text="Max Assumptions Per Analysis"
+                               Foreground="{StaticResource TextSecondary}"
+                               FontSize="13" Margin="0,0,0,6"/>
+                    <TextBox Text="{Binding MaxAssumptions, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource SettingsTextBoxStyle}"
+                             Width="80" HorizontalAlignment="Left" Margin="0,0,0,24"/>
+
+                    <!-- Save -->
+                    <Button Content="Save Settings"
+                            Command="{Binding SaveCommand}"
+                            Style="{StaticResource SettingsSaveButtonStyle}"
+                            HorizontalAlignment="Left" Margin="0,0,0,12"/>
+
+                    <!-- Status -->
+                    <TextBlock Text="{Binding StatusMessage}"
+                               Foreground="{StaticResource AccentGreen}"
+                               FontSize="13" Margin="0,0,0,0"/>
+                </StackPanel>
+            </ScrollViewer>
+
+        </Grid>
+    </Grid>
+</Window>

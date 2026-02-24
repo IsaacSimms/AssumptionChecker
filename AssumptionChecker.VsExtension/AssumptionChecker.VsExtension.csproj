@@ -8,6 +8,7 @@
     <Nullable>enable</Nullable>
     <LangVersion>11.0</LangVersion>
     <UseWPF>true</UseWPF>
+    <NoWarn>NU1102</NoWarn>
 
     <!-- == VSSDK packaging == -->
     <GeneratePkgDefFile>true</GeneratePkgDefFile>
@@ -42,11 +43,11 @@
 
   <!-- == VSSDK + VS SDK == -->
   <ItemGroup>
-    <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="18.*">
+    <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="17.*">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.SDK" Version="18.*" />
+    <PackageReference Include="Microsoft.VisualStudio.SDK" Version="17.*" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
   </ItemGroup>
 
