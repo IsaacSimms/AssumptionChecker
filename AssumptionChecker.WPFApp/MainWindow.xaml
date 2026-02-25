@@ -60,11 +60,7 @@
 
             <!-- ────── CHAT VIEW ────── -->
             <Grid Visibility="{Binding IsSettingsVisible,
-                    Converter={StaticResource BoolToVisConverter},
-                    ConverterParameter=Invert}">
-
-                <!-- Use a custom inverse: hidden when settings visible.
-                     We handle this via the FallbackValue trick + code-behind toggle. -->
+                    Converter={StaticResource InverseBoolToVisConverter}}">
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
