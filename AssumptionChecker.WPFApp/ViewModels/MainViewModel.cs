@@ -89,6 +89,7 @@ namespace AssumptionChecker.WPFApp.ViewModels
         // == clear the chat and show welcome message == //
         private void ClearChat()
         {
+            IsSettingsVisible = false;
             Messages.Clear();
             Messages.Add(new ChatMessage
             {

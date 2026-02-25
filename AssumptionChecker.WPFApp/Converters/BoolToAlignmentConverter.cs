@@ -1,4 +1,6 @@
-///// converts a boolean to HorizontalAlignment (true = Right, false = Left) /////
+///// converts a value (bool) to HorizontalAlignment (true = Right, false = Left)                                      /////
+///// used to align the content of a cell in the DataGrid based on a boolean value (e.g., IsAssumptionMet)             /////
+///// has inverse (InverseBoolToAlignmentConverter) to align content in the opposite way (true = Left, false = Right)  /////
 
 using System.Globalization;
 using System.Windows;

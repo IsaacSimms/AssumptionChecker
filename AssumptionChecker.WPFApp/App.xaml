@@ -8,6 +8,7 @@
         <!-- == Converters == -->
         <BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
         <converters:BoolToAlignmentConverter x:Key="BoolToAlignmentConverter"/>
+        <converters:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisConverter"/>
 
         <!-- == Color Palette == -->
         <SolidColorBrush x:Key="SidebarBg"       Color="#202123"/>
