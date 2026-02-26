@@ -146,7 +146,7 @@ namespace AssumptionChecker.WPFApp.ViewModels
                     SuggestedPrompts = result.SuggestedPrompts ?? new()
                 });
             }
-            catch (HttpRequestException)
+            catch (HttpRequestException ex) when (ex.StatusCode == null)
             {
                 Messages.Remove(thinking);
                 Messages.Add(new ChatMessage
@@ -158,13 +158,17 @@ namespace AssumptionChecker.WPFApp.ViewModels
                               "  dotnet run"
                 });
             }
-            catch (Exception ex)
+            
+            catch (HttpRequestException ex)
             {
                 Messages.Remove(thinking);
                 Messages.Add(new ChatMessage
                 {
                     Role    = "Assistant",
-                    Content = $"⚠ Error: {ex.Message}"
+                    Content = $"⚠ Error: Engine returned with error {ex.StatusCode}\n\n" +
+                              "Check the Engine's console for details." +
+                              "Please verify API key in settings."
+
                 });
             }
             finally

@@ -208,7 +208,7 @@
                                FontSize="13" Margin="0,0,0,6"/>
                     <TextBox Text="{Binding EngineUrl, UpdateSourceTrigger=PropertyChanged}"
                              Style="{StaticResource SettingsTextBoxStyle}" Margin="0,0,0,6"/>
-                    <TextBlock Text="ℹ Changes to Engine URL require an app restart."
+                    <TextBlock Text=" Changes to Engine URL require an app restart."
                                Foreground="{StaticResource TextSecondary}"
                                FontSize="11" FontStyle="Italic" Margin="0,0,0,20"/>
 
@@ -218,6 +218,9 @@
                     <TextBox Text="{Binding ApiKey, UpdateSourceTrigger=PropertyChanged}"
                              Style="{StaticResource SettingsTextBoxStyle}" Margin="0,0,0,6"/>
                     <TextBlock Text="Stored securely with Windows DPAPI encryption."
+                               Foreground="{StaticResource TextSecondary}"
+                               FontSize="11" FontStyle="Italic" Margin="0,0,0,4"/>
+                    <TextBlock Text="Restart is required after changing API key"
                                Foreground="{StaticResource TextSecondary}"
                                FontSize="11" FontStyle="Italic" Margin="0,0,0,20"/>
 
