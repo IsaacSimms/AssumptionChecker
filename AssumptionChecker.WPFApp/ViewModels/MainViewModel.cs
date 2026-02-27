@@ -33,21 +33,13 @@ namespace AssumptionChecker.WPFApp.ViewModels
             Settings            = settingsViewModel;
 
             // == commands == //
-            SendCommand                  = new RelayCommand(async _ => await SendAsync(), _ => CanSend());
-            NewChatCommand               = new RelayCommand(_ => ClearChat());
-            NavigateToSettingsCommand    = new RelayCommand(_ => IsSettingsVisible = true);
-            NavigateToChatCommand        = new RelayCommand(_ => IsSettingsVisible = false);
-            LoadSuggestedPromptCommand   = new RelayCommand(p => LoadSuggestedPrompt(p as string));
+            SendCommand                = new RelayCommand(async _ => await SendAsync(), _ => CanSend());
+            NewChatCommand             = new RelayCommand(_ => ClearChat());
+            NavigateToSettingsCommand  = new RelayCommand(_ => IsSettingsVisible = true);
+            LoadSuggestedPromptCommand = new RelayCommand(p => LoadSuggestedPrompt(p as string));
 
-            // == welcome message == //
-            Messages.Add(new ChatMessage
-            {
-                Role    = "Assistant",
-                Content = "Welcome to Assumption Checker!\n\n" +
-                          "Enter a prompt below and I'll analyze it for hidden assumptions, " +
-                          "ambiguities, and risks. I'll also suggest improved versions of your prompt.\n\n" +
-                          "Make sure the Engine is running (dotnet run in AssumptionChecker.Engine)."
-            });
+            // == start with a fresh chat on launch == //
+            ClearChat();
         }
 
         // == bindable properties == //
@@ -76,9 +68,8 @@ namespace AssumptionChecker.WPFApp.ViewModels
         // == commands == //
         public ICommand SendCommand                { get; }
         public ICommand NewChatCommand             { get; }
-        public ICommand NavigateToSettingsCommand   { get; }
-        public ICommand NavigateToChatCommand       { get; }
-        public ICommand LoadSuggestedPromptCommand  { get; }
+        public ICommand NavigateToSettingsCommand  { get; }
+        public ICommand LoadSuggestedPromptCommand { get; }
 
         // == event raised when a new message is added (for auto-scroll) == //
         public event Action? MessageAdded;

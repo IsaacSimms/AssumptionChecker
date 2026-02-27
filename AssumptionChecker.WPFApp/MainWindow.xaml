@@ -36,9 +36,6 @@
 
                 <!-- Navigation items -->
                 <StackPanel DockPanel.Dock="Top">
-                    <Button Content="💬  Chat"
-                            Command="{Binding NavigateToChatCommand}"
-                            Style="{StaticResource SidebarButtonStyle}"/>
                     <Button Content="⚙  Settings"
                             Command="{Binding NavigateToSettingsCommand}"
                             Style="{StaticResource SidebarButtonStyle}"/>
@@ -197,8 +194,7 @@
                           VerticalScrollBarVisibility="Auto"
                           HorizontalScrollBarVisibility="Disabled">
                 <StackPanel DataContext="{Binding Settings}"
-                            MaxWidth="500" Margin="40,30"
-                            HorizontalAlignment="Left">
+                            MaxWidth="700" Margin="40,30">
 
                     <TextBlock Text="⚙  Settings" FontSize="24" FontWeight="SemiBold"
                                Foreground="{StaticResource TextPrimary}" Margin="0,0,0,24"/>
@@ -215,8 +211,13 @@
                     <!-- API Key -->
                     <TextBlock Text="OpenAI API Key" Foreground="{StaticResource TextSecondary}"
                                FontSize="13" Margin="0,0,0,6"/>
-                    <TextBox Text="{Binding ApiKey, UpdateSourceTrigger=PropertyChanged}"
-                             Style="{StaticResource SettingsTextBoxStyle}" Margin="0,0,0,6"/>
+                    <TextBox x:Name="ApiKeyBox"
+                             Text="{Binding MaskedApiKey, Mode=OneWay}"
+                             FontFamily="Consolas"
+                             Style="{StaticResource SettingsTextBoxStyle}"
+                             Margin="0,0,0,6"
+                             GotFocus="ApiKeyBox_GotFocus"
+                             LostFocus="ApiKeyBox_LostFocus"/>
                     <TextBlock Text="Stored securely with Windows DPAPI encryption."
                                Foreground="{StaticResource TextSecondary}"
                                FontSize="11" FontStyle="Italic" Margin="0,0,0,4"/>

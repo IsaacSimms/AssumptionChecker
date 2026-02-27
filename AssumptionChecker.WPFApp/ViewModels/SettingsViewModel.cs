@@ -15,7 +15,7 @@ namespace AssumptionChecker.WPFApp.ViewModels
         private readonly AppSettingsService _appSettingsService;
         private string _apiKey         = string.Empty;
         private string _engineUrl      = "http://localhost:5046";
-        private int _maxAssumptions    = 10;
+        private int    _maxAssumptions = 10;
         private string _statusMessage  = string.Empty;
 
         // == constructor == //
@@ -26,7 +26,6 @@ namespace AssumptionChecker.WPFApp.ViewModels
 
             SaveCommand = new RelayCommand(_ => Save());
 
-            // load existing settings
             LoadSettings();
         }
 
@@ -34,8 +33,17 @@ namespace AssumptionChecker.WPFApp.ViewModels
         public string ApiKey
         {
             get => _apiKey;
-            set => SetProperty(ref _apiKey, value);
+            set
+            {
+                if (SetProperty(ref _apiKey, value))
+                    OnPropertyChanged(nameof(MaskedApiKey));
+            }
         }
+
+        // == masked display: bullets for all but the last four characters == //
+        public string MaskedApiKey => _apiKey.Length > 4
+            ? new string('•', _apiKey.Length - 4) + _apiKey[^4..]
+            : new string('•', _apiKey.Length);
 
         public string EngineUrl
         {
@@ -55,17 +63,16 @@ namespace AssumptionChecker.WPFApp.ViewModels
             set => SetProperty(ref _statusMessage, value);
         }
 
+        // == commands == //
         public ICommand SaveCommand { get; }
 
         // == load settings from disk == //
         private void LoadSettings()
         {
-            // load the API key from secure storage
             var savedKey = _secureSettings.GetApiKey();
             if (!string.IsNullOrEmpty(savedKey))
                 _apiKey = savedKey;
 
-            // load app settings from JSON
             var settings    = _appSettingsService.Load();
             _engineUrl      = settings.EngineUrl;
             _maxAssumptions = settings.MaxAssumptions;
@@ -76,11 +83,9 @@ namespace AssumptionChecker.WPFApp.ViewModels
         {
             try
             {
-                // save API key securely via DPAPI
                 if (!string.IsNullOrWhiteSpace(ApiKey))
                     _secureSettings.SaveApiKey(ApiKey);
 
-                // save non-secret settings to JSON
                 _appSettingsService.Save(new AppSettings
                 {
                     EngineUrl      = EngineUrl,
