@@ -84,8 +84,8 @@ namespace AssumptionChecker.WPFApp.ViewModels
             Messages.Clear();
             Messages.Add(new ChatMessage
             {
-                Role    = "Assistant",
-                Content = "Chat cleared. Enter a new prompt to get started."
+                Role    = "Assumption Checker",
+                Content = "Ready to analyze your next prompt!"
             });
             MessageAdded?.Invoke();
         }
@@ -113,7 +113,7 @@ namespace AssumptionChecker.WPFApp.ViewModels
             // add a thinking placeholder
             var thinking = new ChatMessage
             {
-                Role       = "Assistant",
+                Role       = "Assumption Checker",
                 Content    = "Analyzing your prompt...",
                 IsThinking = true
             };
@@ -132,7 +132,7 @@ namespace AssumptionChecker.WPFApp.ViewModels
                 Messages.Remove(thinking);
                 Messages.Add(new ChatMessage
                 {
-                    Role             = "Assistant",
+                    Role             = "Assumption Checker",
                     Content          = FormatResults(result),
                     SuggestedPrompts = result.SuggestedPrompts ?? new()
                 });
@@ -142,7 +142,7 @@ namespace AssumptionChecker.WPFApp.ViewModels
                 Messages.Remove(thinking);
                 Messages.Add(new ChatMessage
                 {
-                    Role    = "Assistant",
+                    Role    = "Assumption Checker",
                     Content = "⚠ Could not reach the Engine.\n\n" +
                               "Make sure it is running:\n" +
                               "  cd AssumptionChecker.Engine\n" +
@@ -155,7 +155,7 @@ namespace AssumptionChecker.WPFApp.ViewModels
                 Messages.Remove(thinking);
                 Messages.Add(new ChatMessage
                 {
-                    Role    = "Assistant",
+                    Role    = "Assumption Checker",
                     Content = $"⚠ Error: Engine returned with error {ex.StatusCode}\n\n" +
                               "Check the Engine's console for details." +
                               "Please verify API key in settings."

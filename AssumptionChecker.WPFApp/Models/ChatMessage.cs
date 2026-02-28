@@ -5,7 +5,7 @@ namespace AssumptionChecker.WPFApp.Models
     public class ChatMessage
     {
         // == Properties == //
-        public required string Role    { get; set; }                    // "User" or "Assistant"
+        public required string Role    { get; set; }                    // "User" or "Assumption Checker"
         public required string Content { get; set; }                    // the message text
         public DateTime Timestamp      { get; set; } = DateTime.Now;    // when the message was created
         public bool IsUser             => Role == "User";               // convenience flag for UI binding

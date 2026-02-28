@@ -204,7 +204,7 @@
                                FontSize="13" Margin="0,0,0,6"/>
                     <TextBox Text="{Binding EngineUrl, UpdateSourceTrigger=PropertyChanged}"
                              Style="{StaticResource SettingsTextBoxStyle}" Margin="0,0,0,6"/>
-                    <TextBlock Text=" Changes to Engine URL require an app restart."
+                    <TextBlock Text="Restart is required after changing the Engine URL."
                                Foreground="{StaticResource TextSecondary}"
                                FontSize="11" FontStyle="Italic" Margin="0,0,0,20"/>
 
