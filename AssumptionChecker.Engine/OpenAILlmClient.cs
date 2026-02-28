@@ -9,20 +9,17 @@ namespace AssumptionChecker.Engine.Services
 {
     public class OpenAILlmClient : ILlmClient
     {
-        private readonly ChatClient _chat;                   // controls chat client
-        private readonly JsonSerializerOptions _jsonOptions; // controls Json config and initialization
+        private readonly string _apiKey;
+        private readonly JsonSerializerOptions _jsonOptions;
 
         // == retrieve API key and model from configuration, with error handling for missing API key and default model == //
         public OpenAILlmClient(IConfiguration config)
         {
-            var apiKey = config["OpenAI:ApiKey"]                                            // retrieve API key from configuration (in user secret)
-                ?? throw new InvalidOperationException("OpenAI:ApiKey is not configured."); // error handling for missing API key
-            var model  = config["OpenAI:Model"] ?? "gpt-4o-mini";                           // retrieve model from configuration, with default to gpt-4o-mini if not specified
+            _apiKey = config["OpenAI:ApiKey"]
+                ?? throw new InvalidOperationException("OpenAI:ApiKey is not configured.");
 
-            _chat        = new ChatClient(model, apiKey); // initialize chat client with model and API key
-            _jsonOptions = new JsonSerializerOptions      // initialize JSON options for consistent parsing and serialization
+            _jsonOptions = new JsonSerializerOptions
             {
-                // ensures camelCase in JSON output
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                 Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) }
             };
@@ -56,7 +53,9 @@ namespace AssumptionChecker.Engine.Services
             // reattempt 3 times if JSON continues to come back as invalid
             for (int attempt = 1; attempt <= 3; attempt++)
             {
-                ChatCompletion completion = await _chat.CompleteChatAsync(messages, options, cancellationToken);
+                var model = string.IsNullOrWhiteSpace(request.Model) ? "gpt-4o-mini" : request.Model; // default to gpt-4o-mini if no model specified, as it's strong at following instructions and more cost effective for this use case
+                var chat  = new ChatClient(model, _apiKey);                                           // call the OpenAI API with the messages and options, and retrieve the raw text response
+                ChatCompletion completion = await chat.CompleteChatAsync(messages, options, cancellationToken);
                 var raw = completion.Content[0].Text;
 
                 try

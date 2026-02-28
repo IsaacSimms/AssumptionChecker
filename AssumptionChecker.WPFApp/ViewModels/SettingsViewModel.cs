@@ -45,12 +45,33 @@ namespace AssumptionChecker.WPFApp.ViewModels
             ? new string('•', _apiKey.Length - 4) + _apiKey[^4..]
             : new string('•', _apiKey.Length);
 
+        // == engine URL with basic validation == //
         public string EngineUrl
         {
             get => _engineUrl;
             set => SetProperty(ref _engineUrl, value);
         }
 
+        // == available options for the OpenAI model == //
+        public List<string> AvailableModels { get; } =
+            [
+                "gpt-4o-mini",
+                "gpt-4o",
+                "gpt-4.1",
+                "gpt-4.1-mini",
+                "gpt-4.1-nano",
+                "o3-mini"
+            ];
+        private string _openAiModel = "gpt-4o-mini"; // default model
+
+        // take whatever model the user has selected and apply it to the private field, with a default fallback
+        public string OpenAiModel
+        {
+            get => _openAiModel;
+            set => SetProperty(ref _openAiModel, string.IsNullOrWhiteSpace(value) ? "gpt-4o-mini" : value);
+        }
+
+        // == max assumptions clamped between 1 and 50 == //
         public int MaxAssumptions
         {
             get => _maxAssumptions;
