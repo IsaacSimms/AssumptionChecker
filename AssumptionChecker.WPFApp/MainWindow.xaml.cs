@@ -13,8 +13,8 @@ namespace AssumptionChecker.WPFApp
         {
             InitializeComponent();
 
-            _viewModel  = viewModel;
-            DataContext  = _viewModel;
+            _viewModel = viewModel;
+            DataContext = _viewModel;
 
             // auto-scroll when new messages are added
             _viewModel.MessageAdded += () =>
@@ -34,20 +34,18 @@ namespace AssumptionChecker.WPFApp
             }
         }
 
-        // == reveal the real key for editing when the field is focused == //
+        // == clear field when focused. This prevent the raw key from ever being viewed by the user == //
         private void ApiKeyBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            ApiKeyBox.SetBinding(System.Windows.Controls.TextBox.TextProperty, new Binding("Settings.ApiKey")
-            {
-                Source               = _viewModel,
-                UpdateSourceTrigger  = UpdateSourceTrigger.PropertyChanged
-            });
-            ApiKeyBox.CaretIndex = ApiKeyBox.Text.Length;
+            ApiKeyBox.Text = string.Empty;
         }
 
-        // == restore the masked display when the field loses focus == //
+        // == save API key only when new one is entered. Maintains blur == //
         private void ApiKeyBox_LostFocus(object sender, RoutedEventArgs e)
         {
+            var newKey = ApiKeyBox.Text.Trim();
+            if (!string.IsNullOrWhiteSpace(newKey)) _viewModel.Settings.ApiKey = newKey;
+
             BindingOperations.ClearBinding(ApiKeyBox, System.Windows.Controls.TextBox.TextProperty);
             ApiKeyBox.Text = _viewModel.Settings.MaskedApiKey;
         }
