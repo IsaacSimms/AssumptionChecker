@@ -225,6 +225,19 @@
                                Foreground="{StaticResource TextSecondary}"
                                FontSize="11" FontStyle="Italic" Margin="0,0,0,20"/>
 
+                    <!-- Model Selection -->
+                    <TextBlock Text="OpenAI Model Selection" Foreground="{StaticResource TextSecondary}"
+                               FontSize="13" Margin="0,0,0,6"/>
+                    <ComboBox ItemsSource="{Binding AvailableModels}"
+                              SelectedItem="{Binding OpenAiModel}"
+                              FontSize="13" 
+                              Margin="0,0,0,6"
+                              HorizontalAlignment="Left"
+                              MinWidth="200"/>
+                    <TextBlock Text="Select which OpenAI model you would like to use."
+                               Foreground="{StaticResource TextSecondary}"
+                               FontSize="11" FontStyle="Italic" Margin="0,0,0,20"/>
+
                     <!-- Max Assumptions -->
                     <TextBlock Text="Max Assumptions Per Analysis"
                                Foreground="{StaticResource TextSecondary}"

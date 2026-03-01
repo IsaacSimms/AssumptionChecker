@@ -60,7 +60,10 @@ namespace AssumptionChecker.WPFApp.ViewModels
                 "gpt-4.1",
                 "gpt-4.1-mini",
                 "gpt-4.1-nano",
-                "o3-mini"
+                "o3-mini",
+                "gpt-5.1",
+                "gpt-5.2",
+                "gpt-5.1-Codex"
             ];
         private string _openAiModel = "gpt-4o-mini"; // default model
 
@@ -68,7 +71,7 @@ namespace AssumptionChecker.WPFApp.ViewModels
         public string OpenAiModel
         {
             get => _openAiModel;
-            set => SetProperty(ref _openAiModel, string.IsNullOrWhiteSpace(value) ? "gpt-4o-mini" : value);
+            set => SetProperty(ref _openAiModel, value);
         }
 
         // == max assumptions clamped between 1 and 50 == //
@@ -97,6 +100,7 @@ namespace AssumptionChecker.WPFApp.ViewModels
             var settings    = _appSettingsService.Load();
             _engineUrl      = settings.EngineUrl;
             _maxAssumptions = settings.MaxAssumptions;
+            _openAiModel    = settings.OpenAiModel;
         }
 
         // == save all settings == //
@@ -110,7 +114,8 @@ namespace AssumptionChecker.WPFApp.ViewModels
                 _appSettingsService.Save(new AppSettings
                 {
                     EngineUrl      = EngineUrl,
-                    MaxAssumptions = MaxAssumptions
+                    MaxAssumptions = MaxAssumptions,
+                    OpenAiModel    = OpenAiModel
                 });
 
                 StatusMessage = "✓ Settings saved successfully!";
