@@ -12,14 +12,14 @@ namespace AssumptionChecker.WPFApp.ViewModels
     {
         // == private fields == //
         private readonly ISecureSettingsManager _secureSettings;
-        private readonly AppSettingsService _appSettingsService;
+        private readonly IAppSettingsService _appSettingsService;  // interface, not concrete class
         private string _apiKey         = string.Empty;
         private string _engineUrl      = "http://localhost:5046";
         private int    _maxAssumptions = 10;
         private string _statusMessage  = string.Empty;
 
         // == constructor == //
-        public SettingsViewModel(ISecureSettingsManager secureSettings, AppSettingsService appSettingsService)
+        public SettingsViewModel(ISecureSettingsManager secureSettings, IAppSettingsService appSettingsService)
         {
             _secureSettings     = secureSettings;
             _appSettingsService = appSettingsService;

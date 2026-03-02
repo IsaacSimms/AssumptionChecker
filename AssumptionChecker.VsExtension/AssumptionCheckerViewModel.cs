@@ -111,7 +111,7 @@ namespace AssumptionChecker.VsExtension
 
                 // Call the engine on a background thread
                 var result = await Task.Run(() =>
-                    _service.AnalyzeAsync(PromptText, maxAssumptions: 10, fileContexts, CancellationToken.None));
+                        _service.AnalyzeAsync(PromptText, maxAssumptions: 10, fileContexts: fileContexts, cancellationToken: CancellationToken.None));
 
                 ResultText = FormatResults(result);
             }

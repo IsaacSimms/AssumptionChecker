@@ -16,16 +16,16 @@ namespace AssumptionChecker.WPFApp.ViewModels
     public class MainViewModel : ViewModelBase
     {
         // == private fields == //
-        private readonly IAssumptionCheckerService _service;
-        private readonly AppSettingsService _appSettingsService;
+        private readonly IAssumptionCheckerService _service;       // injected service for calling the engine
+        private readonly IAppSettingsService _appSettingsService;  // uses interface
         private string   _inputText       = string.Empty;
         private bool     _isProcessing;
         private bool     _isSettingsVisible;
 
         // == constructor == //
         public MainViewModel(
-            IAssumptionCheckerService service,
-            AppSettingsService appSettingsService,
+            IAssumptionCheckerService service,            // injected service for calling the engine
+            IAppSettingsService appSettingsService,       // uses interface
             SettingsViewModel settingsViewModel)
         {
             _service            = service;

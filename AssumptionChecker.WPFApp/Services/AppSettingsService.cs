@@ -7,7 +7,7 @@ using AssumptionChecker.WPFApp.Models;
 namespace AssumptionChecker.WPFApp.Services
 {
     // == service for loading and saving application settings to a JSON file in the user's AppData folder == //
-    public class AppSettingsService
+    public class AppSettingsService : IAppSettingsService
     {
         // == settings file path == //
         private static readonly string SettingsPath = Path.Combine(
