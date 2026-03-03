@@ -1,5 +1,4 @@
-﻿
-// == namespaces == //
+﻿// == namespaces == //
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,11 +24,11 @@ namespace AssumptionChecker.Tests
             // arrange
             string? capturedModel = null;
 
-            // fake settings returning chosen model. Does not use the real file == //
+            // fake settings returning chosen model — does not use the real file
             var mockSettings = new Mock<IAppSettingsService>();
-            mockSettings.Setup(s => s.Load()).Returns(new AppSettings { 
-                EngineUrl = "http://localhost:5000", 
-                OpenAiModel = savedModel,
+            mockSettings.Setup(s => s.Load()).Returns(new AppSettings
+            {
+                OpenAiModel    = savedModel,
                 MaxAssumptions = 5
             });
 

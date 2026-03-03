@@ -12,11 +12,11 @@ namespace AssumptionChecker.WPFApp.ViewModels
     {
         // == private fields == //
         private readonly ISecureSettingsManager _secureSettings;
-        private readonly IAppSettingsService _appSettingsService;  // interface, not concrete class
+        private readonly IAppSettingsService    _appSettingsService;
         private string _apiKey         = string.Empty;
-        private string _engineUrl      = "http://localhost:5046";
         private int    _maxAssumptions = 10;
         private string _statusMessage  = string.Empty;
+        private string _openAiModel    = "gpt-4o-mini";
 
         // == constructor == //
         public SettingsViewModel(ISecureSettingsManager secureSettings, IAppSettingsService appSettingsService)
@@ -45,13 +45,6 @@ namespace AssumptionChecker.WPFApp.ViewModels
             ? new string('•', _apiKey.Length - 4) + _apiKey[^4..]
             : new string('•', _apiKey.Length);
 
-        // == engine URL with basic validation == //
-        public string EngineUrl
-        {
-            get => _engineUrl;
-            set => SetProperty(ref _engineUrl, value);
-        }
-
         // == available options for the OpenAI model == //
         public List<string> AvailableModels { get; } =
             [
@@ -65,9 +58,7 @@ namespace AssumptionChecker.WPFApp.ViewModels
                 "gpt-5.2",
                 "gpt-5.1-Codex"
             ];
-        private string _openAiModel = "gpt-4o-mini"; // default model
 
-        // take whatever model the user has selected and apply it to the private field, with a default fallback
         public string OpenAiModel
         {
             get => _openAiModel;
@@ -98,7 +89,6 @@ namespace AssumptionChecker.WPFApp.ViewModels
                 _apiKey = savedKey;
 
             var settings    = _appSettingsService.Load();
-            _engineUrl      = settings.EngineUrl;
             _maxAssumptions = settings.MaxAssumptions;
             _openAiModel    = settings.OpenAiModel;
         }
@@ -113,7 +103,6 @@ namespace AssumptionChecker.WPFApp.ViewModels
 
                 _appSettingsService.Save(new AppSettings
                 {
-                    EngineUrl      = EngineUrl,
                     MaxAssumptions = MaxAssumptions,
                     OpenAiModel    = OpenAiModel
                 });

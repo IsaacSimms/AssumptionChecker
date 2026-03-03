@@ -17,6 +17,8 @@ namespace AssumptionChecker.WPFApp
     /// </summary>
     public partial class App : Application
     {
+        // == engine URL is an internal constant — not user-configurable == //
+        private const string EngineUrl = "http://localhost:5046";
         private Process? _engineProcess;
 
         protected override void OnStartup(StartupEventArgs e)
@@ -28,11 +30,11 @@ namespace AssumptionChecker.WPFApp
             var appSettings        = appSettingsService.Load();
 
             // == start the engine if it isn't already running == //
-            EnsureEngineRunning(appSettings.EngineUrl);
+            EnsureEngineRunning(EngineUrl);
 
             // == build the DI container == //
             var services = new ServiceCollection();
-            services.AddAssumptionChecker(appSettings.EngineUrl, timeoutSeconds: 120);
+            services.AddAssumptionChecker(EngineUrl, timeoutSeconds: 120);
             services.AddSingleton<IAppSettingsService>(appSettingsService);
             services.AddSingleton(appSettingsService);
 
@@ -45,8 +47,7 @@ namespace AssumptionChecker.WPFApp
             var settingsVm = new SettingsViewModel(secureSettings, appSettingsService);
             var mainVm     = new MainViewModel(checkerService, appSettingsService, settingsVm);
 
-            var window = new MainWindow(mainVm);
-            window.Show();
+            new MainWindow(mainVm).Show();
         }
 
         // == handle WPF app closing logic == //
