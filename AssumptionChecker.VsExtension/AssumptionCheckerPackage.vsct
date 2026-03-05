@@ -9,7 +9,7 @@
   <Commands package="guidAssumptionCheckerPackage">
     <Groups>
       <Group guid="guidAssumptionCheckerCmdSet" id="AssumptionCheckerMenuGroup" priority="0x0600">
-        <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS"/>
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CSCD_WINDOWS"/>
       </Group>
     </Groups>
 
@@ -19,7 +19,7 @@
         <Icon guid="ImageCatalogGuid" id="StatusInformation"/>
         <CommandFlag>IconIsMoniker</CommandFlag>
         <Strings>
-          <ButtonText>Analyze Prompt Assumptions</ButtonText>
+          <ButtonText>Assumption Checker</ButtonText>
         </Strings>
       </Button>
     </Buttons>

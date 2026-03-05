@@ -58,6 +58,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.SDK" Version="17.*" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
+    <PackageReference Include="System.Net.Http.Json" Version="8.0.1" />
   </ItemGroup>
 
   <!-- == project references == -->

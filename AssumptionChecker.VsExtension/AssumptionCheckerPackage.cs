@@ -19,7 +19,10 @@ namespace AssumptionChecker.VsExtension
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [Guid(PackageGuidString)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
-    [ProvideToolWindow(typeof(AssumptionCheckerToolWindow))]
+    [ProvideToolWindow(typeof(AssumptionCheckerToolWindow),
+        Style = VsDockStyle.Tabbed,
+        Window = EnvDTE.Constants.vsWindowKindOutput)]
+    [ProvideBindingPath]
     public sealed class AssumptionCheckerPackage : AsyncPackage
     {
         // == constants == //
