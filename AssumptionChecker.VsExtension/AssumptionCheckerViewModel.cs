@@ -23,8 +23,9 @@ namespace AssumptionChecker.VsExtension
     {
         // == private fields == //
         private readonly IAssumptionCheckerService _service;
-        private string _promptText  = string.Empty;
-        private string _resultText  = string.Empty;
+        private string _promptText    = string.Empty;
+        private string _resultText    = string.Empty;
+        private string _selectedModel = "gpt-4o-mini";
         private Visibility _isAnalyzing = Visibility.Collapsed;
         private bool _canAnalyze = true;
 
@@ -53,6 +54,23 @@ namespace AssumptionChecker.VsExtension
             get => _isAnalyzing;
             set { _isAnalyzing = value; OnPropertyChanged(); }
         }
+
+        public string SelectedModel
+        {
+            get => _selectedModel;
+            set { _selectedModel = value; OnPropertyChanged(); }
+        }
+
+        // Available OpenAI models for selection
+        public List<string> AvailableModels { get; } = new List<string>
+        {
+            "gpt-4o-mini",
+            "gpt-4o",
+            "o1-mini",
+            "o1",
+            "gpt-5.2",
+            "gpt-5-mini",
+        };
 
         public ICommand AnalyzeCommand { get; }
 
@@ -111,7 +129,7 @@ namespace AssumptionChecker.VsExtension
 
                 // Call the engine on a background thread
                 var result = await Task.Run(() =>
-                        _service.AnalyzeAsync(PromptText, maxAssumptions: 10, fileContexts: fileContexts, cancellationToken: CancellationToken.None));
+                        _service.AnalyzeAsync(PromptText, maxAssumptions: 10, model: SelectedModel, fileContexts: fileContexts, cancellationToken: CancellationToken.None));
 
                 ResultText = FormatResults(result);
             }

@@ -14,6 +14,54 @@ using AssumptionChecker.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Task = System.Threading.Tasks.Task;
 
+// == Win32 job object: kills child processes when VS exits for any reason == //
+internal static class NativeMethods
+{
+    internal const int  JobObjectExtendedLimitInformation = 9;
+    internal const uint JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE = 0x2000;
+
+    [StructLayout(LayoutKind.Sequential)]
+    internal struct JOBOBJECT_BASIC_LIMIT_INFORMATION
+    {
+        public long  PerProcessUserTimeLimit;
+        public long  PerJobUserTimeLimit;
+        public uint  LimitFlags;
+        public UIntPtr MinimumWorkingSetSize;
+        public UIntPtr MaximumWorkingSetSize;
+        public uint  ActiveProcessLimit;
+        public UIntPtr Affinity;
+        public uint  PriorityClass;
+        public uint  SchedulingClass;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    internal struct IO_COUNTERS
+    {
+        public ulong ReadOperationCount, WriteOperationCount, OtherOperationCount;
+        public ulong ReadTransferCount,  WriteTransferCount,  OtherTransferCount;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    internal struct JOBOBJECT_EXTENDED_LIMIT_INFORMATION
+    {
+        public JOBOBJECT_BASIC_LIMIT_INFORMATION BasicLimitInformation;
+        public IO_COUNTERS                        IoInfo;
+        public UIntPtr ProcessMemoryLimit, JobMemoryLimit, PeakProcessMemoryUsed, PeakJobMemoryUsed;
+    }
+
+    [DllImport("kernel32.dll", SetLastError = true)]
+    internal static extern IntPtr CreateJobObject(IntPtr lpJobAttributes, string? lpName);
+
+    [DllImport("kernel32.dll", SetLastError = true)]
+    internal static extern bool SetInformationJobObject(IntPtr hJob, int infoClass, IntPtr lpInfo, uint cbInfoLength);
+
+    [DllImport("kernel32.dll", SetLastError = true)]
+    internal static extern bool AssignProcessToJobObject(IntPtr hJob, IntPtr hProcess);
+
+    [DllImport("kernel32.dll", SetLastError = true)]
+    internal static extern bool CloseHandle(IntPtr hObject);
+}
+
 namespace AssumptionChecker.VsExtension
 {
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
@@ -33,6 +81,7 @@ namespace AssumptionChecker.VsExtension
 
         // == engine process management == //
         private static Process? _engineProcess;
+        private static IntPtr   _engineJobHandle = IntPtr.Zero; // job object ties engine lifetime to this process
 
         // == package initialization (VS calls this — no Main needed) == //
         protected override async Task InitializeAsync(
@@ -96,7 +145,38 @@ namespace AssumptionChecker.VsExtension
                 RedirectStandardError  = true
             });
 
+            // Attach engine to a job object so the OS kills it if VS exits for any reason
+            AssignEngineToJobObject(_engineProcess);
+
             WaitForEngineReady(engineUrl);
+        }
+
+        // == creates a job object and assigns the engine process to it so the OS kills it when VS closes == //
+        private static void AssignEngineToJobObject(Process? process)
+        {
+            if (process == null) return;
+            try
+            {
+                _engineJobHandle = NativeMethods.CreateJobObject(IntPtr.Zero, null);
+                if (_engineJobHandle == IntPtr.Zero) return;
+
+                // Configure job: kill all assigned processes when the last handle is closed
+                var info = new NativeMethods.JOBOBJECT_EXTENDED_LIMIT_INFORMATION();
+                info.BasicLimitInformation.LimitFlags = NativeMethods.JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE;
+
+                int size = Marshal.SizeOf(typeof(NativeMethods.JOBOBJECT_EXTENDED_LIMIT_INFORMATION));
+                var ptr  = Marshal.AllocHGlobal(size);
+                try
+                {
+                    Marshal.StructureToPtr(info, ptr, false);
+                    NativeMethods.SetInformationJobObject(_engineJobHandle,
+                        NativeMethods.JobObjectExtendedLimitInformation, ptr, (uint)size);
+                }
+                finally { Marshal.FreeHGlobal(ptr); }
+
+                NativeMethods.AssignProcessToJobObject(_engineJobHandle, process.Handle);
+            }
+            catch { /* non-fatal: Dispose() kill is the fallback */ }
         }
 
         private static void WaitForEngineReady(string engineUrl, int maxWaitMs = 5000)
@@ -125,10 +205,20 @@ namespace AssumptionChecker.VsExtension
         // == cleanup == //
         protected override void Dispose(bool disposing)
         {
-            if (disposing && _engineProcess != null && !_engineProcess.HasExited)
+            if (disposing)
             {
-                _engineProcess.Kill();
-                _engineProcess.Dispose();
+                // Explicit kill for graceful shutdown (job object handles abrupt termination)
+                if (_engineProcess != null && !_engineProcess.HasExited)
+                {
+                    _engineProcess.Kill();
+                    _engineProcess.Dispose();
+                }
+
+                if (_engineJobHandle != IntPtr.Zero)
+                {
+                    NativeMethods.CloseHandle(_engineJobHandle); // releasing last handle → OS kills engine
+                    _engineJobHandle = IntPtr.Zero;
+                }
             }
             base.Dispose(disposing);
         }

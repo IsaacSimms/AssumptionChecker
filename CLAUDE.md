@@ -99,3 +99,18 @@ The solution uses the modern `.slnx` format (`AssumptionChecker.slnx`), not the 
 ## Testing
 
 Tests use **xUnit** and **Moq**. HTTP service tests use a custom fake `HttpMessageHandler`. ViewModel tests mock `IAssumptionCheckerService`. The test project targets `net8.0-windows` because it references the WPF `WPFApp` project.
+
+Be ready and willing to implement new tests. Especially if new functionalities have been introduced, we want to test them 
+
+## Coding conventions
+For C# code:
+If we are beginning a function, class, or important block of code we want to give it a title with // == insert content == // as the convention
+for muiltiple lines or a longer message that is not the start of a funciton or block of code that needs a title, we can use // insert comment above the code in question
+If we are commenting on a single line of code we would like to put that comment in the same line as that code. We like to have space inbetween the code and the comment, 
+and we want those comments to line up with each other best they can. The comments lining up is not a hard fast rule. 
+At the beginning of any file that you make, I would like a summary of what the entire file is doing. I want important code blocks, sensitive information, etc. to be outlined in that summary. I want summaries to look like this:
+// <summary>
+// ...
+// ...
+// </summary>
+When outlining what code is doing I want short and concise. i do not need long sentence summary comments. If you need to use sentence format to outline something high impact you can, but try to avoid it. 

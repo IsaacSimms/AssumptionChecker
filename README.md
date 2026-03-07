@@ -1,6 +1,6 @@
 # Assumption Checker for Visual Studio
 
-> Analyzes prompts for hidden assumptions before they reach an AI system, then suggests improved alternatives — all inside Visual Studio.
+> Analyzes Copilot prompts for hidden assumptions and suggests improved alternatives — directly inside Visual Studio 2022.
 
 ---
 
@@ -8,26 +8,27 @@
 
 - [How It Works](#how-it-works)
 - [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Setup: Configure Your OpenAI API Key](#setup-configure-your-openai-api-key)
+- [Quick Install](#quick-install)
 - [Usage](#usage)
 - [Advanced Configuration](#advanced-configuration)
 - [Architecture Overview](#architecture-overview)
 - [Troubleshooting](#troubleshooting)
-- [License](#license)
 
 ---
 
 ## How It Works
 
-When you type a prompt into the tool window, the extension:
+```
+VS Extension  ──►  Engine (localhost:5046)  ──►  OpenAI API
+   (net472)          (ASP.NET Core net8)
+```
 
-1. Collects the content of all open documents in Visual Studio as additional context.
-2. Sends the prompt and file context to a local **Engine** process (an ASP.NET Core API on http://localhost:5046).
-3. The Engine forwards the request to the **OpenAI API** with a system prompt designed to surface critical assumptions.
-4. Returns a list of identified assumptions (categorized and risk-rated) along with improved prompt suggestions.
+1. You type a prompt into the tool window.
+2. The extension attaches all open documents as file context (truncated to 10k chars/file).
+3. It sends both to a local ASP.NET Core engine, which calls the OpenAI API.
+4. Results come back as a structured list of assumptions (risk-rated and categorized) plus suggested improved prompts.
 
-The Engine process is **automatically launched** by the extension when Visual Studio starts. No manual server management is required under normal use.
+The engine auto-starts when VS loads — no manual server management required under normal use.
 
 ---
 
@@ -35,287 +36,198 @@ The Engine process is **automatically launched** by the extension when Visual St
 
 | Requirement | Details |
 |---|---|
-| **Visual Studio** | 2022 (v17.0) or later, any edition (Community, Professional, Enterprise) |
-| **.NET 8 SDK** | Required to run the Engine. Download at https://dotnet.microsoft.com/download/dotnet/8.0 |
-| **OpenAI API Key** | A valid API key with access to chat completion models. Get one at https://platform.openai.com/api-keys |
-| **Windows** | Required — the extension uses Windows DPAPI for secure API key storage |
+| **Visual Studio 2022** | v17.x — Community, Pro, or Enterprise |
+| **.NET 8 SDK** | [dotnet.microsoft.com/download/dotnet/8.0](https://dotnet.microsoft.com/download/dotnet/8.0) |
+| **OpenAI API Key** | [platform.openai.com/api-keys](https://platform.openai.com/api-keys) |
+| **Windows** | Required — API key is stored with Windows DPAPI |
 
 ---
 
-## Installation
+## Quick Install
 
-### Option A — Install the Pre-Built VSIX
+### 1. Clone the repo
 
-1. Obtain the AssumptionChecker.VsExtension.vsix file (from a release or a teammate).
-2. **Close all Visual Studio instances.**
-3. Double-click the .vsix file and follow the VSIX Installer prompts.
-4. Restart Visual Studio.
+```bash
+git clone https://github.com/IsaacSimms/AssumptionChecker.git
+cd AssumptionChecker
+```
 
-### Option B — Build from Source
+### 2. Save your OpenAI API key
 
-1. Clone the repository:
+>  dotnet user-secrets (source builds only)**
+> ```bash
+> cd AssumptionChecker.Engine
+> dotnet user-secrets set "OpenAI:ApiKey" "sk-proj-YOUR-KEY-HERE"
+> ```
 
-        git clone https://github.com/IsaacSimms/AssumptionChecker.git
-        cd AssumptionChecker
+ **Alternative — Run the WPF companion app, go to the **Settings** tab, paste your key, and click **Save**. This encrypts the key with Windows DPAPI at `%AppData%\AssumptionChecker\settings.dat`, which the engine reads on every startup.
 
-2. Build the Engine first (its binaries are bundled into the VSIX):
+```bash
+cd AssumptionChecker.WPFApp
+dotnet run
+```
 
-        dotnet build AssumptionChecker.Engine -c Release
 
-3. Build the full solution:
+### 3. Build the engine
 
-        dotnet build -c Release
+```bash
+cd AssumptionChecker.Engine
+dotnet build -c Release
+```
 
-4. The VSIX file is produced at:
+> For a permanent VSIX install, the engine `.exe` must be built before packaging so the extension can auto-launch it. The extension looks for it at `Engine\AssumptionChecker.Engine.exe` next to the extension DLL.
 
-        AssumptionChecker.VsExtension\bin\Release\AssumptionChecker.VsExtension.vsix
+### 4. Install the extension
 
-5. Double-click the .vsix to install, or press **F5** with AssumptionChecker.VsExtension set as the startup project to launch the experimental instance for debugging.
+**Option A — F5 experimental instance (quickest for development)**
 
----
+1. Open `AssumptionChecker.sln` in Visual Studio 2022.
+2. Right-click `AssumptionChecker.VsExtension` → **Set as Startup Project**.
+3. Press **F5** — a second VS instance opens with the extension already loaded.
 
-## Setup: Configure Your OpenAI API Key
+**Option B — build and install the VSIX (permanent)**
 
-The Engine requires an OpenAI API key to function. You can provide it using either method below. **You only need to do one.**
+```bash
+dotnet build AssumptionChecker.sln -c Release
+```
 
-### Method 1 — .NET User Secrets (Recommended for Development)
+Double-click the generated file:
 
-Best when you are building and running the Engine from source.
+```
+AssumptionChecker.VsExtension\bin\Release\AssumptionChecker.VsExtension.vsix
+```
 
-    cd AssumptionChecker.Engine
+Follow the installer prompts, then restart Visual Studio.
 
-    # Initialize user secrets (already configured if you cloned the repo)
-    dotnet user-secrets init
+### 5. Open the tool window
 
-    # Set your OpenAI API key
-    dotnet user-secrets set "OpenAI:ApiKey" "sk-proj-your-actual-api-key-here"
+**View → Other Windows → Assumption Checker**
 
-    # Verify it was saved
-    dotnet user-secrets list
-
-Expected output:
-
-    OpenAI:ApiKey = sk-proj-...
-
-User secrets are stored at %APPDATA%\Microsoft\UserSecrets\06d15f90-2829-4db5-85a1-3030d1772639\secrets.json and are **not** checked into source control.
-
-### Method 2 — Encrypted Settings File (Recommended for Installed Extension)
-
-Best when the extension is installed via VSIX and you don't have the source code open.
-
-The Engine reads from an encrypted file at %APPDATA%\AssumptionChecker\settings.dat, protected with Windows DPAPI and scoped to your user account. To create this file, run the following one-time setup in a C# script, .NET Interactive notebook, or a small console app:
-
-    using System.Security.Cryptography;
-    using System.Text;
-
-    var apiKey = "sk-proj-your-actual-api-key-here";
-    var settingsDir = Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-        "AssumptionChecker");
-
-    Directory.CreateDirectory(settingsDir);
-
-    var plainBytes = Encoding.UTF8.GetBytes(apiKey);
-    var encrypted = ProtectedData.Protect(plainBytes, null, DataProtectionScope.CurrentUser);
-    File.WriteAllBytes(Path.Combine(settingsDir, "settings.dat"), encrypted);
-
-    Console.WriteLine("API key saved successfully.");
-
-The key is encrypted with your Windows user credentials. It cannot be decrypted by other users or on other machines.
+Dock the panel wherever you like. The engine starts automatically in the background.
 
 ---
 
 ## Usage
 
-### Opening the Tool Window
-
-1. In Visual Studio, go to the menu bar.
-2. Click **Tools → Analyze Prompt Assumptions**.
-3. The **Assumption Checker** tool window will appear. You can dock it like any other VS panel.
-
-### Analyzing a Prompt
-
-1. Type or paste a prompt into the text box at the top of the tool window.
-   - Example: "Build a REST API for task management with authentication"
-2. Click **Analyze Assumptions**.
-3. Wait for the results — an "Analyzing..." indicator will appear while the request is in flight.
-
-The extension automatically includes the content of all currently open documents as context (truncated to 10,000 characters per file), so the analysis is aware of the code you're working with.
-
-### Understanding the Output
-
-The results panel displays:
-
-**Metadata** — Model used, latency in milliseconds, and number of assumptions found.
-
-**Assumptions** — Each one includes:
-
-| Field | Description |
+| Action | How |
 |---|---|
-| **Risk Level** | [High], [Medium], or [Low] — how much impact this assumption has if wrong |
-| **Category** | UserContext, DomainContext, Constraints, OutputFormat, Ambiguity, or Other |
-| **Rationale** | Why this assumption matters |
-| **Ask** | A clarifying question to eliminate the assumption (shown only when applicable) |
+| Submit prompt | Type and press **Enter** |
+| Insert a newline | **Shift + Enter** |
+| Submit with mouse | Click **Analyze Assumptions** |
 
-**Suggested Improved Prompts** — 2–3 rewritten versions of your original prompt that are more specific and reduce ambiguity. These are complete, concrete, and copy-pastable (no placeholders).
+Results include each assumption's **risk level** (`[High]` / `[Medium]` / `[Low]`), **category**, **rationale**, a **clarifying question**, and 2–3 complete **suggested improved prompts** ready to copy-paste.
 
-### Using the CLI
+### CLI (optional — for testing without VS)
 
-A command-line interface is also available for quick testing without Visual Studio:
+Make sure the engine is running first, then:
 
-    # Make sure the Engine is running first
-    cd AssumptionChecker.Cli
-    dotnet run
+```bash
+cd AssumptionChecker.Cli
+dotnet run
+```
 
-Type prompts interactively at the > prompt. Type exit to quit.
+Type prompts at the `>` prompt. Type `exit` to quit.
 
 ---
 
 ## Advanced Configuration
 
-### Custom Engine URL
+### Custom engine URL
 
-By default the extension connects to http://localhost:5046. To override this, set an environment variable before launching Visual Studio:
+Set this environment variable before launching Visual Studio to point the extension at a different host or port:
 
-    set ASSUMPTION_CHECKER_ENGINE_URL=http://localhost:8080
+```powershell
+$env:ASSUMPTION_CHECKER_ENGINE_URL = "http://localhost:9090"
+```
 
-Or set it permanently via **Windows System Properties → Environment Variables**.
+The engine must also be told to listen on that port:
 
-### Choosing a Different OpenAI Model
+```bash
+cd AssumptionChecker.Engine
+$env:ASPNETCORE_URLS = "http://localhost:9090"
+dotnet run
+```
 
-The default model is gpt-4o-mini. To use a different model:
+### Changing the OpenAI model
 
-    cd AssumptionChecker.Engine
-    dotnet user-secrets set "OpenAI:Model" "gpt-4o"
+The default is `gpt-4o-mini`. Override with user secrets:
+
+```bash
+cd AssumptionChecker.Engine
+dotnet user-secrets set "OpenAI:Model" "gpt-4o"
+```
 
 | Model | Trade-off |
 |---|---|
-| gpt-4o-mini | **(Default)** Fast, cost-effective, good for most prompts |
-| gpt-4o | Higher quality analysis, better at nuanced assumptions, higher cost |
-| gpt-4-turbo | Previous generation, still capable |
-| gpt-3.5-turbo | Fastest and cheapest, but may miss subtle assumptions |
-
-### Running the Engine Manually
-
-The extension auto-launches the Engine, but you can also start it yourself:
-
-    cd AssumptionChecker.Engine
-    dotnet run
-
-You should see:
-
-    info: Microsoft.Hosting.Lifetime[14]
-          Now listening on: http://localhost:5046
-    info: Microsoft.Hosting.Lifetime[0]
-          Application started. Press Ctrl+C to shut down.
-
-Verify it's running:
-
-    curl http://localhost:5046/health
-
-Expected response: {"status":"healthy"}
+| `gpt-4o-mini` | **(Default)** Fast, low cost, solid for most prompts |
+| `gpt-4o` | Higher quality, better nuance, higher cost |
 
 ---
 
 ## Architecture Overview
 
-    ┌─────────────────────────────────────────────────────────────┐
-    │                      Visual Studio                          │
-    │  ┌───────────────────────────────────────────────────────┐  │
-    │  │          VsExtension (net472, VSIX)                   │  │
-    │  │  ┌──────────────┐  ┌───────────────────────────────┐  │  │
-    │  │  │ Tool Window   │→ │ AssumptionCheckerViewModel    │  │  │
-    │  │  │ (WPF UI)      │  │ (gathers open files via DTE, │  │  │
-    │  │  │               │  │  calls service, formats)      │  │  │
-    │  │  └──────────────┘  └──────────────┬────────────────┘  │  │
-    │  └────────────────────────────────────┼──────────────────┘  │
-    │                                       │                     │
-    │  ┌────────────────────────────────────▼──────────────────┐  │
-    │  │          Core (netstandard2.0 + net8.0)               │  │
-    │  │  IAssumptionCheckerService → HTTP POST /analyze       │  │
-    │  │  WindowsSecureSettingsManager (DPAPI encryption)      │  │
-    │  │  ResponseFormatter (Markdown output)                  │  │
-    │  └────────────────────────────────────┬──────────────────┘  │
-    └────────────────────────────────────────┼────────────────────┘
-                                            │ HTTP
-                                            ▼
-    ┌─────────────────────────────────────────────────────────────┐
-    │          Engine (net8.0, ASP.NET Core Minimal API)          │
-    │  localhost:5046                                             │
-    │  ┌───────────────────────────────────────────────────────┐  │
-    │  │ OpenAILlmClient                                       │  │
-    │  │  • Builds system prompt for assumption analysis       │  │
-    │  │  • Sends to OpenAI Chat Completions API               │  │
-    │  │  • Parses JSON response (retries up to 3x on failure) │  │
-    │  └───────────────────────────┬───────────────────────────┘  │
-    └──────────────────────────────┼──────────────────────────────┘
-                                   │ HTTPS
-                                   ▼
-                          ┌──────────────────┐
-                          │   OpenAI API     │
-                          │  (gpt-4o-mini)   │
-                          └──────────────────┘
-
-    Shared: Contracts (netstandard2.0 + net8.0)
-      AnalyzeRequest, AnalyzeResponse, Assumption, ResponseMetadata, Enums
+```
+┌──────────────────────────────────────────────────────────────┐
+│                       Visual Studio                          │
+│  ┌────────────────────────────────────────────────────────┐  │
+│  │  VsExtension (net472, VSIX)                            │  │
+│  │  Tool Window (WPF) → ViewModel                         │  │
+│  │    • gathers open files via DTE                        │  │
+│  │    • calls IAssumptionCheckerService                   │  │
+│  └──────────────────────────┬─────────────────────────────┘  │
+└─────────────────────────────┼────────────────────────────────┘
+                              │ HTTP POST /analyze
+┌─────────────────────────────▼────────────────────────────────┐
+│  Engine (net8.0, ASP.NET Core)  localhost:5046               │
+│  OpenAILlmClient                                             │
+│    • builds system prompt                                    │
+│    • calls OpenAI Chat Completions API                       │
+│    • parses JSON (retries up to 3x on malformed response)    │
+└──────────────────────────────────────────────────────────────┘
+```
 
 | Project | Target | Role |
 |---|---|---|
-| AssumptionChecker.Contracts | netstandard2.0 + net8.0 | Shared DTOs and enums |
-| AssumptionChecker.Core | netstandard2.0 + net8.0 | HTTP client, DI wiring, secure storage, response formatting |
-| AssumptionChecker.Engine | net8.0 | ASP.NET Core API that calls OpenAI and returns structured assumptions |
-| AssumptionChecker.VsExtension | net472 | VSIX extension — WPF tool window, auto-launches Engine, gathers file context |
-| AssumptionChecker.Cli | net8.0 | Interactive command-line client for testing |
+| `AssumptionChecker.Contracts` | netstandard2.0 / net8.0 | Shared DTOs and enums |
+| `AssumptionChecker.Core` | netstandard2.0 / net8.0 | HTTP client, DI wiring, DPAPI key storage |
+| `AssumptionChecker.Engine` | net8.0 | ASP.NET Core API — calls OpenAI, returns structured JSON |
+| `AssumptionChecker.VsExtension` | net472 | VSIX — WPF tool window, auto-launches engine, gathers file context |
+| `AssumptionChecker.WPFApp` | net8.0 | Standalone WPF chat UI; also used to save the API key |
+| `AssumptionChecker.Cli` | net8.0 | Interactive CLI for testing the engine |
+| `AssumptionChecker.Tests` | net8.0 | Unit tests |
 
 ---
 
 ## Troubleshooting
 
-### "ERROR: ... Make sure the Engine is running"
+**"ERROR: Make sure the Engine is running"**
+The extension couldn't reach `http://localhost:5046`. Start it manually:
+```bash
+cd AssumptionChecker.Engine && dotnet run
+```
+Then check the VS **Output** window for `[AssumptionChecker]` log lines.
 
-The Engine process failed to start or isn't reachable.
+**Engine starts but returns 500 / "OpenAI:ApiKey is not configured"**
+The API key is missing. Re-run the WPF app, save your key in Settings, then restart the engine. Or verify user secrets:
+```bash
+cd AssumptionChecker.Engine && dotnet user-secrets list
+```
 
-1. Check if the Engine is running: curl http://localhost:5046/health
-2. Start it manually: cd AssumptionChecker.Engine && dotnet run
-3. Check the Visual Studio **Output** window (**View → Output**) for [AssumptionChecker] log messages.
+**VSIX won't install**
+Confirm you are on Visual Studio 2022 (v17.x). The manifest targets `[17.0, 19.0)`.
 
-### "OpenAI:ApiKey is not configured"
+**"Assumption Checker" doesn't appear in View → Other Windows**
+Go to **Extensions → Manage Extensions**, confirm the extension is enabled, and restart VS. If running from source, press **F5** from the `AssumptionChecker.VsExtension` startup project.
 
-The Engine cannot find your API key.
+**Port 5046 is already in use**
+Set a custom URL (see [Advanced Configuration](#advanced-configuration)) or stop the conflicting process.
 
-1. Verify user secrets: cd AssumptionChecker.Engine && dotnet user-secrets list — you should see OpenAI:ApiKey = sk-proj-...
-2. Or verify the encrypted settings file exists at %APPDATA%\AssumptionChecker\settings.dat
-3. If neither exists, follow the Setup steps above.
-
-### "LLM failed to return valid JSON (includes reattempts)"
-
-The OpenAI model returned malformed output after 3 retry attempts. This is rare but can happen with less capable models. Switch to a stronger model:
-
-    cd AssumptionChecker.Engine
-    dotnet user-secrets set "OpenAI:Model" "gpt-4o"
-
-### The menu item "Analyze Prompt Assumptions" doesn't appear
-
-1. Go to **Extensions → Manage Extensions** and confirm **Assumption Checker for Copilot** is listed and enabled.
-2. If you just installed the VSIX, make sure you **restarted Visual Studio**.
-3. If running from source, ensure the startup project is AssumptionChecker.VsExtension and launch with **F5** (uses the /rootsuffix Exp experimental instance).
-
-### Port 5046 is already in use
-
-Another process is using the default port. Either stop the conflicting process, or set a custom URL:
-
-    set ASSUMPTION_CHECKER_ENGINE_URL=http://localhost:9090
-    set ASPNETCORE_URLS=http://localhost:9090
-    cd AssumptionChecker.Engine
-    dotnet run
-
-### Analysis is slow
-
-- The first request may be slower due to Engine cold-start and OpenAI API latency.
-- Subsequent requests are faster. Typical latency is shown in the results metadata.
-- gpt-4o-mini (the default) is the fastest option.
-- Open file context is truncated to 10,000 characters per file. Closing unnecessary files reduces payload size.
-
+**LLM returns malformed JSON repeatedly**
+Switch to a stronger model:
+```bash
+cd AssumptionChecker.Engine
+dotnet user-secrets set "OpenAI:Model" "gpt-4o"
+```
 ---
 
 ## License

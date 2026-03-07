@@ -6,7 +6,97 @@
              Foreground="{DynamicResource {x:Static vs:VsBrushes.ToolWindowTextKey}}"
              FontFamily="{DynamicResource {x:Static vs:VsFonts.EnvironmentFontFamilyKey}}"
              FontSize="{DynamicResource {x:Static vs:VsFonts.EnvironmentFontSizeKey}}">
-    <DockPanel Margin="8">
+    <UserControl.Resources>
+
+      <!-- == ComboBoxItem style: VS-themed background/highlight == -->
+      <Style x:Key="VsComboBoxItemStyle" TargetType="ComboBoxItem">
+         <Setter Property="Background" Value="{DynamicResource {x:Static vs:VsBrushes.ComboBoxBackgroundKey}}"/>
+         <Setter Property="Foreground" Value="{DynamicResource {x:Static vs:VsBrushes.WindowTextKey}}"/>
+         <Setter Property="Padding" Value="4,2"/>
+         <Setter Property="Template">
+            <Setter.Value>
+               <ControlTemplate TargetType="ComboBoxItem">
+                  <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                     <ContentPresenter/>
+                  </Border>
+                  <ControlTemplate.Triggers>
+                     <Trigger Property="IsHighlighted" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource {x:Static vs:VsBrushes.HighlightKey}}"/>
+                        <Setter Property="Foreground" Value="{DynamicResource {x:Static vs:VsBrushes.HighlightTextKey}}"/>
+                     </Trigger>
+                  </ControlTemplate.Triggers>
+               </ControlTemplate>
+            </Setter.Value>
+         </Setter>
+      </Style>
+
+      <!-- == ComboBox style: custom template so the popup uses VsBrushes instead of SystemColors == -->
+      <Style x:Key="VsComboBoxStyle" TargetType="ComboBox">
+         <Setter Property="ItemContainerStyle" Value="{StaticResource VsComboBoxItemStyle}"/>
+         <Setter Property="Template">
+            <Setter.Value>
+               <ControlTemplate TargetType="ComboBox">
+                  <Grid>
+                     <!-- Toggle button renders the combo box body and arrow -->
+                     <ToggleButton IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                   Focusable="False">
+                        <ToggleButton.Template>
+                           <ControlTemplate TargetType="ToggleButton">
+                              <Border Background="{DynamicResource {x:Static vs:VsBrushes.ComboBoxBackgroundKey}}"
+                                      BorderBrush="{DynamicResource {x:Static vs:VsBrushes.ComboBoxBorderKey}}"
+                                      BorderThickness="1">
+                                 <Grid>
+                                    <Grid.ColumnDefinitions>
+                                       <ColumnDefinition Width="*"/>
+                                       <ColumnDefinition Width="20"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Rectangle Grid.Column="0"/>
+                                    <!-- Dropdown arrow -->
+                                    <Path Grid.Column="1"
+                                          Data="M 0 0 L 4 4 L 8 0 Z"
+                                          Fill="{DynamicResource {x:Static vs:VsBrushes.WindowTextKey}}"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                                 </Grid>
+                              </Border>
+                           </ControlTemplate>
+                        </ToggleButton.Template>
+                     </ToggleButton>
+
+                     <!-- Selected item display overlays the toggle button -->
+                     <ContentPresenter Margin="5,2,22,2"
+                                       Content="{TemplateBinding SelectionBoxItem}"
+                                       ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                       VerticalAlignment="Center"
+                                       IsHitTestVisible="False"
+                                       TextBlock.Foreground="{DynamicResource {x:Static vs:VsBrushes.WindowTextKey}}"/>
+
+                     <!-- Dropdown popup with VS-themed background -->
+                     <Popup IsOpen="{TemplateBinding IsDropDownOpen}"
+                            AllowsTransparency="True"
+                            Focusable="False"
+                            PopupAnimation="Slide"
+                            Placement="Bottom"
+                            PlacementTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}">
+                        <Border Background="{DynamicResource {x:Static vs:VsBrushes.ComboBoxBackgroundKey}}"
+                                BorderBrush="{DynamicResource {x:Static vs:VsBrushes.ComboBoxBorderKey}}"
+                                BorderThickness="1"
+                                MinWidth="{Binding ActualWidth, RelativeSource={RelativeSource TemplatedParent}}">
+                           <ScrollViewer CanContentScroll="True"
+                                         MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                              <ItemsPresenter/>
+                           </ScrollViewer>
+                        </Border>
+                     </Popup>
+                  </Grid>
+               </ControlTemplate>
+            </Setter.Value>
+         </Setter>
+      </Style>
+
+   </UserControl.Resources>
+
+   <DockPanel Margin="8">
         <!-- Input area docked at top -->
         <TextBlock Text="Enter prompt to analyze:"
                    FontWeight="Bold"
@@ -23,7 +113,20 @@
                  Foreground="{DynamicResource {x:Static vs:VsBrushes.WindowTextKey}}"
                  BorderBrush="{DynamicResource {x:Static vs:VsBrushes.ComboBoxBorderKey}}"
                  VerticalScrollBarVisibility="Auto"
-                 DockPanel.Dock="Top"/>
+                 DockPanel.Dock="Top"
+                 PreviewKeyDown="PromptTextBox_KeyDown"/>
+
+        <!-- Model selector docked at top -->
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,8" DockPanel.Dock="Top">
+            <TextBlock Text="Model:"
+                       VerticalAlignment="Center"
+                       Margin="0,0,6,0"
+                       Foreground="{DynamicResource {x:Static vs:VsBrushes.ToolWindowTextKey}}"/>
+            <ComboBox ItemsSource="{Binding AvailableModels}"
+                      SelectedItem="{Binding SelectedModel, Mode=TwoWay}"
+                      MinWidth="140"
+                      Style="{StaticResource VsComboBoxStyle}"/>
+        </StackPanel>
 
         <!-- Button and status docked at top -->
         <StackPanel Orientation="Horizontal" Margin="0,0,0,8" DockPanel.Dock="Top">
