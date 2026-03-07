@@ -1,3 +1,9 @@
+// <summary>
+// DPAPI-encrypted storage for API keys.
+// Each provider gets its own .dat file under %APPDATA%\AssumptionChecker\.
+// Legacy settings.dat maps to the "openai" provider for backward compat.
+// </summary>
+
 using System.Runtime.Versioning;
 using System.Security.Cryptography;
 using System.Text;
@@ -9,30 +15,47 @@ namespace AssumptionChecker.Core
 #endif
     public class WindowsSecureSettingsManager : ISecureSettingsManager
     {
-        // == settings file path == //
-        private static readonly string SettingsPath = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), 
-            "AssumptionChecker", 
-            "settings.dat");
+        // == base directory for all settings files == //
+        private static readonly string SettingsDir = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+            "AssumptionChecker");
 
-        // == save API key to settings file == //
-        public void SaveApiKey(string apiKey)
+        // == legacy path (backward compat with existing OpenAI key) == //
+        private static readonly string LegacySettingsPath = Path.Combine(SettingsDir, "settings.dat");
+
+        // == resolve file path for a given provider == //
+        private static string GetProviderPath(string provider)
         {
-            Directory.CreateDirectory(Path.GetDirectoryName(SettingsPath)!);
-            var plainBytes = Encoding.UTF8.GetBytes(apiKey);
-            var encryptedBytes = ProtectedData.Protect(plainBytes, null, DataProtectionScope.CurrentUser);
-            File.WriteAllBytes(SettingsPath, encryptedBytes);
+            var normalized = provider.ToLowerInvariant().Trim();
+            if (normalized == "openai") return LegacySettingsPath; // keep existing file for OpenAI
+            return Path.Combine(SettingsDir, $"settings-{normalized}.dat");
         }
 
-        // == get API key, returns null if not found or on error == //
-        public string? GetApiKey()
+        // == legacy: save OpenAI API key == //
+        public void SaveApiKey(string apiKey) => SaveApiKey("openai", apiKey);
+
+        // == legacy: get OpenAI API key == //
+        public string? GetApiKey() => GetApiKey("openai");
+
+        // == save API key for a specific provider == //
+        public void SaveApiKey(string provider, string apiKey)
         {
-            if (!File.Exists(SettingsPath)) return null; // No settings file means no API key saved
+            Directory.CreateDirectory(SettingsDir);
+            var plainBytes     = Encoding.UTF8.GetBytes(apiKey);
+            var encryptedBytes = ProtectedData.Protect(plainBytes, null, DataProtectionScope.CurrentUser);
+            File.WriteAllBytes(GetProviderPath(provider), encryptedBytes);
+        }
+
+        // == get API key for a specific provider, returns null if not found or on error == //
+        public string? GetApiKey(string provider)
+        {
+            var path = GetProviderPath(provider);
+            if (!File.Exists(path)) return null;
 
             try
             {
-                var encryptedBytes = File.ReadAllBytes(SettingsPath);
-                var plainBytes = ProtectedData.Unprotect(encryptedBytes, null, DataProtectionScope.CurrentUser);
+                var encryptedBytes = File.ReadAllBytes(path);
+                var plainBytes     = ProtectedData.Unprotect(encryptedBytes, null, DataProtectionScope.CurrentUser);
                 return Encoding.UTF8.GetString(plainBytes);
             }
             catch

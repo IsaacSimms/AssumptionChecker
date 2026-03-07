@@ -94,10 +94,13 @@
          </Setter>
       </Style>
 
+      <!-- == BoolToVisibility converter for key status indicators == -->
+      <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+
    </UserControl.Resources>
 
    <DockPanel Margin="8">
-        <!-- Input area docked at top -->
+        <!-- == Input area == -->
         <TextBlock Text="Enter prompt to analyze:"
                    FontWeight="Bold"
                    Margin="0,0,0,4"
@@ -116,7 +119,7 @@
                  DockPanel.Dock="Top"
                  PreviewKeyDown="PromptTextBox_KeyDown"/>
 
-        <!-- Model selector docked at top -->
+        <!-- == Model selector == -->
         <StackPanel Orientation="Horizontal" Margin="0,0,0,8" DockPanel.Dock="Top">
             <TextBlock Text="Model:"
                        VerticalAlignment="Center"
@@ -128,7 +131,78 @@
                       Style="{StaticResource VsComboBoxStyle}"/>
         </StackPanel>
 
-        <!-- Button and status docked at top -->
+        <!-- == Settings expander: API key management == -->
+        <Expander Header="API Key Settings"
+                  IsExpanded="{Binding SettingsExpanded}"
+                  Margin="0,0,0,8"
+                  DockPanel.Dock="Top"
+                  Foreground="{DynamicResource {x:Static vs:VsBrushes.ToolWindowTextKey}}">
+            <Border BorderBrush="{DynamicResource {x:Static vs:VsBrushes.ToolWindowBorderKey}}"
+                    BorderThickness="1"
+                    Padding="8"
+                    Margin="0,4,0,0"
+                    Background="{DynamicResource {x:Static vs:VsBrushes.ToolWindowBackgroundKey}}">
+                <StackPanel>
+                    <!-- OpenAI key row -->
+                    <TextBlock Text="OpenAI API Key:"
+                               Margin="0,0,0,2"
+                               Foreground="{DynamicResource {x:Static vs:VsBrushes.ToolWindowTextKey}}"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                        <PasswordBox x:Name="OpenAiKeyBox"
+                                     Width="220"
+                                     PasswordChanged="OpenAiKeyBox_PasswordChanged"
+                                     Background="{DynamicResource {x:Static vs:VsBrushes.ComboBoxBackgroundKey}}"
+                                     Foreground="{DynamicResource {x:Static vs:VsBrushes.WindowTextKey}}"
+                                     BorderBrush="{DynamicResource {x:Static vs:VsBrushes.ComboBoxBorderKey}}"/>
+                        <Button Command="{Binding SaveOpenAiKeyCommand}"
+                                Content="Save"
+                                Padding="8,2"
+                                Margin="6,0,0,0"
+                                Background="{DynamicResource {x:Static vs:VsBrushes.AccentMediumKey}}"
+                                Foreground="{DynamicResource {x:Static vs:VsBrushes.ButtonTextKey}}"
+                                BorderBrush="{DynamicResource {x:Static vs:VsBrushes.AccentMediumKey}}"/>
+                        <TextBlock Text="Configured"
+                                   Foreground="Green"
+                                   Margin="8,0,0,0"
+                                   VerticalAlignment="Center"
+                                   Visibility="{Binding HasOpenAiKey, Converter={StaticResource BoolToVis}}"/>
+                    </StackPanel>
+
+                    <!-- Anthropic key row -->
+                    <TextBlock Text="Anthropic API Key:"
+                               Margin="0,0,0,2"
+                               Foreground="{DynamicResource {x:Static vs:VsBrushes.ToolWindowTextKey}}"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                        <PasswordBox x:Name="AnthropicKeyBox"
+                                     Width="220"
+                                     PasswordChanged="AnthropicKeyBox_PasswordChanged"
+                                     Background="{DynamicResource {x:Static vs:VsBrushes.ComboBoxBackgroundKey}}"
+                                     Foreground="{DynamicResource {x:Static vs:VsBrushes.WindowTextKey}}"
+                                     BorderBrush="{DynamicResource {x:Static vs:VsBrushes.ComboBoxBorderKey}}"/>
+                        <Button Command="{Binding SaveAnthropicKeyCommand}"
+                                Content="Save"
+                                Padding="8,2"
+                                Margin="6,0,0,0"
+                                Background="{DynamicResource {x:Static vs:VsBrushes.AccentMediumKey}}"
+                                Foreground="{DynamicResource {x:Static vs:VsBrushes.ButtonTextKey}}"
+                                BorderBrush="{DynamicResource {x:Static vs:VsBrushes.AccentMediumKey}}"/>
+                        <TextBlock Text="Configured"
+                                   Foreground="Green"
+                                   Margin="8,0,0,0"
+                                   VerticalAlignment="Center"
+                                   Visibility="{Binding HasAnthropicKey, Converter={StaticResource BoolToVis}}"/>
+                    </StackPanel>
+
+                    <!-- Status message -->
+                    <TextBlock Text="{Binding SettingsStatus}"
+                               Foreground="{DynamicResource {x:Static vs:VsBrushes.ToolWindowTextKey}}"
+                               FontStyle="Italic"
+                               TextWrapping="Wrap"/>
+                </StackPanel>
+            </Border>
+        </Expander>
+
+        <!-- == Analyze button and status == -->
         <StackPanel Orientation="Horizontal" Margin="0,0,0,8" DockPanel.Dock="Top">
             <Button Command="{Binding AnalyzeCommand}"
                     Content="Analyze Assumptions"
@@ -144,14 +218,14 @@
                        Visibility="{Binding IsAnalyzing}"/>
         </StackPanel>
 
-        <!-- Results label docked at top -->
+        <!-- == Results label == -->
         <TextBlock Text="Results:"
                    FontWeight="Bold"
                    Margin="0,0,0,4"
                    Foreground="{DynamicResource {x:Static vs:VsBrushes.ToolWindowTextKey}}"
                    DockPanel.Dock="Top"/>
 
-        <!-- Results area fills remaining space -->
+        <!-- == Results area fills remaining space == -->
         <TextBox Text="{Binding ResultText, Mode=OneWay}"
                  IsReadOnly="True"
                  TextWrapping="Wrap"

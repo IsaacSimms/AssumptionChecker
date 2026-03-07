@@ -76,8 +76,9 @@ namespace AssumptionChecker.VsExtension
         // == constants == //
         public const string PackageGuidString = "9a3d7b1e-4f2c-4e8a-b5d6-1c0e3f2a4b7d";
 
-        // == shared service instance (accessible by tool window) == //
+        // == shared state (accessible by tool window) == //
         internal static IAssumptionCheckerService? CheckerService { get; private set; }
+        internal static string EngineUrl { get; private set; } = "http://localhost:5046";
 
         // == engine process management == //
         private static Process? _engineProcess;
@@ -90,8 +91,9 @@ namespace AssumptionChecker.VsExtension
         {
             await base.InitializeAsync(cancellationToken, progress);
 
-            var engineUrl = Environment.GetEnvironmentVariable("ASSUMPTION_CHECKER_ENGINE_URL")
-                            ?? "http://localhost:5046";
+            EngineUrl = Environment.GetEnvironmentVariable("ASSUMPTION_CHECKER_ENGINE_URL")
+                       ?? "http://localhost:5046";
+            var engineUrl = EngineUrl;
 
             // Engine startup: fire-and-forget so a timeout never blocks command registration
             _ = Task.Run(() =>

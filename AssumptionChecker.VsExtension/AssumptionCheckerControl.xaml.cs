@@ -22,5 +22,18 @@ namespace AssumptionChecker.VsExtension
                 e.Handled = true;
             }
         }
+
+        // == PasswordBox doesn't support binding, so we relay via code-behind == //
+        private void OpenAiKeyBox_PasswordChanged(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (DataContext is AssumptionCheckerViewModel vm)
+                vm.OpenAiApiKey = ((PasswordBox)sender).Password;
+        }
+
+        private void AnthropicKeyBox_PasswordChanged(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (DataContext is AssumptionCheckerViewModel vm)
+                vm.AnthropicApiKey = ((PasswordBox)sender).Password;
+        }
     }
 }

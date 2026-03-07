@@ -1,10 +1,15 @@
-///// handles the data and state for the tool window UI /////
+// <summary>
+// ViewModel for the VS Extension tool window.
+// Handles prompt analysis, model selection (OpenAI + Anthropic), and API key management.
+// Settings panel calls Engine /settings endpoints to save/check API keys.
+// </summary>
 
 // == namespaces == //
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
@@ -19,21 +24,36 @@ using EnvDTE80;
 
 namespace AssumptionChecker.VsExtension
 {
+    // == ViewModel: drives the tool window UI == //
     public class AssumptionCheckerViewModel : INotifyPropertyChanged
     {
         // == private fields == //
         private readonly IAssumptionCheckerService _service;
-        private string _promptText    = string.Empty;
-        private string _resultText    = string.Empty;
-        private string _selectedModel = "gpt-4o-mini";
-        private Visibility _isAnalyzing = Visibility.Collapsed;
-        private bool _canAnalyze = true;
+        private readonly string _engineBaseUrl;
+        private string _promptText       = string.Empty;
+        private string _resultText       = string.Empty;
+        private string _selectedModel    = "gpt-4o-mini";
+        private Visibility _isAnalyzing  = Visibility.Collapsed;
+        private bool _canAnalyze         = true;
+
+        // == settings fields == //
+        private string _openAiApiKey     = string.Empty;
+        private string _anthropicApiKey  = string.Empty;
+        private bool _hasOpenAiKey;
+        private bool _hasAnthropicKey;
+        private bool _settingsExpanded;
+        private string _settingsStatus   = string.Empty;
 
         // == constructor == //
-        public AssumptionCheckerViewModel(IAssumptionCheckerService service)
+        public AssumptionCheckerViewModel(IAssumptionCheckerService service, string engineBaseUrl)
         {
             _service        = service;
+            _engineBaseUrl  = engineBaseUrl.TrimEnd('/');
             AnalyzeCommand  = new RelayCommand(async _ => await AnalyzeAsync(), _ => _canAnalyze);
+            SaveOpenAiKeyCommand    = new RelayCommand(async _ => await SaveApiKeyAsync("openai", OpenAiApiKey));
+            SaveAnthropicKeyCommand = new RelayCommand(async _ => await SaveApiKeyAsync("anthropic", AnthropicApiKey));
+
+            _ = Task.Run(() => LoadProviderStatusAsync()); // fire-and-forget on startup
         }
 
         // == bindable properties == //
@@ -61,18 +81,112 @@ namespace AssumptionChecker.VsExtension
             set { _selectedModel = value; OnPropertyChanged(); }
         }
 
-        // Available OpenAI models for selection
+        // == available models: OpenAI + Anthropic == //
         public List<string> AvailableModels { get; } = new List<string>
         {
+            // OpenAI
             "gpt-4o-mini",
             "gpt-4o",
             "o1-mini",
             "o1",
             "gpt-5.2",
             "gpt-5-mini",
+            // Anthropic
+            "claude-sonnet-4-6",
+            "claude-haiku-4-5",
+            "claude-opus-4-6",
         };
 
-        public ICommand AnalyzeCommand { get; }
+        // == settings properties == //
+        public string OpenAiApiKey
+        {
+            get => _openAiApiKey;
+            set { _openAiApiKey = value; OnPropertyChanged(); }
+        }
+
+        public string AnthropicApiKey
+        {
+            get => _anthropicApiKey;
+            set { _anthropicApiKey = value; OnPropertyChanged(); }
+        }
+
+        public bool HasOpenAiKey
+        {
+            get => _hasOpenAiKey;
+            set { _hasOpenAiKey = value; OnPropertyChanged(); }
+        }
+
+        public bool HasAnthropicKey
+        {
+            get => _hasAnthropicKey;
+            set { _hasAnthropicKey = value; OnPropertyChanged(); }
+        }
+
+        public bool SettingsExpanded
+        {
+            get => _settingsExpanded;
+            set { _settingsExpanded = value; OnPropertyChanged(); }
+        }
+
+        public string SettingsStatus
+        {
+            get => _settingsStatus;
+            set { _settingsStatus = value; OnPropertyChanged(); }
+        }
+
+        // == commands == //
+        public ICommand AnalyzeCommand          { get; }
+        public ICommand SaveOpenAiKeyCommand    { get; }
+        public ICommand SaveAnthropicKeyCommand { get; }
+
+        // == load provider key status from Engine == //
+        private async Task LoadProviderStatusAsync()
+        {
+            try
+            {
+                using var client = new HttpClient { Timeout = TimeSpan.FromSeconds(5) };
+                var json = await client.GetStringAsync($"{_engineBaseUrl}/settings/providers");
+                HasOpenAiKey    = json.Contains("\"openai\":true") || json.Contains("\"openai\": true");
+                HasAnthropicKey = json.Contains("\"anthropic\":true") || json.Contains("\"anthropic\": true");
+            }
+            catch
+            {
+                // Engine may not be ready yet; status will show as unconfigured
+            }
+        }
+
+        // == save API key to Engine via POST /settings/apikey == //
+        private async Task SaveApiKeyAsync(string provider, string apiKey)
+        {
+            if (string.IsNullOrWhiteSpace(apiKey))
+            {
+                SettingsStatus = $"Please enter a {provider} API key.";
+                return;
+            }
+
+            try
+            {
+                SettingsStatus = "Saving...";
+                using var client = new HttpClient { Timeout = TimeSpan.FromSeconds(10) };
+                var body    = $"{{\"provider\":\"{provider}\",\"apiKey\":\"{EscapeJson(apiKey)}\"}}";
+                var content = new StringContent(body, Encoding.UTF8, "application/json");
+                var response = await client.PostAsync($"{_engineBaseUrl}/settings/apikey", content);
+                response.EnsureSuccessStatusCode();
+
+                // update status
+                if (provider == "openai")    { HasOpenAiKey = true;    OpenAiApiKey = string.Empty; }
+                if (provider == "anthropic") { HasAnthropicKey = true; AnthropicApiKey = string.Empty; }
+                SettingsStatus = $"{provider} key saved successfully.";
+            }
+            catch (Exception ex)
+            {
+                SettingsStatus = $"Error saving {provider} key: {ex.Message}";
+            }
+        }
+
+        // == minimal JSON string escape == //
+        private static string EscapeJson(string s) =>
+            s.Replace("\\", "\\\\").Replace("\"", "\\\"");
 
         // == gathers context from all open documents in VS == //
         private List<FileContext> GatherOpenFileContexts()
@@ -144,7 +258,7 @@ namespace AssumptionChecker.VsExtension
             }
         }
 
-        // == format results (unchanged logic) == //
+        // == format results == //
         private static string FormatResults(AnalyzeResponse response)
         {
             var output = new StringBuilder();

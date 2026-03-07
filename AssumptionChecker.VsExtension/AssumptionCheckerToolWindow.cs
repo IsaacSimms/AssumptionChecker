@@ -16,7 +16,7 @@ namespace AssumptionChecker.VsExtension
             Caption = "Assumption Checker";
 
             // == create the WPF content with services from the Package == //
-            var viewModel = new AssumptionCheckerViewModel(AssumptionCheckerPackage.CheckerService!);
+            var viewModel = new AssumptionCheckerViewModel(AssumptionCheckerPackage.CheckerService!, AssumptionCheckerPackage.EngineUrl);
             Content = new AssumptionCheckerControl(viewModel);
         }
     }

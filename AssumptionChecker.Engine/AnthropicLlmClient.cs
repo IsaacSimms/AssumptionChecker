@@ -1,19 +1,29 @@
-﻿// == namespaces == //
-using System;
+// <summary>
+// Anthropic (Claude) LLM client implementing ILlmClient.
+// Calls the Anthropic Messages API, parses JSON response into AnalyzeResponse.
+// Same system prompt and retry logic as OpenAILlmClient.
+// Key is resolved at call time so hot-reload from /settings/apikey works.
+// </summary>
+
+// == namespaces == //
 using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Anthropic;
+using Anthropic.Core;
+using Anthropic.Models.Messages;
 using AssumptionChecker.Contracts;
-using OpenAI.Chat;
+
 namespace AssumptionChecker.Engine.Services
 {
-    public class OpenAILlmClient : ILlmClient
+    // == Anthropic LLM client == //
+    public class AnthropicLlmClient : ILlmClient
     {
         private readonly IConfiguration _config;
         private readonly JsonSerializerOptions _jsonOptions;
 
         // == store config ref; key is resolved at call time so hot-reload works == //
-        public OpenAILlmClient(IConfiguration config)
+        public AnthropicLlmClient(IConfiguration config)
         {
             _config = config;
             _jsonOptions = new JsonSerializerOptions
@@ -23,14 +33,13 @@ namespace AssumptionChecker.Engine.Services
             };
         }
 
-        // == build & intake system prompt and user prompt == //
+        // == analyze prompt using Anthropic Messages API == //
         public async Task<AnalyzeResponse> AnalyzeAsync(AnalyzeRequest request, CancellationToken cancellationToken = default)
         {
-            var systemPrompt = BuildSystemPrompt(request.MaxAssumptions); // call function that specifies the system prompt
-            var sw           = Stopwatch.StartNew();                      // start a stopwatch to track latency
+            var systemPrompt = BuildSystemPrompt(request.MaxAssumptions);
+            var sw = Stopwatch.StartNew();
 
-            // == build the message list with the system prompt and user prompt == //
-            // optional file context
+            // == build user message with optional file context == //
             var userMessage = request.Prompt;
             if (request.FileContexts.Count > 0)
             {
@@ -39,31 +48,44 @@ namespace AssumptionChecker.Engine.Services
                 userMessage = $"{request.Prompt}\n\n[Open File Context]\n{contextBlock}";
             }
 
-            // initialize the message list with the system prompt and user prompt
-            List<ChatMessage> messages =
-                [
-                new SystemChatMessage(systemPrompt),
-                new UserChatMessage(userMessage)
-                ];
+            // == initialize conversation messages == //
+            var messages = new List<MessageParam>
+            {
+                new() { Role = Role.User, Content = userMessage }
+            };
 
-            var options = new ChatCompletionOptions { ResponseFormat = ChatResponseFormat.CreateJsonObjectFormat() }; // forces JSON format
+            var apiKey = _config["Anthropic:ApiKey"]
+                ?? throw new InvalidOperationException("Anthropic:ApiKey is not configured.");
+            var model = string.IsNullOrWhiteSpace(request.Model) ? "claude-sonnet-4-6" : request.Model;
+            var client = new AnthropicClient(new ClientOptions { ApiKey = apiKey });
 
-            // reattempt 3 times if JSON continues to come back as invalid
+            // == retry loop (up to 3 attempts on JSON parse failure) == //
             for (int attempt = 1; attempt <= 3; attempt++)
             {
-                var apiKey = _config["OpenAI:ApiKey"]                                                    // resolve key at call time so hot-reloaded keys work
-                    ?? throw new InvalidOperationException("OpenAI:ApiKey is not configured.");
-                var model = string.IsNullOrWhiteSpace(request.Model) ? "gpt-4o-mini" : request.Model; // default to gpt-4o-mini if no model specified, as it's strong at following instructions and more cost effective for this use case
-                var chat  = new ChatClient(model, apiKey);                                            // call the OpenAI API with the messages and options, and retrieve the raw text response
-                ChatCompletion completion = await chat.CompleteChatAsync(messages, options, cancellationToken);
-                var raw = completion.Content[0].Text;
+                var createParams = new MessageCreateParams
+                {
+                    Model = model,
+                    MaxTokens = 4096,
+                    System = systemPrompt,
+                    Messages = messages
+                };
+
+                var completion = await client.Messages.Create(createParams, cancellationToken: cancellationToken);
+
+                // == extract text content from response == //
+                var textParts = new List<string>();
+                foreach (var block in completion.Content)
+                {
+                    if (block.TryPickText(out var textBlock))
+                        textParts.Add(textBlock.Text);
+                }
+                var raw = string.Join("", textParts);
 
                 try
                 {
                     var (assumptions, suggestedPrompts) = ParseResponse(raw);
                     sw.Stop();
 
-                    // returns the assumptions along with metadata about the response (latency, model used, tokens used) == // 
                     return new AnalyzeResponse
                     {
                         Assumptions = assumptions,
@@ -71,32 +93,30 @@ namespace AssumptionChecker.Engine.Services
                         Metadata = new ResponseMetadata
                         {
                             LatencyMs = sw.ElapsedMilliseconds,
-                            ModelUsed = completion.Model,
-                            TokensUsed = completion.Usage.TotalTokenCount
+                            ModelUsed = completion.Model.ToString(),
+                            TokensUsed = (int)(completion.Usage.InputTokens + completion.Usage.OutputTokens)
                         }
                     };
                 }
-                // error handling 
                 catch (JsonException) when (attempt < 3)
                 {
-                    //reprompt
-                    messages.Add(new AssistantChatMessage(raw));
-                    messages.Add(new UserChatMessage(
-                        "Your previous response was not a valid JSON. " +
-                        "Return only a JSON object with an \"assumptions\" array. "));
+                    // reprompt: add assistant response and retry instruction
+                    messages.Add(new MessageParam { Role = Role.Assistant, Content = raw });
+                    messages.Add(new MessageParam { Role = Role.User, Content =
+                        "Your previous response was not valid JSON. " +
+                        "Return ONLY a JSON object with an \"assumptions\" array and a \"suggestedPrompts\" array." });
                 }
             }
-            throw new InvalidOperationException("LLM failed to return valid JSON (includes reattempts)"); // broad stroke error handle for the function
+
+            throw new InvalidOperationException("Anthropic LLM failed to return valid JSON (includes reattempts)");
         }
 
-        // == parse the assumption JSON == //
+        // == parse JSON response into assumptions and suggested prompts == //
         private (List<Assumption> assumptions, List<string> suggestedPrompts) ParseResponse(string raw)
         {
-            using var jsonDoc = JsonDocument.Parse(raw); // parse the raw JSON response
+            using var jsonDoc = JsonDocument.Parse(raw);
+            List<Assumption> assumptions;
 
-            List<Assumption> assumptions;                // initialize the assumptions list
-
-            // parse assumptions - if the response includes the full JSON structure, parse out the assumptions from the "assumptions" property.
             if (jsonDoc.RootElement.TryGetProperty("assumptions", out var assumptionsArray))
             {
                 assumptions = JsonSerializer.Deserialize<List<Assumption>>(assumptionsArray.GetRawText(), _jsonOptions)
@@ -104,10 +124,10 @@ namespace AssumptionChecker.Engine.Services
             }
             else
             {
-                assumptions = JsonSerializer.Deserialize<List<Assumption>>(raw, _jsonOptions) ?? throw new JsonException("Null assumptions");
+                assumptions = JsonSerializer.Deserialize<List<Assumption>>(raw, _jsonOptions)
+                    ?? throw new JsonException("Null assumptions");
             }
 
-            // parse suggested prompts
             List<string> suggestedPrompts = new();
             if (jsonDoc.RootElement.TryGetProperty("suggestedPrompts", out var promptsArray))
             {
@@ -118,13 +138,12 @@ namespace AssumptionChecker.Engine.Services
             return (assumptions, suggestedPrompts);
         }
 
-        // == defines system prompt and instructions for model                                                           == //
-        // == includes instruction to return only JSON, and to limit the number of assumptions based on the user request == //
+        // == system prompt (same as OpenAI version, with stronger JSON instruction since Claude lacks response_format) == //
         private static string BuildSystemPrompt(int maxAssumptions) => $$"""
             You are a prompt analysis engine that identifies the most critical assumptions in user prompts.
-            You will be given a user's prompt that will later be sent to a separate AI system for processing. 
+            You will be given a user's prompt that will later be sent to a separate AI system for processing.
             An assumption is any explicit or implicit condition that is required for the success or validity of the plan, is not fully verified or guaranteed by the text itself, and would materially affect outcomes if false.
-            
+
             Your task is to identify ONLY the most critical and impactful assumptions - prioritize quality over quantity.
             Focus on assumptions that would significantly change the outcome if they were incorrect.
             Skip minor, obvious, or low-impact assumptions.
@@ -145,12 +164,13 @@ namespace AssumptionChecker.Engine.Services
             - Concrete and actionable with reasonable defaults or specific examples
             - Only append "Additional Information: [what is needed]" if context is absolutely critical
             - Maintain the original intent while being immediately usable
-            
+
             Return at most {{maxAssumptions}} assumptions, ordered by riskLevel (high to low) and confidence (high to low).
             Be concise and direct - brevity improves readability.
-            
-            Return ONLY a JSON object with this structure: 
-            { 
+
+            IMPORTANT: Return ONLY a valid JSON object. No markdown code fences, no explanation text.
+            The response must be parseable JSON with this exact structure:
+            {
             "assumptions": [ ... ],
             "suggestedPrompts": [ ... improved prompt 1 ..., ... improved prompt 2 ..., ... improved prompt 3 ...]
             }
