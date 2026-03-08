@@ -139,19 +139,24 @@ namespace AssumptionChecker.VsExtension
         public ICommand SaveOpenAiKeyCommand    { get; }
         public ICommand SaveAnthropicKeyCommand { get; }
 
-        // == load provider key status from Engine == //
+        // == load provider key status from Engine (retries until Engine is ready) == //
         private async Task LoadProviderStatusAsync()
         {
-            try
+            using var client = new HttpClient { Timeout = TimeSpan.FromSeconds(3) };
+
+            for (int attempt = 0; attempt < 12; attempt++) // up to ~12s total
             {
-                using var client = new HttpClient { Timeout = TimeSpan.FromSeconds(5) };
-                var json = await client.GetStringAsync($"{_engineBaseUrl}/settings/providers");
-                HasOpenAiKey    = json.Contains("\"openai\":true") || json.Contains("\"openai\": true");
-                HasAnthropicKey = json.Contains("\"anthropic\":true") || json.Contains("\"anthropic\": true");
-            }
-            catch
-            {
-                // Engine may not be ready yet; status will show as unconfigured
+                try
+                {
+                    var json = await client.GetStringAsync($"{_engineBaseUrl}/settings/providers");
+                    HasOpenAiKey    = json.Contains("\"openai\":true") || json.Contains("\"openai\": true");
+                    HasAnthropicKey = json.Contains("\"anthropic\":true") || json.Contains("\"anthropic\": true");
+                    return; // success
+                }
+                catch
+                {
+                    await Task.Delay(1000); // Engine not ready yet, retry
+                }
             }
         }
 

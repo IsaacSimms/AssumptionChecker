@@ -9,6 +9,7 @@
 using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Text.RegularExpressions;
 using Anthropic;
 using Anthropic.Core;
 using Anthropic.Models.Messages;
@@ -79,7 +80,7 @@ namespace AssumptionChecker.Engine.Services
                     if (block.TryPickText(out var textBlock))
                         textParts.Add(textBlock.Text);
                 }
-                var raw = string.Join("", textParts);
+                var raw = StripCodeFences(string.Join("", textParts));
 
                 try
                 {
@@ -136,6 +137,18 @@ namespace AssumptionChecker.Engine.Services
             }
 
             return (assumptions, suggestedPrompts);
+        }
+
+        // == strip markdown code fences (Claude may wrap JSON in ```json ... ```) == //
+        private static string StripCodeFences(string raw)
+        {
+            var trimmed = raw.Trim();
+            if (trimmed.StartsWith("```"))
+            {
+                trimmed = Regex.Replace(trimmed, @"^```\w*\s*", ""); // remove opening fence
+                trimmed = Regex.Replace(trimmed, @"\s*```\s*$", ""); // remove closing fence
+            }
+            return trimmed;
         }
 
         // == system prompt (same as OpenAI version, with stronger JSON instruction since Claude lacks response_format) == //

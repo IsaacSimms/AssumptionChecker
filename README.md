@@ -1,6 +1,6 @@
 # Assumption Checker for Visual Studio
 
-> Analyzes Copilot prompts for hidden assumptions and suggests improved alternatives — directly inside Visual Studio 2022.
+> Analyzes Copilot prompts for hidden assumptions and suggests improved alternatives — directly inside Visual Studio 2022. Supports both **OpenAI** and **Anthropic** models.
 
 ---
 
@@ -19,16 +19,18 @@
 ## How It Works
 
 ```
-VS Extension  ──►  Engine (localhost:5046)  ──►  OpenAI API
-   (net472)          (ASP.NET Core net8)
+                         ┌──► OpenAI API   (gpt-4o-mini, gpt-4o, …)
+VS Extension  ──►  Engine│
+   (net472)    (localhost:5046)
+                         └──► Anthropic API (claude-sonnet-4, claude-haiku-4, …)
 ```
 
-1. You type a prompt into the tool window.
+1. You type a prompt into the tool window and choose a model.
 2. The extension attaches all open documents as file context (truncated to 10k chars/file).
-3. It sends both to a local ASP.NET Core engine, which calls the OpenAI API.
+3. It sends both to a local ASP.NET Core engine, which routes to the correct LLM provider.
 4. Results come back as a structured list of assumptions (risk-rated and categorized) plus suggested improved prompts.
 
-The engine auto-starts when VS loads — no manual server management required under normal use.
+The engine auto-starts when VS loads. A **`LlmClientRouter`** inspects the model name — anything starting with `claude` goes to `AnthropicLlmClient`, everything else goes to `OpenAILlmClient`.
 
 ---
 
@@ -38,8 +40,8 @@ The engine auto-starts when VS loads — no manual server management required un
 |---|---|
 | **Visual Studio 2022** | v17.x — Community, Pro, or Enterprise |
 | **.NET 8 SDK** | [dotnet.microsoft.com/download/dotnet/8.0](https://dotnet.microsoft.com/download/dotnet/8.0) |
-| **OpenAI API Key** | [platform.openai.com/api-keys](https://platform.openai.com/api-keys) |
-| **Windows** | Required — API key is stored with Windows DPAPI |
+| **API Key** | At least one: [OpenAI](https://platform.openai.com/api-keys) and/or [Anthropic](https://console.anthropic.com/settings/keys) |
+| **Windows** | Required — API keys are stored with Windows DPAPI |
 
 ---
 
@@ -52,32 +54,16 @@ git clone https://github.com/IsaacSimms/AssumptionChecker.git
 cd AssumptionChecker
 ```
 
-### 2. Save your OpenAI API key
-
->  dotnet user-secrets (source builds only)**
-> ```bash
-> cd AssumptionChecker.Engine
-> dotnet user-secrets set "OpenAI:ApiKey" "sk-proj-YOUR-KEY-HERE"
-> ```
-
- **Alternative — Run the WPF companion app, go to the **Settings** tab, paste your key, and click **Save**. This encrypts the key with Windows DPAPI at `%AppData%\AssumptionChecker\settings.dat`, which the engine reads on every startup.
-
-```bash
-cd AssumptionChecker.WPFApp
-dotnet run
-```
-
-
-### 3. Build the engine
+### 2. Build the engine
 
 ```bash
 cd AssumptionChecker.Engine
 dotnet build -c Release
 ```
 
-> For a permanent VSIX install, the engine `.exe` must be built before packaging so the extension can auto-launch it. The extension looks for it at `Engine\AssumptionChecker.Engine.exe` next to the extension DLL.
+> For a permanent VSIX install the engine `.exe` must be built first so the extension can auto-launch it.
 
-### 4. Install the extension
+### 3. Install the extension
 
 **Option A — F5 experimental instance (quickest for development)**
 
@@ -99,21 +85,57 @@ AssumptionChecker.VsExtension\bin\Release\AssumptionChecker.VsExtension.vsix
 
 Follow the installer prompts, then restart Visual Studio.
 
-### 5. Open the tool window
+### 4. Open the tool window and add your API key(s)
 
 **View → Other Windows → Assumption Checker**
 
-Dock the panel wherever you like. The engine starts automatically in the background.
+Expand the **API Key Settings** panel at the top of the tool window. Paste your key and click **Save** for each provider you want to use:
+
+| Provider | Key prefix | Where to get one |
+|---|---|---|
+| OpenAI | `sk-proj-…` | [platform.openai.com/api-keys](https://platform.openai.com/api-keys) |
+| Anthropic | `sk-ant-…` | [console.anthropic.com/settings/keys](https://console.anthropic.com/settings/keys) |
+
+Keys are encrypted with Windows DPAPI (per-user) and saved to `%AppData%\AssumptionChecker\`. A green **"Configured"** badge appears once a key is saved. The engine picks up the new key immediately — no restart required.
+
+> **Alternative — dotnet user-secrets (source builds only)**
+> ```bash
+> cd AssumptionChecker.Engine
+> dotnet user-secrets set "OpenAI:ApiKey" "sk-proj-YOUR-KEY-HERE"
+> dotnet user-secrets set "Anthropic:ApiKey" "sk-ant-YOUR-KEY-HERE"
+> ```
+
+> **Alternative — WPF companion app**
+> The standalone WPF app also has a Settings tab that writes to the same DPAPI-encrypted files:
+> ```bash
+> cd AssumptionChecker.WPFApp
+> dotnet run
+> ```
 
 ---
 
 ## Usage
+
+### Analyzing a prompt
 
 | Action | How |
 |---|---|
 | Submit prompt | Type and press **Enter** |
 | Insert a newline | **Shift + Enter** |
 | Submit with mouse | Click **Analyze Assumptions** |
+
+### Choosing a model
+
+Use the **Model** dropdown above the Analyze button. The extension ships with models from both providers:
+
+| Provider | Models |
+|---|---|
+| **OpenAI** | `gpt-4o-mini` **(default)**, `gpt-4o`, `o1-mini`, `o1`, `gpt-5.2`, `gpt-5-mini` |
+| **Anthropic** | `claude-sonnet-4-6`, `claude-haiku-4-5`, `claude-opus-4-6` |
+
+Selecting a `claude-*` model routes to Anthropic; everything else routes to OpenAI. The engine verifies the corresponding API key is configured before sending the request.
+
+### Understanding the output
 
 Results include each assumption's **risk level** (`[High]` / `[Medium]` / `[Low]`), **category**, **rationale**, a **clarifying question**, and 2–3 complete **suggested improved prompts** ready to copy-paste.
 
@@ -134,7 +156,7 @@ Type prompts at the `>` prompt. Type `exit` to quit.
 
 ### Custom engine URL
 
-Set this environment variable before launching Visual Studio to point the extension at a different host or port:
+Set this environment variable before launching Visual Studio:
 
 ```powershell
 $env:ASSUMPTION_CHECKER_ENGINE_URL = "http://localhost:9090"
@@ -148,19 +170,19 @@ $env:ASPNETCORE_URLS = "http://localhost:9090"
 dotnet run
 ```
 
-### Changing the OpenAI model
+### API key storage details
 
-The default is `gpt-4o-mini`. Override with user secrets:
+| Provider | File | Format |
+|---|---|---|
+| OpenAI | `%AppData%\AssumptionChecker\settings.dat` | DPAPI-encrypted (legacy path, kept for backward compat) |
+| Anthropic | `%AppData%\AssumptionChecker\settings-anthropic.dat` | DPAPI-encrypted |
 
-```bash
-cd AssumptionChecker.Engine
-dotnet user-secrets set "OpenAI:Model" "gpt-4o"
-```
+Keys can be saved three ways (all write to the same files):
+1. **VS Extension** — API Key Settings panel (calls `POST /settings/apikey` on the engine)
+2. **WPF app** — Settings tab
+3. **dotnet user-secrets** — development override (read by the engine's ASP.NET Core config chain)
 
-| Model | Trade-off |
-|---|---|
-| `gpt-4o-mini` | **(Default)** Fast, low cost, solid for most prompts |
-| `gpt-4o` | Higher quality, better nuance, higher cost |
+The engine **hot-reloads** keys saved via the `/settings/apikey` endpoint — no restart needed.
 
 ---
 
@@ -172,27 +194,33 @@ dotnet user-secrets set "OpenAI:Model" "gpt-4o"
 │  ┌────────────────────────────────────────────────────────┐  │
 │  │  VsExtension (net472, VSIX)                            │  │
 │  │  Tool Window (WPF) → ViewModel                         │  │
+│  │    • model selector + API key settings panel           │  │
 │  │    • gathers open files via DTE                        │  │
 │  │    • calls IAssumptionCheckerService                   │  │
+│  │    • saves keys via POST /settings/apikey              │  │
 │  └──────────────────────────┬─────────────────────────────┘  │
 └─────────────────────────────┼────────────────────────────────┘
-                              │ HTTP POST /analyze
+                              │ HTTP
 ┌─────────────────────────────▼────────────────────────────────┐
 │  Engine (net8.0, ASP.NET Core)  localhost:5046               │
-│  OpenAILlmClient                                             │
-│    • builds system prompt                                    │
-│    • calls OpenAI Chat Completions API                       │
-│    • parses JSON (retries up to 3x on malformed response)    │
+│                                                              │
+│  POST /analyze ──► LlmClientRouter                           │
+│                       ├── claude-* ──► AnthropicLlmClient    │
+│                       └── *        ──► OpenAILlmClient       │
+│                                                              │
+│  POST /settings/apikey   (save key, hot-reload into config)  │
+│  GET  /settings/providers (check which keys are configured)  │
+│  GET  /health                                                │
 └──────────────────────────────────────────────────────────────┘
 ```
 
 | Project | Target | Role |
 |---|---|---|
 | `AssumptionChecker.Contracts` | netstandard2.0 / net8.0 | Shared DTOs and enums |
-| `AssumptionChecker.Core` | netstandard2.0 / net8.0 | HTTP client, DI wiring, DPAPI key storage |
-| `AssumptionChecker.Engine` | net8.0 | ASP.NET Core API — calls OpenAI, returns structured JSON |
-| `AssumptionChecker.VsExtension` | net472 | VSIX — WPF tool window, auto-launches engine, gathers file context |
-| `AssumptionChecker.WPFApp` | net8.0 | Standalone WPF chat UI; also used to save the API key |
+| `AssumptionChecker.Core` | netstandard2.0 / net8.0 | HTTP client, DI wiring, multi-provider DPAPI key storage |
+| `AssumptionChecker.Engine` | net8.0 | ASP.NET Core API — LLM router, OpenAI + Anthropic clients, settings endpoints |
+| `AssumptionChecker.VsExtension` | net472 | VSIX — WPF tool window, model picker, key management, auto-launches engine |
+| `AssumptionChecker.WPFApp` | net8.0 | Standalone WPF chat UI with settings |
 | `AssumptionChecker.Cli` | net8.0 | Interactive CLI for testing the engine |
 | `AssumptionChecker.Tests` | net8.0 | Unit tests |
 
@@ -207,11 +235,8 @@ cd AssumptionChecker.Engine && dotnet run
 ```
 Then check the VS **Output** window for `[AssumptionChecker]` log lines.
 
-**Engine starts but returns 500 / "OpenAI:ApiKey is not configured"**
-The API key is missing. Re-run the WPF app, save your key in Settings, then restart the engine. Or verify user secrets:
-```bash
-cd AssumptionChecker.Engine && dotnet user-secrets list
-```
+**"OpenAI API key is not configured" / "Anthropic API key is not configured"**
+Open the tool window → expand **API Key Settings** → paste and save the key for the provider you selected. The green "Configured" badge should appear and the engine hot-reloads the key immediately.
 
 **VSIX won't install**
 Confirm you are on Visual Studio 2022 (v17.x). The manifest targets `[17.0, 19.0)`.
@@ -223,11 +248,8 @@ Go to **Extensions → Manage Extensions**, confirm the extension is enabled, an
 Set a custom URL (see [Advanced Configuration](#advanced-configuration)) or stop the conflicting process.
 
 **LLM returns malformed JSON repeatedly**
-Switch to a stronger model:
-```bash
-cd AssumptionChecker.Engine
-dotnet user-secrets set "OpenAI:Model" "gpt-4o"
-```
+The model returned invalid output after 3 retry attempts. Try a stronger model from the dropdown (e.g. `gpt-4o` or `claude-sonnet-4-6`).
+
 ---
 
 ## License
