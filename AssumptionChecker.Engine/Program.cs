@@ -19,8 +19,7 @@ builder.WebHost.UseUrls("http://localhost:5046"); // set the URL for the web app
 builder.Services.AddSingleton<ISecureSettingsManager, WindowsSecureSettingsManager>();
 
 // == load API keys from secure storage into configuration == //
-var tempServiceProvider = builder.Services.BuildServiceProvider();
-var secureSettings = tempServiceProvider.GetRequiredService<ISecureSettingsManager>();
+var secureSettings = new WindowsSecureSettingsManager();
 
 var openAiKey    = secureSettings.GetApiKey("openai");
 var anthropicKey = secureSettings.GetApiKey("anthropic");

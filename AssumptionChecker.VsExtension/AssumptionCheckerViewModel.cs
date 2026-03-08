@@ -30,6 +30,7 @@ namespace AssumptionChecker.VsExtension
         // == private fields == //
         private readonly IAssumptionCheckerService _service;
         private readonly string _engineBaseUrl;
+        private readonly ISecureSettingsManager _secureSettings = new WindowsSecureSettingsManager();
         private string _promptText       = string.Empty;
         private string _resultText       = string.Empty;
         private string _selectedModel    = "gpt-4o-mini";
@@ -47,9 +48,9 @@ namespace AssumptionChecker.VsExtension
         // == constructor == //
         public AssumptionCheckerViewModel(IAssumptionCheckerService service, string engineBaseUrl)
         {
-            _service        = service;
-            _engineBaseUrl  = engineBaseUrl.TrimEnd('/');
-            AnalyzeCommand  = new RelayCommand(async _ => await AnalyzeAsync(), _ => _canAnalyze);
+            _service                = service;
+            _engineBaseUrl          = engineBaseUrl.TrimEnd('/');
+            AnalyzeCommand          = new RelayCommand(async _ => await AnalyzeAsync(), _ => _canAnalyze);
             SaveOpenAiKeyCommand    = new RelayCommand(async _ => await SaveApiKeyAsync("openai", OpenAiApiKey));
             SaveAnthropicKeyCommand = new RelayCommand(async _ => await SaveApiKeyAsync("anthropic", AnthropicApiKey));
 
@@ -139,28 +140,40 @@ namespace AssumptionChecker.VsExtension
         public ICommand SaveOpenAiKeyCommand    { get; }
         public ICommand SaveAnthropicKeyCommand { get; }
 
-        // == load provider key status from Engine (retries until Engine is ready) == //
+        // == load provider key status: check DPAPI first, then verify with Engine == //
         private async Task LoadProviderStatusAsync()
         {
+            try
+            {
+                // read directly from DPAPI so status shows immediately (no Engine dependency)
+                HasOpenAiKey    = !string.IsNullOrEmpty(_secureSettings.GetApiKey("openai"));
+                HasAnthropicKey = !string.IsNullOrEmpty(_secureSettings.GetApiKey("anthropic"));
+            }
+            catch
+            {
+                // DPAPI read failed (assembly or crypto issue) — leave defaults (false)
+            }
+
+            // also verify with Engine once it's ready (picks up any keys saved by other clients)
             using var client = new HttpClient { Timeout = TimeSpan.FromSeconds(3) };
 
-            for (int attempt = 0; attempt < 12; attempt++) // up to ~12s total
+            for (int attempt = 0; attempt < 12; attempt++)
             {
                 try
                 {
                     var json = await client.GetStringAsync($"{_engineBaseUrl}/settings/providers");
                     HasOpenAiKey    = json.Contains("\"openai\":true") || json.Contains("\"openai\": true");
                     HasAnthropicKey = json.Contains("\"anthropic\":true") || json.Contains("\"anthropic\": true");
-                    return; // success
+                    return;
                 }
                 catch
                 {
-                    await Task.Delay(1000); // Engine not ready yet, retry
+                    await Task.Delay(1000);
                 }
             }
         }
 
-        // == save API key to Engine via POST /settings/apikey == //
+        // == save API key: persist locally via DPAPI, then forward to Engine == //
         private async Task SaveApiKeyAsync(string provider, string apiKey)
         {
             if (string.IsNullOrWhiteSpace(apiKey))
@@ -172,6 +185,11 @@ namespace AssumptionChecker.VsExtension
             try
             {
                 SettingsStatus = "Saving...";
+
+                // persist locally via DPAPI so keys survive restarts even if Engine is unavailable
+                _secureSettings.SaveApiKey(provider, apiKey);
+
+                // also forward to Engine so it can hot-reload the key without restart
                 using var client = new HttpClient { Timeout = TimeSpan.FromSeconds(10) };
                 var body    = $"{{\"provider\":\"{provider}\",\"apiKey\":\"{EscapeJson(apiKey)}\"}}";
                 var content = new StringContent(body, Encoding.UTF8, "application/json");

@@ -7,11 +7,11 @@
               Version="1.0.0"
               Language="en-US"
               Publisher="IsaacSimms" />
-    <DisplayName>Assumption Checker for Copilot</DisplayName>
-    <Description xml:space="preserve">Analyzes Copilot prompts for hidden assumptions and suggests improved alternatives.</Description>
+    <DisplayName>Assumption Checker</DisplayName>
+    <Description xml:space="preserve">Analyzes prompts for hidden assumptions and suggests improved alternatives.</Description>
     <MoreInfo>https://github.com/IsaacSimms/AssumptionChecker</MoreInfo>
     <GettingStartedGuide>https://github.com/IsaacSimms/AssumptionChecker#readme</GettingStartedGuide>
-    <Tags>copilot, assumptions, prompt, ai, analysis</Tags>
+    <Tags>assumptions, prompt, ai, analysis</Tags>
   </Metadata>
   <Installation>
     <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 19.0)">
