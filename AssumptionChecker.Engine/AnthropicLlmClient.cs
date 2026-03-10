@@ -57,7 +57,7 @@ namespace AssumptionChecker.Engine.Services
 
             var apiKey = _config["Anthropic:ApiKey"]
                 ?? throw new InvalidOperationException("Anthropic:ApiKey is not configured.");
-            var model = string.IsNullOrWhiteSpace(request.Model) ? "claude-sonnet-4-6" : request.Model;
+            var model = string.IsNullOrWhiteSpace(request.Model) ? "claude-haiku-4-5" : request.Model;
             var client = new AnthropicClient(new ClientOptions { ApiKey = apiKey });
 
             // == retry loop (up to 3 attempts on JSON parse failure) == //

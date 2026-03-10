@@ -126,7 +126,7 @@ namespace AssumptionChecker.WPFApp.ViewModels
 
                 // call the engine on a background thread
                 var result = await Task.Run(() =>
-                    _service.AnalyzeAsync(userPrompt, settings.MaxAssumptions, settings.OpenAiModel, cancellationToken: CancellationToken.None));
+                    _service.AnalyzeAsync(userPrompt, settings.MaxAssumptions, settings.Model, cancellationToken: CancellationToken.None));
 
                 // replace the thinking message with the real response
                 Messages.Remove(thinking);

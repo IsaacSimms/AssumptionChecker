@@ -199,33 +199,44 @@
                     <TextBlock Text="⚙  Settings" FontSize="24" FontWeight="SemiBold"
                                Foreground="{StaticResource TextPrimary}" Margin="0,0,0,24"/>
 
-                    <!-- API Key -->
-                    <TextBlock Text="OpenAI API Key" Foreground="{StaticResource TextSecondary}"
+                    <!-- Anthropic API Key -->
+                    <TextBlock Text="Anthropic API Key" Foreground="{StaticResource TextSecondary}"
                                FontSize="13" Margin="0,0,0,6"/>
-                    <TextBox x:Name="ApiKeyBox"
-                             Text="{Binding MaskedApiKey, Mode=OneWay}"
+                    <TextBox x:Name="AnthropicKeyBox"
+                             Text="{Binding MaskedAnthropicApiKey, Mode=OneWay}"
                              FontFamily="Consolas"
                              Style="{StaticResource SettingsTextBoxStyle}"
                              Margin="0,0,0,6"
-                             GotFocus="ApiKeyBox_GotFocus"
-                             LostFocus="ApiKeyBox_LostFocus"/>
+                             GotFocus="AnthropicKeyBox_GotFocus"
+                             LostFocus="AnthropicKeyBox_LostFocus"/>
                     <TextBlock Text="Stored securely with Windows DPAPI encryption."
                                Foreground="{StaticResource TextSecondary}"
-                               FontSize="11" FontStyle="Italic" Margin="0,0,0,4"/>
-                    <TextBlock Text="Restart is required after changing API key"
+                               FontSize="11" FontStyle="Italic" Margin="0,0,0,20"/>
+
+                    <!-- OpenAI API Key -->
+                    <TextBlock Text="OpenAI API Key" Foreground="{StaticResource TextSecondary}"
+                               FontSize="13" Margin="0,0,0,6"/>
+                    <TextBox x:Name="OpenAiKeyBox"
+                             Text="{Binding MaskedOpenAiApiKey, Mode=OneWay}"
+                             FontFamily="Consolas"
+                             Style="{StaticResource SettingsTextBoxStyle}"
+                             Margin="0,0,0,6"
+                             GotFocus="OpenAiKeyBox_GotFocus"
+                             LostFocus="OpenAiKeyBox_LostFocus"/>
+                    <TextBlock Text="Stored securely with Windows DPAPI encryption."
                                Foreground="{StaticResource TextSecondary}"
                                FontSize="11" FontStyle="Italic" Margin="0,0,0,20"/>
 
                     <!-- Model Selection -->
-                    <TextBlock Text="OpenAI Model Selection" Foreground="{StaticResource TextSecondary}"
+                    <TextBlock Text="Model Selection" Foreground="{StaticResource TextSecondary}"
                                FontSize="13" Margin="0,0,0,6"/>
                     <ComboBox ItemsSource="{Binding AvailableModels}"
-                              SelectedItem="{Binding OpenAiModel}"
+                              SelectedItem="{Binding Model}"
                               FontSize="13" 
                               Margin="0,0,0,6"
                               HorizontalAlignment="Left"
                               MinWidth="200"/>
-                    <TextBlock Text="Select which OpenAI model you would like to use."
+                    <TextBlock Text="Select which LLM model you would like to use."
                                Foreground="{StaticResource TextSecondary}"
                                FontSize="11" FontStyle="Italic" Margin="0,0,0,20"/>
 

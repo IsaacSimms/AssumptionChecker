@@ -28,7 +28,7 @@ namespace AssumptionChecker.Core
         }
 
         // == implements AnalyzeResponse method that connects to AssumptionChecker API== //
-        public async Task<AnalyzeResponse> AnalyzeAsync(string prompt, int maxAssumptions, string model = "gpt-4o-mini", List<FileContext>? fileContexts = null, CancellationToken cancellationToken = default)
+        public async Task<AnalyzeResponse> AnalyzeAsync(string prompt, int maxAssumptions, string model = "claude-haiku-4-5", List<FileContext>? fileContexts = null, CancellationToken cancellationToken = default)
         {
             var request = new AnalyzeRequest
             {

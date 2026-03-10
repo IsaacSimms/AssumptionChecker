@@ -6,10 +6,10 @@ namespace AssumptionChecker.Tests
     public class AnalyzeRequestTests
     {
         [Fact]
-        public void DefaultModelIsGpt4omini()
+        public void DefaultModelIsClaudeHaiku()
         {
             var request = new AnalyzeRequest { Prompt = "test prompt" };
-            Assert.Equal("gpt-4o-mini", request.Model);
+            Assert.Equal("claude-haiku-4-5", request.Model);
         }
 
         [Fact]

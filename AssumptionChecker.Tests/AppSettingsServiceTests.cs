@@ -25,7 +25,7 @@ namespace AssumptionChecker.Tests
         public void Dispose() => Directory.Delete(_tempDir, recursive: true);
 
         [Fact]
-        public void SaveAndLoadPreserveOpenAiModel()
+        public void SaveAndLoadPreserveModel()
         {
             // Arrange
             var json = """
@@ -36,19 +36,19 @@ namespace AssumptionChecker.Tests
                 }
                 """;
             File.WriteAllText(_tempFile, json);
-            
+
             // act
             var loaded = System.Text.Json.JsonSerializer.Deserialize<AppSettings>(File.ReadAllText(_tempFile)); 
 
             // assert
             Assert.NotNull(loaded);
-            Assert.Equal("gpt-4.1", loaded.OpenAiModel);
+            Assert.Equal("gpt-4.1", loaded.Model);
         }
 
         
-        // == tests to ensure that 40mini is default when config is missing or untouched == //
+        // == tests to ensure that claude-haiku-4-5 is default when config is missing or untouched == //
         [Fact]
-        public void MissingOpenAiModelDefaultsTogpt4omini()
+        public void MissingModelDefaultsToClaudeHaiku()
         {
             // arrange
             var json = """
@@ -64,7 +64,7 @@ namespace AssumptionChecker.Tests
 
             // assert
             Assert.NotNull(loaded);
-            Assert.Equal("gpt-4o-mini", loaded.OpenAiModel);
+            Assert.Equal("claude-haiku-4-5", loaded.Model);
         }
 
     }

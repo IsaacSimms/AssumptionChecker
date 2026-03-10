@@ -28,7 +28,7 @@ namespace AssumptionChecker.Tests
             var mockSettings = new Mock<IAppSettingsService>();
             mockSettings.Setup(s => s.Load()).Returns(new AppSettings
             {
-                OpenAiModel    = savedModel,
+                Model          = savedModel,
                 MaxAssumptions = 5
             });
 
@@ -49,7 +49,8 @@ namespace AssumptionChecker.Tests
                 });
             var settingsVm = new SettingsViewModel(
                 new Mock<ISecureSettingsManager>().Object,
-                mockSettings.Object);
+                mockSettings.Object,
+                "http://localhost:5046");
 
             var vm = new MainViewModel(mockService.Object, mockSettings.Object, settingsVm);
         }

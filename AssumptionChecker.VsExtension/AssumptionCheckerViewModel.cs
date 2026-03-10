@@ -33,7 +33,7 @@ namespace AssumptionChecker.VsExtension
         private readonly ISecureSettingsManager _secureSettings = new WindowsSecureSettingsManager();
         private string _promptText       = string.Empty;
         private string _resultText       = string.Empty;
-        private string _selectedModel    = "gpt-4o-mini";
+        private string _selectedModel    = "claude-haiku-4-5";
         private Visibility _isAnalyzing  = Visibility.Collapsed;
         private bool _canAnalyze         = true;
 

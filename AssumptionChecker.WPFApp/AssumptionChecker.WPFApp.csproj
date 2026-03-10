@@ -21,4 +21,17 @@
     <ProjectReference Include="..\AssumptionChecker.Core\AssumptionChecker.Core.csproj" />
   </ItemGroup>
 
+  <!-- == Copy Engine output into WPFApp bin so EnsureEngineRunning can find it == -->
+  <Target Name="CopyEngine" AfterTargets="Build">
+    <MSBuild Projects="..\AssumptionChecker.Engine\AssumptionChecker.Engine.csproj"
+             Targets="Build"
+             Properties="Configuration=$(Configuration)" />
+    <ItemGroup>
+      <EngineFiles Include="..\AssumptionChecker.Engine\bin\$(Configuration)\net8.0\**\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(EngineFiles)"
+          DestinationFolder="$(OutputPath)Engine\%(RecursiveDir)"
+          SkipUnchangedFiles="true" />
+  </Target>
+
 </Project>

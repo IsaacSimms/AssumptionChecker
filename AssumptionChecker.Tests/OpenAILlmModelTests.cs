@@ -5,7 +5,7 @@ namespace AssumptionChecker.Tests
 {
     public class OpenAILlmModelTests
     {
-        // == mirror fallback logic that occurs in OpenAILlmClient.AnalyzeAsync == //
+        // == mirror fallback logic that occurs in OpenAILlmClient.AnalyzeAsync (OpenAI-specific) == //
         private static string ResolveModel(string? input)
             => string.IsNullOrWhiteSpace(input) ? "gpt-4o-mini" : input;
 

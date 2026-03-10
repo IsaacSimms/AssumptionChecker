@@ -44,7 +44,7 @@ namespace AssumptionChecker.WPFApp
             var checkerService = provider.GetRequiredService<IAssumptionCheckerService>();
             var secureSettings = provider.GetRequiredService<ISecureSettingsManager>();
 
-            var settingsVm = new SettingsViewModel(secureSettings, appSettingsService);
+            var settingsVm = new SettingsViewModel(secureSettings, appSettingsService, EngineUrl);
             var mainVm     = new MainViewModel(checkerService, appSettingsService, settingsVm);
 
             new MainWindow(mainVm).Show();

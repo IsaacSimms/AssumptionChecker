@@ -34,20 +34,34 @@ namespace AssumptionChecker.WPFApp
             }
         }
 
-        // == clear field when focused. This prevent the raw key from ever being viewed by the user == //
-        private void ApiKeyBox_GotFocus(object sender, RoutedEventArgs e)
+        // == Anthropic key: clear on focus, update on blur == //
+        private void AnthropicKeyBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            ApiKeyBox.Text = string.Empty;
+            AnthropicKeyBox.Text = string.Empty;
         }
 
-        // == save API key only when new one is entered. Maintains blur == //
-        private void ApiKeyBox_LostFocus(object sender, RoutedEventArgs e)
+        private void AnthropicKeyBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            var newKey = ApiKeyBox.Text.Trim();
-            if (!string.IsNullOrWhiteSpace(newKey)) _viewModel.Settings.ApiKey = newKey;
+            var newKey = AnthropicKeyBox.Text.Trim();
+            if (!string.IsNullOrWhiteSpace(newKey)) _viewModel.Settings.AnthropicApiKey = newKey;
 
-            BindingOperations.ClearBinding(ApiKeyBox, System.Windows.Controls.TextBox.TextProperty);
-            ApiKeyBox.Text = _viewModel.Settings.MaskedApiKey;
+            BindingOperations.ClearBinding(AnthropicKeyBox, System.Windows.Controls.TextBox.TextProperty);
+            AnthropicKeyBox.Text = _viewModel.Settings.MaskedAnthropicApiKey;
+        }
+
+        // == OpenAI key: clear on focus, update on blur == //
+        private void OpenAiKeyBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            OpenAiKeyBox.Text = string.Empty;
+        }
+
+        private void OpenAiKeyBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            var newKey = OpenAiKeyBox.Text.Trim();
+            if (!string.IsNullOrWhiteSpace(newKey)) _viewModel.Settings.OpenAiApiKey = newKey;
+
+            BindingOperations.ClearBinding(OpenAiKeyBox, System.Windows.Controls.TextBox.TextProperty);
+            OpenAiKeyBox.Text = _viewModel.Settings.MaskedOpenAiApiKey;
         }
     }
 }
