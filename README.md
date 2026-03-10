@@ -38,7 +38,7 @@ The engine auto-starts when VS loads. A **`LlmClientRouter`** inspects the model
 
 | Requirement | Details |
 |---|---|
-| **Visual Studio 2022** | v17.x — Community, Pro, or Enterprise |
+| **Visual Studio 2022 or 2026** | v17.x — Community, Pro, or Enterprise |
 | **.NET 8 SDK** | [dotnet.microsoft.com/download/dotnet/8.0](https://dotnet.microsoft.com/download/dotnet/8.0) |
 | **API Key** | At least one: [OpenAI](https://platform.openai.com/api-keys) and/or [Anthropic](https://console.anthropic.com/settings/keys) |
 | **Windows** | Required — API keys are stored with Windows DPAPI |
