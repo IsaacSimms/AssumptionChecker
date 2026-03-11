@@ -1,0 +1,1959 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Fragment>
+    <DirectoryRef Id="INSTALLFOLDER">
+      <Component Id="cmp_wpf_Accessibility_dll" Guid="*">
+        <File Id="fil_wpf_Accessibility_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\Accessibility.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_AssumptionChecker_Contracts_dll" Guid="*">
+        <File Id="fil_wpf_AssumptionChecker_Contracts_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\AssumptionChecker.Contracts.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_AssumptionChecker_Contracts_pdb" Guid="*">
+        <File Id="fil_wpf_AssumptionChecker_Contracts_pdb" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\AssumptionChecker.Contracts.pdb" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_AssumptionChecker_Core_dll" Guid="*">
+        <File Id="fil_wpf_AssumptionChecker_Core_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\AssumptionChecker.Core.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_AssumptionChecker_Core_pdb" Guid="*">
+        <File Id="fil_wpf_AssumptionChecker_Core_pdb" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\AssumptionChecker.Core.pdb" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_AssumptionChecker_WPFApp_deps_json" Guid="*">
+        <File Id="fil_wpf_AssumptionChecker_WPFApp_deps_json" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\AssumptionChecker.WPFApp.deps.json" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_AssumptionChecker_WPFApp_dll" Guid="*">
+        <File Id="fil_wpf_AssumptionChecker_WPFApp_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\AssumptionChecker.WPFApp.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_AssumptionChecker_WPFApp_exe" Guid="*">
+        <File Id="fil_wpf_AssumptionChecker_WPFApp_exe" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\AssumptionChecker.WPFApp.exe" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_AssumptionChecker_WPFApp_pdb" Guid="*">
+        <File Id="fil_wpf_AssumptionChecker_WPFApp_pdb" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\AssumptionChecker.WPFApp.pdb" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_AssumptionChecker_WPFApp_runtimeconfig_json" Guid="*">
+        <File Id="fil_wpf_AssumptionChecker_WPFApp_runtimeconfig_json" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\AssumptionChecker.WPFApp.runtimeconfig.json" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_clretwrc_dll" Guid="*">
+        <File Id="fil_wpf_clretwrc_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\clretwrc.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_clrgc_dll" Guid="*">
+        <File Id="fil_wpf_clrgc_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\clrgc.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_clrjit_dll" Guid="*">
+        <File Id="fil_wpf_clrjit_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\clrjit.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_coreclr_dll" Guid="*">
+        <File Id="fil_wpf_coreclr_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\coreclr.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_createdump_exe" Guid="*">
+        <File Id="fil_wpf_createdump_exe" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\createdump.exe" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_D3DCompiler_47_cor3_dll" Guid="*">
+        <File Id="fil_wpf_D3DCompiler_47_cor3_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\D3DCompiler_47_cor3.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_DirectWriteForwarder_dll" Guid="*">
+        <File Id="fil_wpf_DirectWriteForwarder_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\DirectWriteForwarder.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_hostfxr_dll" Guid="*">
+        <File Id="fil_wpf_hostfxr_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\hostfxr.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_hostpolicy_dll" Guid="*">
+        <File Id="fil_wpf_hostpolicy_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\hostpolicy.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_Microsoft_CSharp_dll" Guid="*">
+        <File Id="fil_wpf_Microsoft_CSharp_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\Microsoft.CSharp.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_Microsoft_DiaSymReader_Native_amd64_dll" Guid="*">
+        <File Id="fil_wpf_Microsoft_DiaSymReader_Native_amd64_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\Microsoft.DiaSymReader.Native.amd64.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_Microsoft_Extensions_Configuration_Abstractions_dll" Guid="*">
+        <File Id="fil_wpf_Microsoft_Extensions_Configuration_Abstractions_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\Microsoft.Extensions.Configuration.Abstractions.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_Microsoft_Extensions_Configuration_Binder_dll" Guid="*">
+        <File Id="fil_wpf_Microsoft_Extensions_Configuration_Binder_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\Microsoft.Extensions.Configuration.Binder.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_Microsoft_Extensions_Configuration_dll" Guid="*">
+        <File Id="fil_wpf_Microsoft_Extensions_Configuration_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\Microsoft.Extensions.Configuration.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_Microsoft_Extensions_DependencyInjection_Abstractions_dll" Guid="*">
+        <File Id="fil_wpf_Microsoft_Extensions_DependencyInjection_Abstractions_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\Microsoft.Extensions.DependencyInjection.Abstractions.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_Microsoft_Extensions_DependencyInjection_dll" Guid="*">
+        <File Id="fil_wpf_Microsoft_Extensions_DependencyInjection_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\Microsoft.Extensions.DependencyInjection.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_Microsoft_Extensions_Diagnostics_Abstractions_dll" Guid="*">
+        <File Id="fil_wpf_Microsoft_Extensions_Diagnostics_Abstractions_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\Microsoft.Extensions.Diagnostics.Abstractions.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_Microsoft_Extensions_Diagnostics_dll" Guid="*">
+        <File Id="fil_wpf_Microsoft_Extensions_Diagnostics_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\Microsoft.Extensions.Diagnostics.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_Microsoft_Extensions_Http_dll" Guid="*">
+        <File Id="fil_wpf_Microsoft_Extensions_Http_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\Microsoft.Extensions.Http.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_Microsoft_Extensions_Logging_Abstractions_dll" Guid="*">
+        <File Id="fil_wpf_Microsoft_Extensions_Logging_Abstractions_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\Microsoft.Extensions.Logging.Abstractions.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_Microsoft_Extensions_Logging_dll" Guid="*">
+        <File Id="fil_wpf_Microsoft_Extensions_Logging_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\Microsoft.Extensions.Logging.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_Microsoft_Extensions_Options_ConfigurationExtensions_dll" Guid="*">
+        <File Id="fil_wpf_Microsoft_Extensions_Options_ConfigurationExtensions_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\Microsoft.Extensions.Options.ConfigurationExtensions.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_Microsoft_Extensions_Options_dll" Guid="*">
+        <File Id="fil_wpf_Microsoft_Extensions_Options_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\Microsoft.Extensions.Options.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_Microsoft_Extensions_Primitives_dll" Guid="*">
+        <File Id="fil_wpf_Microsoft_Extensions_Primitives_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\Microsoft.Extensions.Primitives.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_Microsoft_VisualBasic_Core_dll" Guid="*">
+        <File Id="fil_wpf_Microsoft_VisualBasic_Core_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\Microsoft.VisualBasic.Core.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_Microsoft_VisualBasic_dll" Guid="*">
+        <File Id="fil_wpf_Microsoft_VisualBasic_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\Microsoft.VisualBasic.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_Microsoft_VisualBasic_Forms_dll" Guid="*">
+        <File Id="fil_wpf_Microsoft_VisualBasic_Forms_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\Microsoft.VisualBasic.Forms.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_Microsoft_Win32_Primitives_dll" Guid="*">
+        <File Id="fil_wpf_Microsoft_Win32_Primitives_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\Microsoft.Win32.Primitives.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_Microsoft_Win32_Registry_AccessControl_dll" Guid="*">
+        <File Id="fil_wpf_Microsoft_Win32_Registry_AccessControl_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\Microsoft.Win32.Registry.AccessControl.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_Microsoft_Win32_Registry_dll" Guid="*">
+        <File Id="fil_wpf_Microsoft_Win32_Registry_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\Microsoft.Win32.Registry.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_Microsoft_Win32_SystemEvents_dll" Guid="*">
+        <File Id="fil_wpf_Microsoft_Win32_SystemEvents_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\Microsoft.Win32.SystemEvents.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_mscordaccore_dll" Guid="*">
+        <File Id="fil_wpf_mscordaccore_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\mscordaccore.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_mscordaccore_amd64_amd64_8_0_2426_7010_dll" Guid="*">
+        <File Id="fil_wpf_mscordaccore_amd64_amd64_8_0_2426_7010_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\mscordaccore_amd64_amd64_8.0.2426.7010.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_mscordbi_dll" Guid="*">
+        <File Id="fil_wpf_mscordbi_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\mscordbi.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_mscorlib_dll" Guid="*">
+        <File Id="fil_wpf_mscorlib_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\mscorlib.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_mscorrc_dll" Guid="*">
+        <File Id="fil_wpf_mscorrc_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\mscorrc.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_msquic_dll" Guid="*">
+        <File Id="fil_wpf_msquic_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\msquic.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_netstandard_dll" Guid="*">
+        <File Id="fil_wpf_netstandard_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\netstandard.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_PenImc_cor3_dll" Guid="*">
+        <File Id="fil_wpf_PenImc_cor3_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\PenImc_cor3.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_PresentationCore_dll" Guid="*">
+        <File Id="fil_wpf_PresentationCore_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\PresentationCore.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_PresentationFramework_SystemCore_dll" Guid="*">
+        <File Id="fil_wpf_PresentationFramework_SystemCore_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\PresentationFramework-SystemCore.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_PresentationFramework_SystemData_dll" Guid="*">
+        <File Id="fil_wpf_PresentationFramework_SystemData_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\PresentationFramework-SystemData.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_PresentationFramework_SystemDrawing_dll" Guid="*">
+        <File Id="fil_wpf_PresentationFramework_SystemDrawing_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\PresentationFramework-SystemDrawing.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_PresentationFramework_SystemXml_dll" Guid="*">
+        <File Id="fil_wpf_PresentationFramework_SystemXml_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\PresentationFramework-SystemXml.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_PresentationFramework_SystemXmlLinq_dll" Guid="*">
+        <File Id="fil_wpf_PresentationFramework_SystemXmlLinq_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\PresentationFramework-SystemXmlLinq.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_PresentationFramework_Aero_dll" Guid="*">
+        <File Id="fil_wpf_PresentationFramework_Aero_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\PresentationFramework.Aero.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_PresentationFramework_Aero2_dll" Guid="*">
+        <File Id="fil_wpf_PresentationFramework_Aero2_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\PresentationFramework.Aero2.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_PresentationFramework_AeroLite_dll" Guid="*">
+        <File Id="fil_wpf_PresentationFramework_AeroLite_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\PresentationFramework.AeroLite.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_PresentationFramework_Classic_dll" Guid="*">
+        <File Id="fil_wpf_PresentationFramework_Classic_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\PresentationFramework.Classic.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_PresentationFramework_dll" Guid="*">
+        <File Id="fil_wpf_PresentationFramework_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\PresentationFramework.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_PresentationFramework_Luna_dll" Guid="*">
+        <File Id="fil_wpf_PresentationFramework_Luna_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\PresentationFramework.Luna.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_PresentationFramework_Royale_dll" Guid="*">
+        <File Id="fil_wpf_PresentationFramework_Royale_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\PresentationFramework.Royale.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_PresentationNative_cor3_dll" Guid="*">
+        <File Id="fil_wpf_PresentationNative_cor3_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\PresentationNative_cor3.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_PresentationUI_dll" Guid="*">
+        <File Id="fil_wpf_PresentationUI_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\PresentationUI.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_ReachFramework_dll" Guid="*">
+        <File Id="fil_wpf_ReachFramework_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ReachFramework.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_AppContext_dll" Guid="*">
+        <File Id="fil_wpf_System_AppContext_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.AppContext.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Buffers_dll" Guid="*">
+        <File Id="fil_wpf_System_Buffers_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Buffers.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_CodeDom_dll" Guid="*">
+        <File Id="fil_wpf_System_CodeDom_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.CodeDom.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Collections_Concurrent_dll" Guid="*">
+        <File Id="fil_wpf_System_Collections_Concurrent_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Collections.Concurrent.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Collections_dll" Guid="*">
+        <File Id="fil_wpf_System_Collections_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Collections.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Collections_Immutable_dll" Guid="*">
+        <File Id="fil_wpf_System_Collections_Immutable_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Collections.Immutable.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Collections_NonGeneric_dll" Guid="*">
+        <File Id="fil_wpf_System_Collections_NonGeneric_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Collections.NonGeneric.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Collections_Specialized_dll" Guid="*">
+        <File Id="fil_wpf_System_Collections_Specialized_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Collections.Specialized.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_ComponentModel_Annotations_dll" Guid="*">
+        <File Id="fil_wpf_System_ComponentModel_Annotations_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.ComponentModel.Annotations.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_ComponentModel_DataAnnotations_dll" Guid="*">
+        <File Id="fil_wpf_System_ComponentModel_DataAnnotations_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.ComponentModel.DataAnnotations.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_ComponentModel_dll" Guid="*">
+        <File Id="fil_wpf_System_ComponentModel_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.ComponentModel.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_ComponentModel_EventBasedAsync_dll" Guid="*">
+        <File Id="fil_wpf_System_ComponentModel_EventBasedAsync_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.ComponentModel.EventBasedAsync.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_ComponentModel_Primitives_dll" Guid="*">
+        <File Id="fil_wpf_System_ComponentModel_Primitives_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.ComponentModel.Primitives.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_ComponentModel_TypeConverter_dll" Guid="*">
+        <File Id="fil_wpf_System_ComponentModel_TypeConverter_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.ComponentModel.TypeConverter.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Configuration_ConfigurationManager_dll" Guid="*">
+        <File Id="fil_wpf_System_Configuration_ConfigurationManager_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Configuration.ConfigurationManager.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Configuration_dll" Guid="*">
+        <File Id="fil_wpf_System_Configuration_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Configuration.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Console_dll" Guid="*">
+        <File Id="fil_wpf_System_Console_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Console.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Core_dll" Guid="*">
+        <File Id="fil_wpf_System_Core_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Core.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Data_Common_dll" Guid="*">
+        <File Id="fil_wpf_System_Data_Common_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Data.Common.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Data_DataSetExtensions_dll" Guid="*">
+        <File Id="fil_wpf_System_Data_DataSetExtensions_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Data.DataSetExtensions.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Data_dll" Guid="*">
+        <File Id="fil_wpf_System_Data_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Data.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Design_dll" Guid="*">
+        <File Id="fil_wpf_System_Design_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Design.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Diagnostics_Contracts_dll" Guid="*">
+        <File Id="fil_wpf_System_Diagnostics_Contracts_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Diagnostics.Contracts.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Diagnostics_Debug_dll" Guid="*">
+        <File Id="fil_wpf_System_Diagnostics_Debug_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Diagnostics.Debug.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Diagnostics_DiagnosticSource_dll" Guid="*">
+        <File Id="fil_wpf_System_Diagnostics_DiagnosticSource_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Diagnostics.DiagnosticSource.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Diagnostics_EventLog_dll" Guid="*">
+        <File Id="fil_wpf_System_Diagnostics_EventLog_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Diagnostics.EventLog.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Diagnostics_EventLog_Messages_dll" Guid="*">
+        <File Id="fil_wpf_System_Diagnostics_EventLog_Messages_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Diagnostics.EventLog.Messages.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Diagnostics_FileVersionInfo_dll" Guid="*">
+        <File Id="fil_wpf_System_Diagnostics_FileVersionInfo_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Diagnostics.FileVersionInfo.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Diagnostics_PerformanceCounter_dll" Guid="*">
+        <File Id="fil_wpf_System_Diagnostics_PerformanceCounter_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Diagnostics.PerformanceCounter.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Diagnostics_Process_dll" Guid="*">
+        <File Id="fil_wpf_System_Diagnostics_Process_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Diagnostics.Process.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Diagnostics_StackTrace_dll" Guid="*">
+        <File Id="fil_wpf_System_Diagnostics_StackTrace_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Diagnostics.StackTrace.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Diagnostics_TextWriterTraceListener_dll" Guid="*">
+        <File Id="fil_wpf_System_Diagnostics_TextWriterTraceListener_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Diagnostics.TextWriterTraceListener.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Diagnostics_Tools_dll" Guid="*">
+        <File Id="fil_wpf_System_Diagnostics_Tools_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Diagnostics.Tools.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Diagnostics_TraceSource_dll" Guid="*">
+        <File Id="fil_wpf_System_Diagnostics_TraceSource_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Diagnostics.TraceSource.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Diagnostics_Tracing_dll" Guid="*">
+        <File Id="fil_wpf_System_Diagnostics_Tracing_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Diagnostics.Tracing.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_DirectoryServices_dll" Guid="*">
+        <File Id="fil_wpf_System_DirectoryServices_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.DirectoryServices.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_dll" Guid="*">
+        <File Id="fil_wpf_System_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Drawing_Common_dll" Guid="*">
+        <File Id="fil_wpf_System_Drawing_Common_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Drawing.Common.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Drawing_Design_dll" Guid="*">
+        <File Id="fil_wpf_System_Drawing_Design_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Drawing.Design.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Drawing_dll" Guid="*">
+        <File Id="fil_wpf_System_Drawing_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Drawing.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Drawing_Primitives_dll" Guid="*">
+        <File Id="fil_wpf_System_Drawing_Primitives_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Drawing.Primitives.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Dynamic_Runtime_dll" Guid="*">
+        <File Id="fil_wpf_System_Dynamic_Runtime_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Dynamic.Runtime.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Formats_Asn1_dll" Guid="*">
+        <File Id="fil_wpf_System_Formats_Asn1_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Formats.Asn1.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Formats_Tar_dll" Guid="*">
+        <File Id="fil_wpf_System_Formats_Tar_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Formats.Tar.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Globalization_Calendars_dll" Guid="*">
+        <File Id="fil_wpf_System_Globalization_Calendars_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Globalization.Calendars.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Globalization_dll" Guid="*">
+        <File Id="fil_wpf_System_Globalization_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Globalization.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Globalization_Extensions_dll" Guid="*">
+        <File Id="fil_wpf_System_Globalization_Extensions_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Globalization.Extensions.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_IO_Compression_Brotli_dll" Guid="*">
+        <File Id="fil_wpf_System_IO_Compression_Brotli_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.IO.Compression.Brotli.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_IO_Compression_dll" Guid="*">
+        <File Id="fil_wpf_System_IO_Compression_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.IO.Compression.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_IO_Compression_FileSystem_dll" Guid="*">
+        <File Id="fil_wpf_System_IO_Compression_FileSystem_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.IO.Compression.FileSystem.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_IO_Compression_Native_dll" Guid="*">
+        <File Id="fil_wpf_System_IO_Compression_Native_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.IO.Compression.Native.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_IO_Compression_ZipFile_dll" Guid="*">
+        <File Id="fil_wpf_System_IO_Compression_ZipFile_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.IO.Compression.ZipFile.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_IO_dll" Guid="*">
+        <File Id="fil_wpf_System_IO_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.IO.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_IO_FileSystem_AccessControl_dll" Guid="*">
+        <File Id="fil_wpf_System_IO_FileSystem_AccessControl_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.IO.FileSystem.AccessControl.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_IO_FileSystem_dll" Guid="*">
+        <File Id="fil_wpf_System_IO_FileSystem_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.IO.FileSystem.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_IO_FileSystem_DriveInfo_dll" Guid="*">
+        <File Id="fil_wpf_System_IO_FileSystem_DriveInfo_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.IO.FileSystem.DriveInfo.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_IO_FileSystem_Primitives_dll" Guid="*">
+        <File Id="fil_wpf_System_IO_FileSystem_Primitives_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.IO.FileSystem.Primitives.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_IO_FileSystem_Watcher_dll" Guid="*">
+        <File Id="fil_wpf_System_IO_FileSystem_Watcher_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.IO.FileSystem.Watcher.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_IO_IsolatedStorage_dll" Guid="*">
+        <File Id="fil_wpf_System_IO_IsolatedStorage_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.IO.IsolatedStorage.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_IO_MemoryMappedFiles_dll" Guid="*">
+        <File Id="fil_wpf_System_IO_MemoryMappedFiles_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.IO.MemoryMappedFiles.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_IO_Packaging_dll" Guid="*">
+        <File Id="fil_wpf_System_IO_Packaging_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.IO.Packaging.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_IO_Pipes_AccessControl_dll" Guid="*">
+        <File Id="fil_wpf_System_IO_Pipes_AccessControl_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.IO.Pipes.AccessControl.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_IO_Pipes_dll" Guid="*">
+        <File Id="fil_wpf_System_IO_Pipes_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.IO.Pipes.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_IO_UnmanagedMemoryStream_dll" Guid="*">
+        <File Id="fil_wpf_System_IO_UnmanagedMemoryStream_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.IO.UnmanagedMemoryStream.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Linq_dll" Guid="*">
+        <File Id="fil_wpf_System_Linq_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Linq.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Linq_Expressions_dll" Guid="*">
+        <File Id="fil_wpf_System_Linq_Expressions_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Linq.Expressions.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Linq_Parallel_dll" Guid="*">
+        <File Id="fil_wpf_System_Linq_Parallel_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Linq.Parallel.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Linq_Queryable_dll" Guid="*">
+        <File Id="fil_wpf_System_Linq_Queryable_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Linq.Queryable.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Memory_dll" Guid="*">
+        <File Id="fil_wpf_System_Memory_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Memory.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Net_dll" Guid="*">
+        <File Id="fil_wpf_System_Net_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Net.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Net_Http_dll" Guid="*">
+        <File Id="fil_wpf_System_Net_Http_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Net.Http.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Net_Http_Json_dll" Guid="*">
+        <File Id="fil_wpf_System_Net_Http_Json_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Net.Http.Json.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Net_HttpListener_dll" Guid="*">
+        <File Id="fil_wpf_System_Net_HttpListener_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Net.HttpListener.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Net_Mail_dll" Guid="*">
+        <File Id="fil_wpf_System_Net_Mail_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Net.Mail.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Net_NameResolution_dll" Guid="*">
+        <File Id="fil_wpf_System_Net_NameResolution_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Net.NameResolution.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Net_NetworkInformation_dll" Guid="*">
+        <File Id="fil_wpf_System_Net_NetworkInformation_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Net.NetworkInformation.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Net_Ping_dll" Guid="*">
+        <File Id="fil_wpf_System_Net_Ping_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Net.Ping.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Net_Primitives_dll" Guid="*">
+        <File Id="fil_wpf_System_Net_Primitives_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Net.Primitives.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Net_Quic_dll" Guid="*">
+        <File Id="fil_wpf_System_Net_Quic_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Net.Quic.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Net_Requests_dll" Guid="*">
+        <File Id="fil_wpf_System_Net_Requests_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Net.Requests.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Net_Security_dll" Guid="*">
+        <File Id="fil_wpf_System_Net_Security_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Net.Security.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Net_ServicePoint_dll" Guid="*">
+        <File Id="fil_wpf_System_Net_ServicePoint_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Net.ServicePoint.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Net_Sockets_dll" Guid="*">
+        <File Id="fil_wpf_System_Net_Sockets_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Net.Sockets.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Net_WebClient_dll" Guid="*">
+        <File Id="fil_wpf_System_Net_WebClient_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Net.WebClient.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Net_WebHeaderCollection_dll" Guid="*">
+        <File Id="fil_wpf_System_Net_WebHeaderCollection_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Net.WebHeaderCollection.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Net_WebProxy_dll" Guid="*">
+        <File Id="fil_wpf_System_Net_WebProxy_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Net.WebProxy.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Net_WebSockets_Client_dll" Guid="*">
+        <File Id="fil_wpf_System_Net_WebSockets_Client_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Net.WebSockets.Client.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Net_WebSockets_dll" Guid="*">
+        <File Id="fil_wpf_System_Net_WebSockets_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Net.WebSockets.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Numerics_dll" Guid="*">
+        <File Id="fil_wpf_System_Numerics_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Numerics.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Numerics_Vectors_dll" Guid="*">
+        <File Id="fil_wpf_System_Numerics_Vectors_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Numerics.Vectors.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_ObjectModel_dll" Guid="*">
+        <File Id="fil_wpf_System_ObjectModel_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.ObjectModel.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Printing_dll" Guid="*">
+        <File Id="fil_wpf_System_Printing_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Printing.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Private_CoreLib_dll" Guid="*">
+        <File Id="fil_wpf_System_Private_CoreLib_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Private.CoreLib.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Private_DataContractSerialization_dll" Guid="*">
+        <File Id="fil_wpf_System_Private_DataContractSerialization_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Private.DataContractSerialization.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Private_Uri_dll" Guid="*">
+        <File Id="fil_wpf_System_Private_Uri_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Private.Uri.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Private_Xml_dll" Guid="*">
+        <File Id="fil_wpf_System_Private_Xml_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Private.Xml.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Private_Xml_Linq_dll" Guid="*">
+        <File Id="fil_wpf_System_Private_Xml_Linq_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Private.Xml.Linq.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Reflection_DispatchProxy_dll" Guid="*">
+        <File Id="fil_wpf_System_Reflection_DispatchProxy_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Reflection.DispatchProxy.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Reflection_dll" Guid="*">
+        <File Id="fil_wpf_System_Reflection_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Reflection.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Reflection_Emit_dll" Guid="*">
+        <File Id="fil_wpf_System_Reflection_Emit_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Reflection.Emit.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Reflection_Emit_ILGeneration_dll" Guid="*">
+        <File Id="fil_wpf_System_Reflection_Emit_ILGeneration_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Reflection.Emit.ILGeneration.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Reflection_Emit_Lightweight_dll" Guid="*">
+        <File Id="fil_wpf_System_Reflection_Emit_Lightweight_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Reflection.Emit.Lightweight.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Reflection_Extensions_dll" Guid="*">
+        <File Id="fil_wpf_System_Reflection_Extensions_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Reflection.Extensions.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Reflection_Metadata_dll" Guid="*">
+        <File Id="fil_wpf_System_Reflection_Metadata_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Reflection.Metadata.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Reflection_Primitives_dll" Guid="*">
+        <File Id="fil_wpf_System_Reflection_Primitives_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Reflection.Primitives.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Reflection_TypeExtensions_dll" Guid="*">
+        <File Id="fil_wpf_System_Reflection_TypeExtensions_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Reflection.TypeExtensions.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Resources_Extensions_dll" Guid="*">
+        <File Id="fil_wpf_System_Resources_Extensions_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Resources.Extensions.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Resources_Reader_dll" Guid="*">
+        <File Id="fil_wpf_System_Resources_Reader_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Resources.Reader.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Resources_ResourceManager_dll" Guid="*">
+        <File Id="fil_wpf_System_Resources_ResourceManager_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Resources.ResourceManager.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Resources_Writer_dll" Guid="*">
+        <File Id="fil_wpf_System_Resources_Writer_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Resources.Writer.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Runtime_CompilerServices_Unsafe_dll" Guid="*">
+        <File Id="fil_wpf_System_Runtime_CompilerServices_Unsafe_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Runtime.CompilerServices.Unsafe.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Runtime_CompilerServices_VisualC_dll" Guid="*">
+        <File Id="fil_wpf_System_Runtime_CompilerServices_VisualC_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Runtime.CompilerServices.VisualC.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Runtime_dll" Guid="*">
+        <File Id="fil_wpf_System_Runtime_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Runtime.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Runtime_Extensions_dll" Guid="*">
+        <File Id="fil_wpf_System_Runtime_Extensions_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Runtime.Extensions.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Runtime_Handles_dll" Guid="*">
+        <File Id="fil_wpf_System_Runtime_Handles_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Runtime.Handles.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Runtime_InteropServices_dll" Guid="*">
+        <File Id="fil_wpf_System_Runtime_InteropServices_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Runtime.InteropServices.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Runtime_InteropServices_JavaScript_dll" Guid="*">
+        <File Id="fil_wpf_System_Runtime_InteropServices_JavaScript_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Runtime.InteropServices.JavaScript.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Runtime_InteropServices_RuntimeInformation_dll" Guid="*">
+        <File Id="fil_wpf_System_Runtime_InteropServices_RuntimeInformation_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Runtime.InteropServices.RuntimeInformation.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Runtime_Intrinsics_dll" Guid="*">
+        <File Id="fil_wpf_System_Runtime_Intrinsics_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Runtime.Intrinsics.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Runtime_Loader_dll" Guid="*">
+        <File Id="fil_wpf_System_Runtime_Loader_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Runtime.Loader.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Runtime_Numerics_dll" Guid="*">
+        <File Id="fil_wpf_System_Runtime_Numerics_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Runtime.Numerics.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Runtime_Serialization_dll" Guid="*">
+        <File Id="fil_wpf_System_Runtime_Serialization_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Runtime.Serialization.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Runtime_Serialization_Formatters_dll" Guid="*">
+        <File Id="fil_wpf_System_Runtime_Serialization_Formatters_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Runtime.Serialization.Formatters.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Runtime_Serialization_Json_dll" Guid="*">
+        <File Id="fil_wpf_System_Runtime_Serialization_Json_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Runtime.Serialization.Json.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Runtime_Serialization_Primitives_dll" Guid="*">
+        <File Id="fil_wpf_System_Runtime_Serialization_Primitives_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Runtime.Serialization.Primitives.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Runtime_Serialization_Xml_dll" Guid="*">
+        <File Id="fil_wpf_System_Runtime_Serialization_Xml_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Runtime.Serialization.Xml.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Security_AccessControl_dll" Guid="*">
+        <File Id="fil_wpf_System_Security_AccessControl_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Security.AccessControl.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Security_Claims_dll" Guid="*">
+        <File Id="fil_wpf_System_Security_Claims_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Security.Claims.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Security_Cryptography_Algorithms_dll" Guid="*">
+        <File Id="fil_wpf_System_Security_Cryptography_Algorithms_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Security.Cryptography.Algorithms.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Security_Cryptography_Cng_dll" Guid="*">
+        <File Id="fil_wpf_System_Security_Cryptography_Cng_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Security.Cryptography.Cng.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Security_Cryptography_Csp_dll" Guid="*">
+        <File Id="fil_wpf_System_Security_Cryptography_Csp_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Security.Cryptography.Csp.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Security_Cryptography_dll" Guid="*">
+        <File Id="fil_wpf_System_Security_Cryptography_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Security.Cryptography.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Security_Cryptography_Encoding_dll" Guid="*">
+        <File Id="fil_wpf_System_Security_Cryptography_Encoding_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Security.Cryptography.Encoding.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Security_Cryptography_OpenSsl_dll" Guid="*">
+        <File Id="fil_wpf_System_Security_Cryptography_OpenSsl_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Security.Cryptography.OpenSsl.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Security_Cryptography_Pkcs_dll" Guid="*">
+        <File Id="fil_wpf_System_Security_Cryptography_Pkcs_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Security.Cryptography.Pkcs.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Security_Cryptography_Primitives_dll" Guid="*">
+        <File Id="fil_wpf_System_Security_Cryptography_Primitives_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Security.Cryptography.Primitives.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Security_Cryptography_ProtectedData_dll" Guid="*">
+        <File Id="fil_wpf_System_Security_Cryptography_ProtectedData_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Security.Cryptography.ProtectedData.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Security_Cryptography_X509Certificates_dll" Guid="*">
+        <File Id="fil_wpf_System_Security_Cryptography_X509Certificates_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Security.Cryptography.X509Certificates.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Security_Cryptography_Xml_dll" Guid="*">
+        <File Id="fil_wpf_System_Security_Cryptography_Xml_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Security.Cryptography.Xml.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Security_dll" Guid="*">
+        <File Id="fil_wpf_System_Security_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Security.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Security_Permissions_dll" Guid="*">
+        <File Id="fil_wpf_System_Security_Permissions_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Security.Permissions.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Security_Principal_dll" Guid="*">
+        <File Id="fil_wpf_System_Security_Principal_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Security.Principal.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Security_Principal_Windows_dll" Guid="*">
+        <File Id="fil_wpf_System_Security_Principal_Windows_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Security.Principal.Windows.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Security_SecureString_dll" Guid="*">
+        <File Id="fil_wpf_System_Security_SecureString_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Security.SecureString.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_ServiceModel_Web_dll" Guid="*">
+        <File Id="fil_wpf_System_ServiceModel_Web_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.ServiceModel.Web.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_ServiceProcess_dll" Guid="*">
+        <File Id="fil_wpf_System_ServiceProcess_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.ServiceProcess.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Text_Encoding_CodePages_dll" Guid="*">
+        <File Id="fil_wpf_System_Text_Encoding_CodePages_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Text.Encoding.CodePages.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Text_Encoding_dll" Guid="*">
+        <File Id="fil_wpf_System_Text_Encoding_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Text.Encoding.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Text_Encoding_Extensions_dll" Guid="*">
+        <File Id="fil_wpf_System_Text_Encoding_Extensions_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Text.Encoding.Extensions.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Text_Encodings_Web_dll" Guid="*">
+        <File Id="fil_wpf_System_Text_Encodings_Web_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Text.Encodings.Web.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Text_Json_dll" Guid="*">
+        <File Id="fil_wpf_System_Text_Json_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Text.Json.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Text_RegularExpressions_dll" Guid="*">
+        <File Id="fil_wpf_System_Text_RegularExpressions_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Text.RegularExpressions.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Threading_AccessControl_dll" Guid="*">
+        <File Id="fil_wpf_System_Threading_AccessControl_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Threading.AccessControl.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Threading_Channels_dll" Guid="*">
+        <File Id="fil_wpf_System_Threading_Channels_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Threading.Channels.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Threading_dll" Guid="*">
+        <File Id="fil_wpf_System_Threading_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Threading.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Threading_Overlapped_dll" Guid="*">
+        <File Id="fil_wpf_System_Threading_Overlapped_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Threading.Overlapped.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Threading_Tasks_Dataflow_dll" Guid="*">
+        <File Id="fil_wpf_System_Threading_Tasks_Dataflow_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Threading.Tasks.Dataflow.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Threading_Tasks_dll" Guid="*">
+        <File Id="fil_wpf_System_Threading_Tasks_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Threading.Tasks.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Threading_Tasks_Extensions_dll" Guid="*">
+        <File Id="fil_wpf_System_Threading_Tasks_Extensions_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Threading.Tasks.Extensions.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Threading_Tasks_Parallel_dll" Guid="*">
+        <File Id="fil_wpf_System_Threading_Tasks_Parallel_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Threading.Tasks.Parallel.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Threading_Thread_dll" Guid="*">
+        <File Id="fil_wpf_System_Threading_Thread_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Threading.Thread.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Threading_ThreadPool_dll" Guid="*">
+        <File Id="fil_wpf_System_Threading_ThreadPool_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Threading.ThreadPool.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Threading_Timer_dll" Guid="*">
+        <File Id="fil_wpf_System_Threading_Timer_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Threading.Timer.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Transactions_dll" Guid="*">
+        <File Id="fil_wpf_System_Transactions_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Transactions.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Transactions_Local_dll" Guid="*">
+        <File Id="fil_wpf_System_Transactions_Local_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Transactions.Local.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_ValueTuple_dll" Guid="*">
+        <File Id="fil_wpf_System_ValueTuple_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.ValueTuple.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Web_dll" Guid="*">
+        <File Id="fil_wpf_System_Web_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Web.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Web_HttpUtility_dll" Guid="*">
+        <File Id="fil_wpf_System_Web_HttpUtility_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Web.HttpUtility.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Windows_Controls_Ribbon_dll" Guid="*">
+        <File Id="fil_wpf_System_Windows_Controls_Ribbon_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Windows.Controls.Ribbon.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Windows_dll" Guid="*">
+        <File Id="fil_wpf_System_Windows_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Windows.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Windows_Extensions_dll" Guid="*">
+        <File Id="fil_wpf_System_Windows_Extensions_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Windows.Extensions.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Windows_Forms_Design_dll" Guid="*">
+        <File Id="fil_wpf_System_Windows_Forms_Design_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Windows.Forms.Design.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Windows_Forms_Design_Editors_dll" Guid="*">
+        <File Id="fil_wpf_System_Windows_Forms_Design_Editors_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Windows.Forms.Design.Editors.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Windows_Forms_dll" Guid="*">
+        <File Id="fil_wpf_System_Windows_Forms_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Windows.Forms.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Windows_Forms_Primitives_dll" Guid="*">
+        <File Id="fil_wpf_System_Windows_Forms_Primitives_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Windows.Forms.Primitives.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Windows_Input_Manipulations_dll" Guid="*">
+        <File Id="fil_wpf_System_Windows_Input_Manipulations_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Windows.Input.Manipulations.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Windows_Presentation_dll" Guid="*">
+        <File Id="fil_wpf_System_Windows_Presentation_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Windows.Presentation.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Xaml_dll" Guid="*">
+        <File Id="fil_wpf_System_Xaml_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Xaml.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Xml_dll" Guid="*">
+        <File Id="fil_wpf_System_Xml_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Xml.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Xml_Linq_dll" Guid="*">
+        <File Id="fil_wpf_System_Xml_Linq_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Xml.Linq.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Xml_ReaderWriter_dll" Guid="*">
+        <File Id="fil_wpf_System_Xml_ReaderWriter_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Xml.ReaderWriter.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Xml_Serialization_dll" Guid="*">
+        <File Id="fil_wpf_System_Xml_Serialization_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Xml.Serialization.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Xml_XDocument_dll" Guid="*">
+        <File Id="fil_wpf_System_Xml_XDocument_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Xml.XDocument.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Xml_XmlDocument_dll" Guid="*">
+        <File Id="fil_wpf_System_Xml_XmlDocument_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Xml.XmlDocument.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Xml_XmlSerializer_dll" Guid="*">
+        <File Id="fil_wpf_System_Xml_XmlSerializer_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Xml.XmlSerializer.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Xml_XPath_dll" Guid="*">
+        <File Id="fil_wpf_System_Xml_XPath_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Xml.XPath.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_System_Xml_XPath_XDocument_dll" Guid="*">
+        <File Id="fil_wpf_System_Xml_XPath_XDocument_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\System.Xml.XPath.XDocument.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_UIAutomationClient_dll" Guid="*">
+        <File Id="fil_wpf_UIAutomationClient_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\UIAutomationClient.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_UIAutomationClientSideProviders_dll" Guid="*">
+        <File Id="fil_wpf_UIAutomationClientSideProviders_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\UIAutomationClientSideProviders.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_UIAutomationProvider_dll" Guid="*">
+        <File Id="fil_wpf_UIAutomationProvider_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\UIAutomationProvider.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_UIAutomationTypes_dll" Guid="*">
+        <File Id="fil_wpf_UIAutomationTypes_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\UIAutomationTypes.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_vcruntime140_cor3_dll" Guid="*">
+        <File Id="fil_wpf_vcruntime140_cor3_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\vcruntime140_cor3.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_WindowsBase_dll" Guid="*">
+        <File Id="fil_wpf_WindowsBase_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\WindowsBase.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_WindowsFormsIntegration_dll" Guid="*">
+        <File Id="fil_wpf_WindowsFormsIntegration_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\WindowsFormsIntegration.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="cmp_wpf_wpfgfx_cor3_dll" Guid="*">
+        <File Id="fil_wpf_wpfgfx_cor3_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\wpfgfx_cor3.dll" KeyPath="yes" />
+      </Component>
+      <Directory Id="d_wpf_cs" Name="cs">
+        <Component Id="cmp_wpf_cs_Microsoft_VisualBasic_Forms_resources_dll" Guid="*">
+          <File Id="fil_wpf_cs_Microsoft_VisualBasic_Forms_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\cs\Microsoft.VisualBasic.Forms.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_cs_PresentationCore_resources_dll" Guid="*">
+          <File Id="fil_wpf_cs_PresentationCore_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\cs\PresentationCore.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_cs_PresentationFramework_resources_dll" Guid="*">
+          <File Id="fil_wpf_cs_PresentationFramework_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\cs\PresentationFramework.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_cs_PresentationUI_resources_dll" Guid="*">
+          <File Id="fil_wpf_cs_PresentationUI_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\cs\PresentationUI.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_cs_ReachFramework_resources_dll" Guid="*">
+          <File Id="fil_wpf_cs_ReachFramework_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\cs\ReachFramework.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_cs_System_Windows_Controls_Ribbon_resources_dll" Guid="*">
+          <File Id="fil_wpf_cs_System_Windows_Controls_Ribbon_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\cs\System.Windows.Controls.Ribbon.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_cs_System_Windows_Forms_Design_resources_dll" Guid="*">
+          <File Id="fil_wpf_cs_System_Windows_Forms_Design_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\cs\System.Windows.Forms.Design.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_cs_System_Windows_Forms_Primitives_resources_dll" Guid="*">
+          <File Id="fil_wpf_cs_System_Windows_Forms_Primitives_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\cs\System.Windows.Forms.Primitives.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_cs_System_Windows_Forms_resources_dll" Guid="*">
+          <File Id="fil_wpf_cs_System_Windows_Forms_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\cs\System.Windows.Forms.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_cs_System_Windows_Input_Manipulations_resources_dll" Guid="*">
+          <File Id="fil_wpf_cs_System_Windows_Input_Manipulations_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\cs\System.Windows.Input.Manipulations.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_cs_System_Xaml_resources_dll" Guid="*">
+          <File Id="fil_wpf_cs_System_Xaml_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\cs\System.Xaml.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_cs_UIAutomationClient_resources_dll" Guid="*">
+          <File Id="fil_wpf_cs_UIAutomationClient_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\cs\UIAutomationClient.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_cs_UIAutomationClientSideProviders_resources_dll" Guid="*">
+          <File Id="fil_wpf_cs_UIAutomationClientSideProviders_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\cs\UIAutomationClientSideProviders.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_cs_UIAutomationProvider_resources_dll" Guid="*">
+          <File Id="fil_wpf_cs_UIAutomationProvider_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\cs\UIAutomationProvider.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_cs_UIAutomationTypes_resources_dll" Guid="*">
+          <File Id="fil_wpf_cs_UIAutomationTypes_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\cs\UIAutomationTypes.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_cs_WindowsBase_resources_dll" Guid="*">
+          <File Id="fil_wpf_cs_WindowsBase_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\cs\WindowsBase.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_cs_WindowsFormsIntegration_resources_dll" Guid="*">
+          <File Id="fil_wpf_cs_WindowsFormsIntegration_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\cs\WindowsFormsIntegration.resources.dll" KeyPath="yes" />
+        </Component>
+      </Directory>
+      <Directory Id="d_wpf_de" Name="de">
+        <Component Id="cmp_wpf_de_Microsoft_VisualBasic_Forms_resources_dll" Guid="*">
+          <File Id="fil_wpf_de_Microsoft_VisualBasic_Forms_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\de\Microsoft.VisualBasic.Forms.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_de_PresentationCore_resources_dll" Guid="*">
+          <File Id="fil_wpf_de_PresentationCore_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\de\PresentationCore.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_de_PresentationFramework_resources_dll" Guid="*">
+          <File Id="fil_wpf_de_PresentationFramework_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\de\PresentationFramework.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_de_PresentationUI_resources_dll" Guid="*">
+          <File Id="fil_wpf_de_PresentationUI_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\de\PresentationUI.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_de_ReachFramework_resources_dll" Guid="*">
+          <File Id="fil_wpf_de_ReachFramework_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\de\ReachFramework.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_de_System_Windows_Controls_Ribbon_resources_dll" Guid="*">
+          <File Id="fil_wpf_de_System_Windows_Controls_Ribbon_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\de\System.Windows.Controls.Ribbon.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_de_System_Windows_Forms_Design_resources_dll" Guid="*">
+          <File Id="fil_wpf_de_System_Windows_Forms_Design_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\de\System.Windows.Forms.Design.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_de_System_Windows_Forms_Primitives_resources_dll" Guid="*">
+          <File Id="fil_wpf_de_System_Windows_Forms_Primitives_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\de\System.Windows.Forms.Primitives.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_de_System_Windows_Forms_resources_dll" Guid="*">
+          <File Id="fil_wpf_de_System_Windows_Forms_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\de\System.Windows.Forms.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_de_System_Windows_Input_Manipulations_resources_dll" Guid="*">
+          <File Id="fil_wpf_de_System_Windows_Input_Manipulations_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\de\System.Windows.Input.Manipulations.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_de_System_Xaml_resources_dll" Guid="*">
+          <File Id="fil_wpf_de_System_Xaml_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\de\System.Xaml.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_de_UIAutomationClient_resources_dll" Guid="*">
+          <File Id="fil_wpf_de_UIAutomationClient_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\de\UIAutomationClient.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_de_UIAutomationClientSideProviders_resources_dll" Guid="*">
+          <File Id="fil_wpf_de_UIAutomationClientSideProviders_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\de\UIAutomationClientSideProviders.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_de_UIAutomationProvider_resources_dll" Guid="*">
+          <File Id="fil_wpf_de_UIAutomationProvider_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\de\UIAutomationProvider.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_de_UIAutomationTypes_resources_dll" Guid="*">
+          <File Id="fil_wpf_de_UIAutomationTypes_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\de\UIAutomationTypes.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_de_WindowsBase_resources_dll" Guid="*">
+          <File Id="fil_wpf_de_WindowsBase_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\de\WindowsBase.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_de_WindowsFormsIntegration_resources_dll" Guid="*">
+          <File Id="fil_wpf_de_WindowsFormsIntegration_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\de\WindowsFormsIntegration.resources.dll" KeyPath="yes" />
+        </Component>
+      </Directory>
+      <Directory Id="d_wpf_es" Name="es">
+        <Component Id="cmp_wpf_es_Microsoft_VisualBasic_Forms_resources_dll" Guid="*">
+          <File Id="fil_wpf_es_Microsoft_VisualBasic_Forms_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\es\Microsoft.VisualBasic.Forms.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_es_PresentationCore_resources_dll" Guid="*">
+          <File Id="fil_wpf_es_PresentationCore_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\es\PresentationCore.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_es_PresentationFramework_resources_dll" Guid="*">
+          <File Id="fil_wpf_es_PresentationFramework_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\es\PresentationFramework.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_es_PresentationUI_resources_dll" Guid="*">
+          <File Id="fil_wpf_es_PresentationUI_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\es\PresentationUI.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_es_ReachFramework_resources_dll" Guid="*">
+          <File Id="fil_wpf_es_ReachFramework_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\es\ReachFramework.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_es_System_Windows_Controls_Ribbon_resources_dll" Guid="*">
+          <File Id="fil_wpf_es_System_Windows_Controls_Ribbon_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\es\System.Windows.Controls.Ribbon.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_es_System_Windows_Forms_Design_resources_dll" Guid="*">
+          <File Id="fil_wpf_es_System_Windows_Forms_Design_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\es\System.Windows.Forms.Design.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_es_System_Windows_Forms_Primitives_resources_dll" Guid="*">
+          <File Id="fil_wpf_es_System_Windows_Forms_Primitives_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\es\System.Windows.Forms.Primitives.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_es_System_Windows_Forms_resources_dll" Guid="*">
+          <File Id="fil_wpf_es_System_Windows_Forms_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\es\System.Windows.Forms.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_es_System_Windows_Input_Manipulations_resources_dll" Guid="*">
+          <File Id="fil_wpf_es_System_Windows_Input_Manipulations_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\es\System.Windows.Input.Manipulations.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_es_System_Xaml_resources_dll" Guid="*">
+          <File Id="fil_wpf_es_System_Xaml_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\es\System.Xaml.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_es_UIAutomationClient_resources_dll" Guid="*">
+          <File Id="fil_wpf_es_UIAutomationClient_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\es\UIAutomationClient.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_es_UIAutomationClientSideProviders_resources_dll" Guid="*">
+          <File Id="fil_wpf_es_UIAutomationClientSideProviders_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\es\UIAutomationClientSideProviders.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_es_UIAutomationProvider_resources_dll" Guid="*">
+          <File Id="fil_wpf_es_UIAutomationProvider_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\es\UIAutomationProvider.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_es_UIAutomationTypes_resources_dll" Guid="*">
+          <File Id="fil_wpf_es_UIAutomationTypes_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\es\UIAutomationTypes.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_es_WindowsBase_resources_dll" Guid="*">
+          <File Id="fil_wpf_es_WindowsBase_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\es\WindowsBase.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_es_WindowsFormsIntegration_resources_dll" Guid="*">
+          <File Id="fil_wpf_es_WindowsFormsIntegration_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\es\WindowsFormsIntegration.resources.dll" KeyPath="yes" />
+        </Component>
+      </Directory>
+      <Directory Id="d_wpf_fr" Name="fr">
+        <Component Id="cmp_wpf_fr_Microsoft_VisualBasic_Forms_resources_dll" Guid="*">
+          <File Id="fil_wpf_fr_Microsoft_VisualBasic_Forms_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\fr\Microsoft.VisualBasic.Forms.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_fr_PresentationCore_resources_dll" Guid="*">
+          <File Id="fil_wpf_fr_PresentationCore_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\fr\PresentationCore.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_fr_PresentationFramework_resources_dll" Guid="*">
+          <File Id="fil_wpf_fr_PresentationFramework_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\fr\PresentationFramework.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_fr_PresentationUI_resources_dll" Guid="*">
+          <File Id="fil_wpf_fr_PresentationUI_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\fr\PresentationUI.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_fr_ReachFramework_resources_dll" Guid="*">
+          <File Id="fil_wpf_fr_ReachFramework_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\fr\ReachFramework.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_fr_System_Windows_Controls_Ribbon_resources_dll" Guid="*">
+          <File Id="fil_wpf_fr_System_Windows_Controls_Ribbon_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\fr\System.Windows.Controls.Ribbon.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_fr_System_Windows_Forms_Design_resources_dll" Guid="*">
+          <File Id="fil_wpf_fr_System_Windows_Forms_Design_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\fr\System.Windows.Forms.Design.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_fr_System_Windows_Forms_Primitives_resources_dll" Guid="*">
+          <File Id="fil_wpf_fr_System_Windows_Forms_Primitives_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\fr\System.Windows.Forms.Primitives.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_fr_System_Windows_Forms_resources_dll" Guid="*">
+          <File Id="fil_wpf_fr_System_Windows_Forms_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\fr\System.Windows.Forms.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_fr_System_Windows_Input_Manipulations_resources_dll" Guid="*">
+          <File Id="fil_wpf_fr_System_Windows_Input_Manipulations_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\fr\System.Windows.Input.Manipulations.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_fr_System_Xaml_resources_dll" Guid="*">
+          <File Id="fil_wpf_fr_System_Xaml_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\fr\System.Xaml.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_fr_UIAutomationClient_resources_dll" Guid="*">
+          <File Id="fil_wpf_fr_UIAutomationClient_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\fr\UIAutomationClient.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_fr_UIAutomationClientSideProviders_resources_dll" Guid="*">
+          <File Id="fil_wpf_fr_UIAutomationClientSideProviders_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\fr\UIAutomationClientSideProviders.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_fr_UIAutomationProvider_resources_dll" Guid="*">
+          <File Id="fil_wpf_fr_UIAutomationProvider_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\fr\UIAutomationProvider.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_fr_UIAutomationTypes_resources_dll" Guid="*">
+          <File Id="fil_wpf_fr_UIAutomationTypes_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\fr\UIAutomationTypes.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_fr_WindowsBase_resources_dll" Guid="*">
+          <File Id="fil_wpf_fr_WindowsBase_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\fr\WindowsBase.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_fr_WindowsFormsIntegration_resources_dll" Guid="*">
+          <File Id="fil_wpf_fr_WindowsFormsIntegration_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\fr\WindowsFormsIntegration.resources.dll" KeyPath="yes" />
+        </Component>
+      </Directory>
+      <Directory Id="d_wpf_it" Name="it">
+        <Component Id="cmp_wpf_it_Microsoft_VisualBasic_Forms_resources_dll" Guid="*">
+          <File Id="fil_wpf_it_Microsoft_VisualBasic_Forms_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\it\Microsoft.VisualBasic.Forms.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_it_PresentationCore_resources_dll" Guid="*">
+          <File Id="fil_wpf_it_PresentationCore_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\it\PresentationCore.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_it_PresentationFramework_resources_dll" Guid="*">
+          <File Id="fil_wpf_it_PresentationFramework_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\it\PresentationFramework.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_it_PresentationUI_resources_dll" Guid="*">
+          <File Id="fil_wpf_it_PresentationUI_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\it\PresentationUI.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_it_ReachFramework_resources_dll" Guid="*">
+          <File Id="fil_wpf_it_ReachFramework_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\it\ReachFramework.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_it_System_Windows_Controls_Ribbon_resources_dll" Guid="*">
+          <File Id="fil_wpf_it_System_Windows_Controls_Ribbon_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\it\System.Windows.Controls.Ribbon.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_it_System_Windows_Forms_Design_resources_dll" Guid="*">
+          <File Id="fil_wpf_it_System_Windows_Forms_Design_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\it\System.Windows.Forms.Design.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_it_System_Windows_Forms_Primitives_resources_dll" Guid="*">
+          <File Id="fil_wpf_it_System_Windows_Forms_Primitives_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\it\System.Windows.Forms.Primitives.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_it_System_Windows_Forms_resources_dll" Guid="*">
+          <File Id="fil_wpf_it_System_Windows_Forms_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\it\System.Windows.Forms.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_it_System_Windows_Input_Manipulations_resources_dll" Guid="*">
+          <File Id="fil_wpf_it_System_Windows_Input_Manipulations_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\it\System.Windows.Input.Manipulations.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_it_System_Xaml_resources_dll" Guid="*">
+          <File Id="fil_wpf_it_System_Xaml_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\it\System.Xaml.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_it_UIAutomationClient_resources_dll" Guid="*">
+          <File Id="fil_wpf_it_UIAutomationClient_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\it\UIAutomationClient.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_it_UIAutomationClientSideProviders_resources_dll" Guid="*">
+          <File Id="fil_wpf_it_UIAutomationClientSideProviders_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\it\UIAutomationClientSideProviders.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_it_UIAutomationProvider_resources_dll" Guid="*">
+          <File Id="fil_wpf_it_UIAutomationProvider_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\it\UIAutomationProvider.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_it_UIAutomationTypes_resources_dll" Guid="*">
+          <File Id="fil_wpf_it_UIAutomationTypes_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\it\UIAutomationTypes.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_it_WindowsBase_resources_dll" Guid="*">
+          <File Id="fil_wpf_it_WindowsBase_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\it\WindowsBase.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_it_WindowsFormsIntegration_resources_dll" Guid="*">
+          <File Id="fil_wpf_it_WindowsFormsIntegration_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\it\WindowsFormsIntegration.resources.dll" KeyPath="yes" />
+        </Component>
+      </Directory>
+      <Directory Id="d_wpf_ja" Name="ja">
+        <Component Id="cmp_wpf_ja_Microsoft_VisualBasic_Forms_resources_dll" Guid="*">
+          <File Id="fil_wpf_ja_Microsoft_VisualBasic_Forms_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ja\Microsoft.VisualBasic.Forms.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ja_PresentationCore_resources_dll" Guid="*">
+          <File Id="fil_wpf_ja_PresentationCore_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ja\PresentationCore.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ja_PresentationFramework_resources_dll" Guid="*">
+          <File Id="fil_wpf_ja_PresentationFramework_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ja\PresentationFramework.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ja_PresentationUI_resources_dll" Guid="*">
+          <File Id="fil_wpf_ja_PresentationUI_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ja\PresentationUI.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ja_ReachFramework_resources_dll" Guid="*">
+          <File Id="fil_wpf_ja_ReachFramework_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ja\ReachFramework.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ja_System_Windows_Controls_Ribbon_resources_dll" Guid="*">
+          <File Id="fil_wpf_ja_System_Windows_Controls_Ribbon_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ja\System.Windows.Controls.Ribbon.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ja_System_Windows_Forms_Design_resources_dll" Guid="*">
+          <File Id="fil_wpf_ja_System_Windows_Forms_Design_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ja\System.Windows.Forms.Design.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ja_System_Windows_Forms_Primitives_resources_dll" Guid="*">
+          <File Id="fil_wpf_ja_System_Windows_Forms_Primitives_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ja\System.Windows.Forms.Primitives.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ja_System_Windows_Forms_resources_dll" Guid="*">
+          <File Id="fil_wpf_ja_System_Windows_Forms_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ja\System.Windows.Forms.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ja_System_Windows_Input_Manipulations_resources_dll" Guid="*">
+          <File Id="fil_wpf_ja_System_Windows_Input_Manipulations_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ja\System.Windows.Input.Manipulations.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ja_System_Xaml_resources_dll" Guid="*">
+          <File Id="fil_wpf_ja_System_Xaml_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ja\System.Xaml.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ja_UIAutomationClient_resources_dll" Guid="*">
+          <File Id="fil_wpf_ja_UIAutomationClient_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ja\UIAutomationClient.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ja_UIAutomationClientSideProviders_resources_dll" Guid="*">
+          <File Id="fil_wpf_ja_UIAutomationClientSideProviders_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ja\UIAutomationClientSideProviders.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ja_UIAutomationProvider_resources_dll" Guid="*">
+          <File Id="fil_wpf_ja_UIAutomationProvider_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ja\UIAutomationProvider.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ja_UIAutomationTypes_resources_dll" Guid="*">
+          <File Id="fil_wpf_ja_UIAutomationTypes_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ja\UIAutomationTypes.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ja_WindowsBase_resources_dll" Guid="*">
+          <File Id="fil_wpf_ja_WindowsBase_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ja\WindowsBase.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ja_WindowsFormsIntegration_resources_dll" Guid="*">
+          <File Id="fil_wpf_ja_WindowsFormsIntegration_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ja\WindowsFormsIntegration.resources.dll" KeyPath="yes" />
+        </Component>
+      </Directory>
+      <Directory Id="d_wpf_ko" Name="ko">
+        <Component Id="cmp_wpf_ko_Microsoft_VisualBasic_Forms_resources_dll" Guid="*">
+          <File Id="fil_wpf_ko_Microsoft_VisualBasic_Forms_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ko\Microsoft.VisualBasic.Forms.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ko_PresentationCore_resources_dll" Guid="*">
+          <File Id="fil_wpf_ko_PresentationCore_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ko\PresentationCore.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ko_PresentationFramework_resources_dll" Guid="*">
+          <File Id="fil_wpf_ko_PresentationFramework_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ko\PresentationFramework.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ko_PresentationUI_resources_dll" Guid="*">
+          <File Id="fil_wpf_ko_PresentationUI_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ko\PresentationUI.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ko_ReachFramework_resources_dll" Guid="*">
+          <File Id="fil_wpf_ko_ReachFramework_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ko\ReachFramework.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ko_System_Windows_Controls_Ribbon_resources_dll" Guid="*">
+          <File Id="fil_wpf_ko_System_Windows_Controls_Ribbon_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ko\System.Windows.Controls.Ribbon.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ko_System_Windows_Forms_Design_resources_dll" Guid="*">
+          <File Id="fil_wpf_ko_System_Windows_Forms_Design_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ko\System.Windows.Forms.Design.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ko_System_Windows_Forms_Primitives_resources_dll" Guid="*">
+          <File Id="fil_wpf_ko_System_Windows_Forms_Primitives_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ko\System.Windows.Forms.Primitives.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ko_System_Windows_Forms_resources_dll" Guid="*">
+          <File Id="fil_wpf_ko_System_Windows_Forms_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ko\System.Windows.Forms.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ko_System_Windows_Input_Manipulations_resources_dll" Guid="*">
+          <File Id="fil_wpf_ko_System_Windows_Input_Manipulations_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ko\System.Windows.Input.Manipulations.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ko_System_Xaml_resources_dll" Guid="*">
+          <File Id="fil_wpf_ko_System_Xaml_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ko\System.Xaml.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ko_UIAutomationClient_resources_dll" Guid="*">
+          <File Id="fil_wpf_ko_UIAutomationClient_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ko\UIAutomationClient.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ko_UIAutomationClientSideProviders_resources_dll" Guid="*">
+          <File Id="fil_wpf_ko_UIAutomationClientSideProviders_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ko\UIAutomationClientSideProviders.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ko_UIAutomationProvider_resources_dll" Guid="*">
+          <File Id="fil_wpf_ko_UIAutomationProvider_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ko\UIAutomationProvider.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ko_UIAutomationTypes_resources_dll" Guid="*">
+          <File Id="fil_wpf_ko_UIAutomationTypes_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ko\UIAutomationTypes.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ko_WindowsBase_resources_dll" Guid="*">
+          <File Id="fil_wpf_ko_WindowsBase_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ko\WindowsBase.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ko_WindowsFormsIntegration_resources_dll" Guid="*">
+          <File Id="fil_wpf_ko_WindowsFormsIntegration_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ko\WindowsFormsIntegration.resources.dll" KeyPath="yes" />
+        </Component>
+      </Directory>
+      <Directory Id="d_wpf_pl" Name="pl">
+        <Component Id="cmp_wpf_pl_Microsoft_VisualBasic_Forms_resources_dll" Guid="*">
+          <File Id="fil_wpf_pl_Microsoft_VisualBasic_Forms_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pl\Microsoft.VisualBasic.Forms.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_pl_PresentationCore_resources_dll" Guid="*">
+          <File Id="fil_wpf_pl_PresentationCore_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pl\PresentationCore.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_pl_PresentationFramework_resources_dll" Guid="*">
+          <File Id="fil_wpf_pl_PresentationFramework_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pl\PresentationFramework.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_pl_PresentationUI_resources_dll" Guid="*">
+          <File Id="fil_wpf_pl_PresentationUI_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pl\PresentationUI.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_pl_ReachFramework_resources_dll" Guid="*">
+          <File Id="fil_wpf_pl_ReachFramework_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pl\ReachFramework.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_pl_System_Windows_Controls_Ribbon_resources_dll" Guid="*">
+          <File Id="fil_wpf_pl_System_Windows_Controls_Ribbon_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pl\System.Windows.Controls.Ribbon.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_pl_System_Windows_Forms_Design_resources_dll" Guid="*">
+          <File Id="fil_wpf_pl_System_Windows_Forms_Design_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pl\System.Windows.Forms.Design.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_pl_System_Windows_Forms_Primitives_resources_dll" Guid="*">
+          <File Id="fil_wpf_pl_System_Windows_Forms_Primitives_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pl\System.Windows.Forms.Primitives.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_pl_System_Windows_Forms_resources_dll" Guid="*">
+          <File Id="fil_wpf_pl_System_Windows_Forms_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pl\System.Windows.Forms.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_pl_System_Windows_Input_Manipulations_resources_dll" Guid="*">
+          <File Id="fil_wpf_pl_System_Windows_Input_Manipulations_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pl\System.Windows.Input.Manipulations.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_pl_System_Xaml_resources_dll" Guid="*">
+          <File Id="fil_wpf_pl_System_Xaml_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pl\System.Xaml.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_pl_UIAutomationClient_resources_dll" Guid="*">
+          <File Id="fil_wpf_pl_UIAutomationClient_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pl\UIAutomationClient.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_pl_UIAutomationClientSideProviders_resources_dll" Guid="*">
+          <File Id="fil_wpf_pl_UIAutomationClientSideProviders_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pl\UIAutomationClientSideProviders.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_pl_UIAutomationProvider_resources_dll" Guid="*">
+          <File Id="fil_wpf_pl_UIAutomationProvider_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pl\UIAutomationProvider.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_pl_UIAutomationTypes_resources_dll" Guid="*">
+          <File Id="fil_wpf_pl_UIAutomationTypes_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pl\UIAutomationTypes.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_pl_WindowsBase_resources_dll" Guid="*">
+          <File Id="fil_wpf_pl_WindowsBase_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pl\WindowsBase.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_pl_WindowsFormsIntegration_resources_dll" Guid="*">
+          <File Id="fil_wpf_pl_WindowsFormsIntegration_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pl\WindowsFormsIntegration.resources.dll" KeyPath="yes" />
+        </Component>
+      </Directory>
+      <Directory Id="d_wpf_pt_BR" Name="pt-BR">
+        <Component Id="cmp_wpf_pt_BR_Microsoft_VisualBasic_Forms_resources_dll" Guid="*">
+          <File Id="fil_wpf_pt_BR_Microsoft_VisualBasic_Forms_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pt-BR\Microsoft.VisualBasic.Forms.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_pt_BR_PresentationCore_resources_dll" Guid="*">
+          <File Id="fil_wpf_pt_BR_PresentationCore_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pt-BR\PresentationCore.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_pt_BR_PresentationFramework_resources_dll" Guid="*">
+          <File Id="fil_wpf_pt_BR_PresentationFramework_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pt-BR\PresentationFramework.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_pt_BR_PresentationUI_resources_dll" Guid="*">
+          <File Id="fil_wpf_pt_BR_PresentationUI_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pt-BR\PresentationUI.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_pt_BR_ReachFramework_resources_dll" Guid="*">
+          <File Id="fil_wpf_pt_BR_ReachFramework_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pt-BR\ReachFramework.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_pt_BR_System_Windows_Controls_Ribbon_resources_dll" Guid="*">
+          <File Id="fil_wpf_pt_BR_System_Windows_Controls_Ribbon_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pt-BR\System.Windows.Controls.Ribbon.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_pt_BR_System_Windows_Forms_Design_resources_dll" Guid="*">
+          <File Id="fil_wpf_pt_BR_System_Windows_Forms_Design_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pt-BR\System.Windows.Forms.Design.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_pt_BR_System_Windows_Forms_Primitives_resources_dll" Guid="*">
+          <File Id="fil_wpf_pt_BR_System_Windows_Forms_Primitives_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pt-BR\System.Windows.Forms.Primitives.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_pt_BR_System_Windows_Forms_resources_dll" Guid="*">
+          <File Id="fil_wpf_pt_BR_System_Windows_Forms_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pt-BR\System.Windows.Forms.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_pt_BR_System_Windows_Input_Manipulations_resources_dll" Guid="*">
+          <File Id="fil_wpf_pt_BR_System_Windows_Input_Manipulations_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pt-BR\System.Windows.Input.Manipulations.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_pt_BR_System_Xaml_resources_dll" Guid="*">
+          <File Id="fil_wpf_pt_BR_System_Xaml_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pt-BR\System.Xaml.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_pt_BR_UIAutomationClient_resources_dll" Guid="*">
+          <File Id="fil_wpf_pt_BR_UIAutomationClient_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pt-BR\UIAutomationClient.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_pt_BR_UIAutomationClientSideProviders_resources_dll" Guid="*">
+          <File Id="fil_wpf_pt_BR_UIAutomationClientSideProviders_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pt-BR\UIAutomationClientSideProviders.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_pt_BR_UIAutomationProvider_resources_dll" Guid="*">
+          <File Id="fil_wpf_pt_BR_UIAutomationProvider_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pt-BR\UIAutomationProvider.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_pt_BR_UIAutomationTypes_resources_dll" Guid="*">
+          <File Id="fil_wpf_pt_BR_UIAutomationTypes_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pt-BR\UIAutomationTypes.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_pt_BR_WindowsBase_resources_dll" Guid="*">
+          <File Id="fil_wpf_pt_BR_WindowsBase_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pt-BR\WindowsBase.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_pt_BR_WindowsFormsIntegration_resources_dll" Guid="*">
+          <File Id="fil_wpf_pt_BR_WindowsFormsIntegration_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\pt-BR\WindowsFormsIntegration.resources.dll" KeyPath="yes" />
+        </Component>
+      </Directory>
+      <Directory Id="d_wpf_ru" Name="ru">
+        <Component Id="cmp_wpf_ru_Microsoft_VisualBasic_Forms_resources_dll" Guid="*">
+          <File Id="fil_wpf_ru_Microsoft_VisualBasic_Forms_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ru\Microsoft.VisualBasic.Forms.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ru_PresentationCore_resources_dll" Guid="*">
+          <File Id="fil_wpf_ru_PresentationCore_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ru\PresentationCore.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ru_PresentationFramework_resources_dll" Guid="*">
+          <File Id="fil_wpf_ru_PresentationFramework_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ru\PresentationFramework.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ru_PresentationUI_resources_dll" Guid="*">
+          <File Id="fil_wpf_ru_PresentationUI_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ru\PresentationUI.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ru_ReachFramework_resources_dll" Guid="*">
+          <File Id="fil_wpf_ru_ReachFramework_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ru\ReachFramework.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ru_System_Windows_Controls_Ribbon_resources_dll" Guid="*">
+          <File Id="fil_wpf_ru_System_Windows_Controls_Ribbon_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ru\System.Windows.Controls.Ribbon.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ru_System_Windows_Forms_Design_resources_dll" Guid="*">
+          <File Id="fil_wpf_ru_System_Windows_Forms_Design_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ru\System.Windows.Forms.Design.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ru_System_Windows_Forms_Primitives_resources_dll" Guid="*">
+          <File Id="fil_wpf_ru_System_Windows_Forms_Primitives_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ru\System.Windows.Forms.Primitives.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ru_System_Windows_Forms_resources_dll" Guid="*">
+          <File Id="fil_wpf_ru_System_Windows_Forms_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ru\System.Windows.Forms.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ru_System_Windows_Input_Manipulations_resources_dll" Guid="*">
+          <File Id="fil_wpf_ru_System_Windows_Input_Manipulations_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ru\System.Windows.Input.Manipulations.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ru_System_Xaml_resources_dll" Guid="*">
+          <File Id="fil_wpf_ru_System_Xaml_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ru\System.Xaml.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ru_UIAutomationClient_resources_dll" Guid="*">
+          <File Id="fil_wpf_ru_UIAutomationClient_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ru\UIAutomationClient.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ru_UIAutomationClientSideProviders_resources_dll" Guid="*">
+          <File Id="fil_wpf_ru_UIAutomationClientSideProviders_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ru\UIAutomationClientSideProviders.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ru_UIAutomationProvider_resources_dll" Guid="*">
+          <File Id="fil_wpf_ru_UIAutomationProvider_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ru\UIAutomationProvider.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ru_UIAutomationTypes_resources_dll" Guid="*">
+          <File Id="fil_wpf_ru_UIAutomationTypes_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ru\UIAutomationTypes.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ru_WindowsBase_resources_dll" Guid="*">
+          <File Id="fil_wpf_ru_WindowsBase_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ru\WindowsBase.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_ru_WindowsFormsIntegration_resources_dll" Guid="*">
+          <File Id="fil_wpf_ru_WindowsFormsIntegration_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\ru\WindowsFormsIntegration.resources.dll" KeyPath="yes" />
+        </Component>
+      </Directory>
+      <Directory Id="d_wpf_tr" Name="tr">
+        <Component Id="cmp_wpf_tr_Microsoft_VisualBasic_Forms_resources_dll" Guid="*">
+          <File Id="fil_wpf_tr_Microsoft_VisualBasic_Forms_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\tr\Microsoft.VisualBasic.Forms.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_tr_PresentationCore_resources_dll" Guid="*">
+          <File Id="fil_wpf_tr_PresentationCore_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\tr\PresentationCore.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_tr_PresentationFramework_resources_dll" Guid="*">
+          <File Id="fil_wpf_tr_PresentationFramework_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\tr\PresentationFramework.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_tr_PresentationUI_resources_dll" Guid="*">
+          <File Id="fil_wpf_tr_PresentationUI_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\tr\PresentationUI.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_tr_ReachFramework_resources_dll" Guid="*">
+          <File Id="fil_wpf_tr_ReachFramework_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\tr\ReachFramework.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_tr_System_Windows_Controls_Ribbon_resources_dll" Guid="*">
+          <File Id="fil_wpf_tr_System_Windows_Controls_Ribbon_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\tr\System.Windows.Controls.Ribbon.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_tr_System_Windows_Forms_Design_resources_dll" Guid="*">
+          <File Id="fil_wpf_tr_System_Windows_Forms_Design_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\tr\System.Windows.Forms.Design.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_tr_System_Windows_Forms_Primitives_resources_dll" Guid="*">
+          <File Id="fil_wpf_tr_System_Windows_Forms_Primitives_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\tr\System.Windows.Forms.Primitives.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_tr_System_Windows_Forms_resources_dll" Guid="*">
+          <File Id="fil_wpf_tr_System_Windows_Forms_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\tr\System.Windows.Forms.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_tr_System_Windows_Input_Manipulations_resources_dll" Guid="*">
+          <File Id="fil_wpf_tr_System_Windows_Input_Manipulations_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\tr\System.Windows.Input.Manipulations.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_tr_System_Xaml_resources_dll" Guid="*">
+          <File Id="fil_wpf_tr_System_Xaml_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\tr\System.Xaml.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_tr_UIAutomationClient_resources_dll" Guid="*">
+          <File Id="fil_wpf_tr_UIAutomationClient_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\tr\UIAutomationClient.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_tr_UIAutomationClientSideProviders_resources_dll" Guid="*">
+          <File Id="fil_wpf_tr_UIAutomationClientSideProviders_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\tr\UIAutomationClientSideProviders.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_tr_UIAutomationProvider_resources_dll" Guid="*">
+          <File Id="fil_wpf_tr_UIAutomationProvider_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\tr\UIAutomationProvider.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_tr_UIAutomationTypes_resources_dll" Guid="*">
+          <File Id="fil_wpf_tr_UIAutomationTypes_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\tr\UIAutomationTypes.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_tr_WindowsBase_resources_dll" Guid="*">
+          <File Id="fil_wpf_tr_WindowsBase_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\tr\WindowsBase.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_tr_WindowsFormsIntegration_resources_dll" Guid="*">
+          <File Id="fil_wpf_tr_WindowsFormsIntegration_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\tr\WindowsFormsIntegration.resources.dll" KeyPath="yes" />
+        </Component>
+      </Directory>
+      <Directory Id="d_wpf_zh_Hans" Name="zh-Hans">
+        <Component Id="cmp_wpf_zh_Hans_Microsoft_VisualBasic_Forms_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hans_Microsoft_VisualBasic_Forms_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hans\Microsoft.VisualBasic.Forms.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_zh_Hans_PresentationCore_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hans_PresentationCore_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hans\PresentationCore.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_zh_Hans_PresentationFramework_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hans_PresentationFramework_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hans\PresentationFramework.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_zh_Hans_PresentationUI_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hans_PresentationUI_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hans\PresentationUI.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_zh_Hans_ReachFramework_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hans_ReachFramework_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hans\ReachFramework.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_zh_Hans_System_Windows_Controls_Ribbon_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hans_System_Windows_Controls_Ribbon_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hans\System.Windows.Controls.Ribbon.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_zh_Hans_System_Windows_Forms_Design_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hans_System_Windows_Forms_Design_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hans\System.Windows.Forms.Design.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_zh_Hans_System_Windows_Forms_Primitives_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hans_System_Windows_Forms_Primitives_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hans\System.Windows.Forms.Primitives.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_zh_Hans_System_Windows_Forms_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hans_System_Windows_Forms_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hans\System.Windows.Forms.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_zh_Hans_System_Windows_Input_Manipulations_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hans_System_Windows_Input_Manipulations_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hans\System.Windows.Input.Manipulations.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_zh_Hans_System_Xaml_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hans_System_Xaml_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hans\System.Xaml.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_zh_Hans_UIAutomationClient_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hans_UIAutomationClient_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hans\UIAutomationClient.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_zh_Hans_UIAutomationClientSideProviders_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hans_UIAutomationClientSideProviders_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hans\UIAutomationClientSideProviders.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_zh_Hans_UIAutomationProvider_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hans_UIAutomationProvider_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hans\UIAutomationProvider.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_zh_Hans_UIAutomationTypes_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hans_UIAutomationTypes_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hans\UIAutomationTypes.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_zh_Hans_WindowsBase_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hans_WindowsBase_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hans\WindowsBase.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_zh_Hans_WindowsFormsIntegration_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hans_WindowsFormsIntegration_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hans\WindowsFormsIntegration.resources.dll" KeyPath="yes" />
+        </Component>
+      </Directory>
+      <Directory Id="d_wpf_zh_Hant" Name="zh-Hant">
+        <Component Id="cmp_wpf_zh_Hant_Microsoft_VisualBasic_Forms_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hant_Microsoft_VisualBasic_Forms_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hant\Microsoft.VisualBasic.Forms.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_zh_Hant_PresentationCore_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hant_PresentationCore_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hant\PresentationCore.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_zh_Hant_PresentationFramework_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hant_PresentationFramework_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hant\PresentationFramework.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_zh_Hant_PresentationUI_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hant_PresentationUI_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hant\PresentationUI.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_zh_Hant_ReachFramework_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hant_ReachFramework_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hant\ReachFramework.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_zh_Hant_System_Windows_Controls_Ribbon_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hant_System_Windows_Controls_Ribbon_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hant\System.Windows.Controls.Ribbon.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_zh_Hant_System_Windows_Forms_Design_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hant_System_Windows_Forms_Design_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hant\System.Windows.Forms.Design.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_zh_Hant_System_Windows_Forms_Primitives_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hant_System_Windows_Forms_Primitives_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hant\System.Windows.Forms.Primitives.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_zh_Hant_System_Windows_Forms_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hant_System_Windows_Forms_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hant\System.Windows.Forms.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_zh_Hant_System_Windows_Input_Manipulations_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hant_System_Windows_Input_Manipulations_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hant\System.Windows.Input.Manipulations.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_zh_Hant_System_Xaml_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hant_System_Xaml_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hant\System.Xaml.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_zh_Hant_UIAutomationClient_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hant_UIAutomationClient_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hant\UIAutomationClient.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_zh_Hant_UIAutomationClientSideProviders_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hant_UIAutomationClientSideProviders_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hant\UIAutomationClientSideProviders.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_zh_Hant_UIAutomationProvider_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hant_UIAutomationProvider_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hant\UIAutomationProvider.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_zh_Hant_UIAutomationTypes_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hant_UIAutomationTypes_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hant\UIAutomationTypes.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_zh_Hant_WindowsBase_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hant_WindowsBase_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hant\WindowsBase.resources.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="cmp_wpf_zh_Hant_WindowsFormsIntegration_resources_dll" Guid="*">
+          <File Id="fil_wpf_zh_Hant_WindowsFormsIntegration_resources_dll" Source="C:\AssumptionChecker\AssumptionChecker\publish\wpfapp\zh-Hant\WindowsFormsIntegration.resources.dll" KeyPath="yes" />
+        </Component>
+      </Directory>
+    </DirectoryRef>
+    <ComponentGroup Id="WPFAppFiles">
+      <ComponentRef Id="cmp_wpf_Accessibility_dll" />
+      <ComponentRef Id="cmp_wpf_AssumptionChecker_Contracts_dll" />
+      <ComponentRef Id="cmp_wpf_AssumptionChecker_Contracts_pdb" />
+      <ComponentRef Id="cmp_wpf_AssumptionChecker_Core_dll" />
+      <ComponentRef Id="cmp_wpf_AssumptionChecker_Core_pdb" />
+      <ComponentRef Id="cmp_wpf_AssumptionChecker_WPFApp_deps_json" />
+      <ComponentRef Id="cmp_wpf_AssumptionChecker_WPFApp_dll" />
+      <ComponentRef Id="cmp_wpf_AssumptionChecker_WPFApp_exe" />
+      <ComponentRef Id="cmp_wpf_AssumptionChecker_WPFApp_pdb" />
+      <ComponentRef Id="cmp_wpf_AssumptionChecker_WPFApp_runtimeconfig_json" />
+      <ComponentRef Id="cmp_wpf_clretwrc_dll" />
+      <ComponentRef Id="cmp_wpf_clrgc_dll" />
+      <ComponentRef Id="cmp_wpf_clrjit_dll" />
+      <ComponentRef Id="cmp_wpf_coreclr_dll" />
+      <ComponentRef Id="cmp_wpf_createdump_exe" />
+      <ComponentRef Id="cmp_wpf_D3DCompiler_47_cor3_dll" />
+      <ComponentRef Id="cmp_wpf_DirectWriteForwarder_dll" />
+      <ComponentRef Id="cmp_wpf_hostfxr_dll" />
+      <ComponentRef Id="cmp_wpf_hostpolicy_dll" />
+      <ComponentRef Id="cmp_wpf_Microsoft_CSharp_dll" />
+      <ComponentRef Id="cmp_wpf_Microsoft_DiaSymReader_Native_amd64_dll" />
+      <ComponentRef Id="cmp_wpf_Microsoft_Extensions_Configuration_Abstractions_dll" />
+      <ComponentRef Id="cmp_wpf_Microsoft_Extensions_Configuration_Binder_dll" />
+      <ComponentRef Id="cmp_wpf_Microsoft_Extensions_Configuration_dll" />
+      <ComponentRef Id="cmp_wpf_Microsoft_Extensions_DependencyInjection_Abstractions_dll" />
+      <ComponentRef Id="cmp_wpf_Microsoft_Extensions_DependencyInjection_dll" />
+      <ComponentRef Id="cmp_wpf_Microsoft_Extensions_Diagnostics_Abstractions_dll" />
+      <ComponentRef Id="cmp_wpf_Microsoft_Extensions_Diagnostics_dll" />
+      <ComponentRef Id="cmp_wpf_Microsoft_Extensions_Http_dll" />
+      <ComponentRef Id="cmp_wpf_Microsoft_Extensions_Logging_Abstractions_dll" />
+      <ComponentRef Id="cmp_wpf_Microsoft_Extensions_Logging_dll" />
+      <ComponentRef Id="cmp_wpf_Microsoft_Extensions_Options_ConfigurationExtensions_dll" />
+      <ComponentRef Id="cmp_wpf_Microsoft_Extensions_Options_dll" />
+      <ComponentRef Id="cmp_wpf_Microsoft_Extensions_Primitives_dll" />
+      <ComponentRef Id="cmp_wpf_Microsoft_VisualBasic_Core_dll" />
+      <ComponentRef Id="cmp_wpf_Microsoft_VisualBasic_dll" />
+      <ComponentRef Id="cmp_wpf_Microsoft_VisualBasic_Forms_dll" />
+      <ComponentRef Id="cmp_wpf_Microsoft_Win32_Primitives_dll" />
+      <ComponentRef Id="cmp_wpf_Microsoft_Win32_Registry_AccessControl_dll" />
+      <ComponentRef Id="cmp_wpf_Microsoft_Win32_Registry_dll" />
+      <ComponentRef Id="cmp_wpf_Microsoft_Win32_SystemEvents_dll" />
+      <ComponentRef Id="cmp_wpf_mscordaccore_dll" />
+      <ComponentRef Id="cmp_wpf_mscordaccore_amd64_amd64_8_0_2426_7010_dll" />
+      <ComponentRef Id="cmp_wpf_mscordbi_dll" />
+      <ComponentRef Id="cmp_wpf_mscorlib_dll" />
+      <ComponentRef Id="cmp_wpf_mscorrc_dll" />
+      <ComponentRef Id="cmp_wpf_msquic_dll" />
+      <ComponentRef Id="cmp_wpf_netstandard_dll" />
+      <ComponentRef Id="cmp_wpf_PenImc_cor3_dll" />
+      <ComponentRef Id="cmp_wpf_PresentationCore_dll" />
+      <ComponentRef Id="cmp_wpf_PresentationFramework_SystemCore_dll" />
+      <ComponentRef Id="cmp_wpf_PresentationFramework_SystemData_dll" />
+      <ComponentRef Id="cmp_wpf_PresentationFramework_SystemDrawing_dll" />
+      <ComponentRef Id="cmp_wpf_PresentationFramework_SystemXml_dll" />
+      <ComponentRef Id="cmp_wpf_PresentationFramework_SystemXmlLinq_dll" />
+      <ComponentRef Id="cmp_wpf_PresentationFramework_Aero_dll" />
+      <ComponentRef Id="cmp_wpf_PresentationFramework_Aero2_dll" />
+      <ComponentRef Id="cmp_wpf_PresentationFramework_AeroLite_dll" />
+      <ComponentRef Id="cmp_wpf_PresentationFramework_Classic_dll" />
+      <ComponentRef Id="cmp_wpf_PresentationFramework_dll" />
+      <ComponentRef Id="cmp_wpf_PresentationFramework_Luna_dll" />
+      <ComponentRef Id="cmp_wpf_PresentationFramework_Royale_dll" />
+      <ComponentRef Id="cmp_wpf_PresentationNative_cor3_dll" />
+      <ComponentRef Id="cmp_wpf_PresentationUI_dll" />
+      <ComponentRef Id="cmp_wpf_ReachFramework_dll" />
+      <ComponentRef Id="cmp_wpf_System_AppContext_dll" />
+      <ComponentRef Id="cmp_wpf_System_Buffers_dll" />
+      <ComponentRef Id="cmp_wpf_System_CodeDom_dll" />
+      <ComponentRef Id="cmp_wpf_System_Collections_Concurrent_dll" />
+      <ComponentRef Id="cmp_wpf_System_Collections_dll" />
+      <ComponentRef Id="cmp_wpf_System_Collections_Immutable_dll" />
+      <ComponentRef Id="cmp_wpf_System_Collections_NonGeneric_dll" />
+      <ComponentRef Id="cmp_wpf_System_Collections_Specialized_dll" />
+      <ComponentRef Id="cmp_wpf_System_ComponentModel_Annotations_dll" />
+      <ComponentRef Id="cmp_wpf_System_ComponentModel_DataAnnotations_dll" />
+      <ComponentRef Id="cmp_wpf_System_ComponentModel_dll" />
+      <ComponentRef Id="cmp_wpf_System_ComponentModel_EventBasedAsync_dll" />
+      <ComponentRef Id="cmp_wpf_System_ComponentModel_Primitives_dll" />
+      <ComponentRef Id="cmp_wpf_System_ComponentModel_TypeConverter_dll" />
+      <ComponentRef Id="cmp_wpf_System_Configuration_ConfigurationManager_dll" />
+      <ComponentRef Id="cmp_wpf_System_Configuration_dll" />
+      <ComponentRef Id="cmp_wpf_System_Console_dll" />
+      <ComponentRef Id="cmp_wpf_System_Core_dll" />
+      <ComponentRef Id="cmp_wpf_System_Data_Common_dll" />
+      <ComponentRef Id="cmp_wpf_System_Data_DataSetExtensions_dll" />
+      <ComponentRef Id="cmp_wpf_System_Data_dll" />
+      <ComponentRef Id="cmp_wpf_System_Design_dll" />
+      <ComponentRef Id="cmp_wpf_System_Diagnostics_Contracts_dll" />
+      <ComponentRef Id="cmp_wpf_System_Diagnostics_Debug_dll" />
+      <ComponentRef Id="cmp_wpf_System_Diagnostics_DiagnosticSource_dll" />
+      <ComponentRef Id="cmp_wpf_System_Diagnostics_EventLog_dll" />
+      <ComponentRef Id="cmp_wpf_System_Diagnostics_EventLog_Messages_dll" />
+      <ComponentRef Id="cmp_wpf_System_Diagnostics_FileVersionInfo_dll" />
+      <ComponentRef Id="cmp_wpf_System_Diagnostics_PerformanceCounter_dll" />
+      <ComponentRef Id="cmp_wpf_System_Diagnostics_Process_dll" />
+      <ComponentRef Id="cmp_wpf_System_Diagnostics_StackTrace_dll" />
+      <ComponentRef Id="cmp_wpf_System_Diagnostics_TextWriterTraceListener_dll" />
+      <ComponentRef Id="cmp_wpf_System_Diagnostics_Tools_dll" />
+      <ComponentRef Id="cmp_wpf_System_Diagnostics_TraceSource_dll" />
+      <ComponentRef Id="cmp_wpf_System_Diagnostics_Tracing_dll" />
+      <ComponentRef Id="cmp_wpf_System_DirectoryServices_dll" />
+      <ComponentRef Id="cmp_wpf_System_dll" />
+      <ComponentRef Id="cmp_wpf_System_Drawing_Common_dll" />
+      <ComponentRef Id="cmp_wpf_System_Drawing_Design_dll" />
+      <ComponentRef Id="cmp_wpf_System_Drawing_dll" />
+      <ComponentRef Id="cmp_wpf_System_Drawing_Primitives_dll" />
+      <ComponentRef Id="cmp_wpf_System_Dynamic_Runtime_dll" />
+      <ComponentRef Id="cmp_wpf_System_Formats_Asn1_dll" />
+      <ComponentRef Id="cmp_wpf_System_Formats_Tar_dll" />
+      <ComponentRef Id="cmp_wpf_System_Globalization_Calendars_dll" />
+      <ComponentRef Id="cmp_wpf_System_Globalization_dll" />
+      <ComponentRef Id="cmp_wpf_System_Globalization_Extensions_dll" />
+      <ComponentRef Id="cmp_wpf_System_IO_Compression_Brotli_dll" />
+      <ComponentRef Id="cmp_wpf_System_IO_Compression_dll" />
+      <ComponentRef Id="cmp_wpf_System_IO_Compression_FileSystem_dll" />
+      <ComponentRef Id="cmp_wpf_System_IO_Compression_Native_dll" />
+      <ComponentRef Id="cmp_wpf_System_IO_Compression_ZipFile_dll" />
+      <ComponentRef Id="cmp_wpf_System_IO_dll" />
+      <ComponentRef Id="cmp_wpf_System_IO_FileSystem_AccessControl_dll" />
+      <ComponentRef Id="cmp_wpf_System_IO_FileSystem_dll" />
+      <ComponentRef Id="cmp_wpf_System_IO_FileSystem_DriveInfo_dll" />
+      <ComponentRef Id="cmp_wpf_System_IO_FileSystem_Primitives_dll" />
+      <ComponentRef Id="cmp_wpf_System_IO_FileSystem_Watcher_dll" />
+      <ComponentRef Id="cmp_wpf_System_IO_IsolatedStorage_dll" />
+      <ComponentRef Id="cmp_wpf_System_IO_MemoryMappedFiles_dll" />
+      <ComponentRef Id="cmp_wpf_System_IO_Packaging_dll" />
+      <ComponentRef Id="cmp_wpf_System_IO_Pipes_AccessControl_dll" />
+      <ComponentRef Id="cmp_wpf_System_IO_Pipes_dll" />
+      <ComponentRef Id="cmp_wpf_System_IO_UnmanagedMemoryStream_dll" />
+      <ComponentRef Id="cmp_wpf_System_Linq_dll" />
+      <ComponentRef Id="cmp_wpf_System_Linq_Expressions_dll" />
+      <ComponentRef Id="cmp_wpf_System_Linq_Parallel_dll" />
+      <ComponentRef Id="cmp_wpf_System_Linq_Queryable_dll" />
+      <ComponentRef Id="cmp_wpf_System_Memory_dll" />
+      <ComponentRef Id="cmp_wpf_System_Net_dll" />
+      <ComponentRef Id="cmp_wpf_System_Net_Http_dll" />
+      <ComponentRef Id="cmp_wpf_System_Net_Http_Json_dll" />
+      <ComponentRef Id="cmp_wpf_System_Net_HttpListener_dll" />
+      <ComponentRef Id="cmp_wpf_System_Net_Mail_dll" />
+      <ComponentRef Id="cmp_wpf_System_Net_NameResolution_dll" />
+      <ComponentRef Id="cmp_wpf_System_Net_NetworkInformation_dll" />
+      <ComponentRef Id="cmp_wpf_System_Net_Ping_dll" />
+      <ComponentRef Id="cmp_wpf_System_Net_Primitives_dll" />
+      <ComponentRef Id="cmp_wpf_System_Net_Quic_dll" />
+      <ComponentRef Id="cmp_wpf_System_Net_Requests_dll" />
+      <ComponentRef Id="cmp_wpf_System_Net_Security_dll" />
+      <ComponentRef Id="cmp_wpf_System_Net_ServicePoint_dll" />
+      <ComponentRef Id="cmp_wpf_System_Net_Sockets_dll" />
+      <ComponentRef Id="cmp_wpf_System_Net_WebClient_dll" />
+      <ComponentRef Id="cmp_wpf_System_Net_WebHeaderCollection_dll" />
+      <ComponentRef Id="cmp_wpf_System_Net_WebProxy_dll" />
+      <ComponentRef Id="cmp_wpf_System_Net_WebSockets_Client_dll" />
+      <ComponentRef Id="cmp_wpf_System_Net_WebSockets_dll" />
+      <ComponentRef Id="cmp_wpf_System_Numerics_dll" />
+      <ComponentRef Id="cmp_wpf_System_Numerics_Vectors_dll" />
+      <ComponentRef Id="cmp_wpf_System_ObjectModel_dll" />
+      <ComponentRef Id="cmp_wpf_System_Printing_dll" />
+      <ComponentRef Id="cmp_wpf_System_Private_CoreLib_dll" />
+      <ComponentRef Id="cmp_wpf_System_Private_DataContractSerialization_dll" />
+      <ComponentRef Id="cmp_wpf_System_Private_Uri_dll" />
+      <ComponentRef Id="cmp_wpf_System_Private_Xml_dll" />
+      <ComponentRef Id="cmp_wpf_System_Private_Xml_Linq_dll" />
+      <ComponentRef Id="cmp_wpf_System_Reflection_DispatchProxy_dll" />
+      <ComponentRef Id="cmp_wpf_System_Reflection_dll" />
+      <ComponentRef Id="cmp_wpf_System_Reflection_Emit_dll" />
+      <ComponentRef Id="cmp_wpf_System_Reflection_Emit_ILGeneration_dll" />
+      <ComponentRef Id="cmp_wpf_System_Reflection_Emit_Lightweight_dll" />
+      <ComponentRef Id="cmp_wpf_System_Reflection_Extensions_dll" />
+      <ComponentRef Id="cmp_wpf_System_Reflection_Metadata_dll" />
+      <ComponentRef Id="cmp_wpf_System_Reflection_Primitives_dll" />
+      <ComponentRef Id="cmp_wpf_System_Reflection_TypeExtensions_dll" />
+      <ComponentRef Id="cmp_wpf_System_Resources_Extensions_dll" />
+      <ComponentRef Id="cmp_wpf_System_Resources_Reader_dll" />
+      <ComponentRef Id="cmp_wpf_System_Resources_ResourceManager_dll" />
+      <ComponentRef Id="cmp_wpf_System_Resources_Writer_dll" />
+      <ComponentRef Id="cmp_wpf_System_Runtime_CompilerServices_Unsafe_dll" />
+      <ComponentRef Id="cmp_wpf_System_Runtime_CompilerServices_VisualC_dll" />
+      <ComponentRef Id="cmp_wpf_System_Runtime_dll" />
+      <ComponentRef Id="cmp_wpf_System_Runtime_Extensions_dll" />
+      <ComponentRef Id="cmp_wpf_System_Runtime_Handles_dll" />
+      <ComponentRef Id="cmp_wpf_System_Runtime_InteropServices_dll" />
+      <ComponentRef Id="cmp_wpf_System_Runtime_InteropServices_JavaScript_dll" />
+      <ComponentRef Id="cmp_wpf_System_Runtime_InteropServices_RuntimeInformation_dll" />
+      <ComponentRef Id="cmp_wpf_System_Runtime_Intrinsics_dll" />
+      <ComponentRef Id="cmp_wpf_System_Runtime_Loader_dll" />
+      <ComponentRef Id="cmp_wpf_System_Runtime_Numerics_dll" />
+      <ComponentRef Id="cmp_wpf_System_Runtime_Serialization_dll" />
+      <ComponentRef Id="cmp_wpf_System_Runtime_Serialization_Formatters_dll" />
+      <ComponentRef Id="cmp_wpf_System_Runtime_Serialization_Json_dll" />
+      <ComponentRef Id="cmp_wpf_System_Runtime_Serialization_Primitives_dll" />
+      <ComponentRef Id="cmp_wpf_System_Runtime_Serialization_Xml_dll" />
+      <ComponentRef Id="cmp_wpf_System_Security_AccessControl_dll" />
+      <ComponentRef Id="cmp_wpf_System_Security_Claims_dll" />
+      <ComponentRef Id="cmp_wpf_System_Security_Cryptography_Algorithms_dll" />
+      <ComponentRef Id="cmp_wpf_System_Security_Cryptography_Cng_dll" />
+      <ComponentRef Id="cmp_wpf_System_Security_Cryptography_Csp_dll" />
+      <ComponentRef Id="cmp_wpf_System_Security_Cryptography_dll" />
+      <ComponentRef Id="cmp_wpf_System_Security_Cryptography_Encoding_dll" />
+      <ComponentRef Id="cmp_wpf_System_Security_Cryptography_OpenSsl_dll" />
+      <ComponentRef Id="cmp_wpf_System_Security_Cryptography_Pkcs_dll" />
+      <ComponentRef Id="cmp_wpf_System_Security_Cryptography_Primitives_dll" />
+      <ComponentRef Id="cmp_wpf_System_Security_Cryptography_ProtectedData_dll" />
+      <ComponentRef Id="cmp_wpf_System_Security_Cryptography_X509Certificates_dll" />
+      <ComponentRef Id="cmp_wpf_System_Security_Cryptography_Xml_dll" />
+      <ComponentRef Id="cmp_wpf_System_Security_dll" />
+      <ComponentRef Id="cmp_wpf_System_Security_Permissions_dll" />
+      <ComponentRef Id="cmp_wpf_System_Security_Principal_dll" />
+      <ComponentRef Id="cmp_wpf_System_Security_Principal_Windows_dll" />
+      <ComponentRef Id="cmp_wpf_System_Security_SecureString_dll" />
+      <ComponentRef Id="cmp_wpf_System_ServiceModel_Web_dll" />
+      <ComponentRef Id="cmp_wpf_System_ServiceProcess_dll" />
+      <ComponentRef Id="cmp_wpf_System_Text_Encoding_CodePages_dll" />
+      <ComponentRef Id="cmp_wpf_System_Text_Encoding_dll" />
+      <ComponentRef Id="cmp_wpf_System_Text_Encoding_Extensions_dll" />
+      <ComponentRef Id="cmp_wpf_System_Text_Encodings_Web_dll" />
+      <ComponentRef Id="cmp_wpf_System_Text_Json_dll" />
+      <ComponentRef Id="cmp_wpf_System_Text_RegularExpressions_dll" />
+      <ComponentRef Id="cmp_wpf_System_Threading_AccessControl_dll" />
+      <ComponentRef Id="cmp_wpf_System_Threading_Channels_dll" />
+      <ComponentRef Id="cmp_wpf_System_Threading_dll" />
+      <ComponentRef Id="cmp_wpf_System_Threading_Overlapped_dll" />
+      <ComponentRef Id="cmp_wpf_System_Threading_Tasks_Dataflow_dll" />
+      <ComponentRef Id="cmp_wpf_System_Threading_Tasks_dll" />
+      <ComponentRef Id="cmp_wpf_System_Threading_Tasks_Extensions_dll" />
+      <ComponentRef Id="cmp_wpf_System_Threading_Tasks_Parallel_dll" />
+      <ComponentRef Id="cmp_wpf_System_Threading_Thread_dll" />
+      <ComponentRef Id="cmp_wpf_System_Threading_ThreadPool_dll" />
+      <ComponentRef Id="cmp_wpf_System_Threading_Timer_dll" />
+      <ComponentRef Id="cmp_wpf_System_Transactions_dll" />
+      <ComponentRef Id="cmp_wpf_System_Transactions_Local_dll" />
+      <ComponentRef Id="cmp_wpf_System_ValueTuple_dll" />
+      <ComponentRef Id="cmp_wpf_System_Web_dll" />
+      <ComponentRef Id="cmp_wpf_System_Web_HttpUtility_dll" />
+      <ComponentRef Id="cmp_wpf_System_Windows_Controls_Ribbon_dll" />
+      <ComponentRef Id="cmp_wpf_System_Windows_dll" />
+      <ComponentRef Id="cmp_wpf_System_Windows_Extensions_dll" />
+      <ComponentRef Id="cmp_wpf_System_Windows_Forms_Design_dll" />
+      <ComponentRef Id="cmp_wpf_System_Windows_Forms_Design_Editors_dll" />
+      <ComponentRef Id="cmp_wpf_System_Windows_Forms_dll" />
+      <ComponentRef Id="cmp_wpf_System_Windows_Forms_Primitives_dll" />
+      <ComponentRef Id="cmp_wpf_System_Windows_Input_Manipulations_dll" />
+      <ComponentRef Id="cmp_wpf_System_Windows_Presentation_dll" />
+      <ComponentRef Id="cmp_wpf_System_Xaml_dll" />
+      <ComponentRef Id="cmp_wpf_System_Xml_dll" />
+      <ComponentRef Id="cmp_wpf_System_Xml_Linq_dll" />
+      <ComponentRef Id="cmp_wpf_System_Xml_ReaderWriter_dll" />
+      <ComponentRef Id="cmp_wpf_System_Xml_Serialization_dll" />
+      <ComponentRef Id="cmp_wpf_System_Xml_XDocument_dll" />
+      <ComponentRef Id="cmp_wpf_System_Xml_XmlDocument_dll" />
+      <ComponentRef Id="cmp_wpf_System_Xml_XmlSerializer_dll" />
+      <ComponentRef Id="cmp_wpf_System_Xml_XPath_dll" />
+      <ComponentRef Id="cmp_wpf_System_Xml_XPath_XDocument_dll" />
+      <ComponentRef Id="cmp_wpf_UIAutomationClient_dll" />
+      <ComponentRef Id="cmp_wpf_UIAutomationClientSideProviders_dll" />
+      <ComponentRef Id="cmp_wpf_UIAutomationProvider_dll" />
+      <ComponentRef Id="cmp_wpf_UIAutomationTypes_dll" />
+      <ComponentRef Id="cmp_wpf_vcruntime140_cor3_dll" />
+      <ComponentRef Id="cmp_wpf_WindowsBase_dll" />
+      <ComponentRef Id="cmp_wpf_WindowsFormsIntegration_dll" />
+      <ComponentRef Id="cmp_wpf_wpfgfx_cor3_dll" />
+      <ComponentRef Id="cmp_wpf_cs_Microsoft_VisualBasic_Forms_resources_dll" />
+      <ComponentRef Id="cmp_wpf_cs_PresentationCore_resources_dll" />
+      <ComponentRef Id="cmp_wpf_cs_PresentationFramework_resources_dll" />
+      <ComponentRef Id="cmp_wpf_cs_PresentationUI_resources_dll" />
+      <ComponentRef Id="cmp_wpf_cs_ReachFramework_resources_dll" />
+      <ComponentRef Id="cmp_wpf_cs_System_Windows_Controls_Ribbon_resources_dll" />
+      <ComponentRef Id="cmp_wpf_cs_System_Windows_Forms_Design_resources_dll" />
+      <ComponentRef Id="cmp_wpf_cs_System_Windows_Forms_Primitives_resources_dll" />
+      <ComponentRef Id="cmp_wpf_cs_System_Windows_Forms_resources_dll" />
+      <ComponentRef Id="cmp_wpf_cs_System_Windows_Input_Manipulations_resources_dll" />
+      <ComponentRef Id="cmp_wpf_cs_System_Xaml_resources_dll" />
+      <ComponentRef Id="cmp_wpf_cs_UIAutomationClient_resources_dll" />
+      <ComponentRef Id="cmp_wpf_cs_UIAutomationClientSideProviders_resources_dll" />
+      <ComponentRef Id="cmp_wpf_cs_UIAutomationProvider_resources_dll" />
+      <ComponentRef Id="cmp_wpf_cs_UIAutomationTypes_resources_dll" />
+      <ComponentRef Id="cmp_wpf_cs_WindowsBase_resources_dll" />
+      <ComponentRef Id="cmp_wpf_cs_WindowsFormsIntegration_resources_dll" />
+      <ComponentRef Id="cmp_wpf_de_Microsoft_VisualBasic_Forms_resources_dll" />
+      <ComponentRef Id="cmp_wpf_de_PresentationCore_resources_dll" />
+      <ComponentRef Id="cmp_wpf_de_PresentationFramework_resources_dll" />
+      <ComponentRef Id="cmp_wpf_de_PresentationUI_resources_dll" />
+      <ComponentRef Id="cmp_wpf_de_ReachFramework_resources_dll" />
+      <ComponentRef Id="cmp_wpf_de_System_Windows_Controls_Ribbon_resources_dll" />
+      <ComponentRef Id="cmp_wpf_de_System_Windows_Forms_Design_resources_dll" />
+      <ComponentRef Id="cmp_wpf_de_System_Windows_Forms_Primitives_resources_dll" />
+      <ComponentRef Id="cmp_wpf_de_System_Windows_Forms_resources_dll" />
+      <ComponentRef Id="cmp_wpf_de_System_Windows_Input_Manipulations_resources_dll" />
+      <ComponentRef Id="cmp_wpf_de_System_Xaml_resources_dll" />
+      <ComponentRef Id="cmp_wpf_de_UIAutomationClient_resources_dll" />
+      <ComponentRef Id="cmp_wpf_de_UIAutomationClientSideProviders_resources_dll" />
+      <ComponentRef Id="cmp_wpf_de_UIAutomationProvider_resources_dll" />
+      <ComponentRef Id="cmp_wpf_de_UIAutomationTypes_resources_dll" />
+      <ComponentRef Id="cmp_wpf_de_WindowsBase_resources_dll" />
+      <ComponentRef Id="cmp_wpf_de_WindowsFormsIntegration_resources_dll" />
+      <ComponentRef Id="cmp_wpf_es_Microsoft_VisualBasic_Forms_resources_dll" />
+      <ComponentRef Id="cmp_wpf_es_PresentationCore_resources_dll" />
+      <ComponentRef Id="cmp_wpf_es_PresentationFramework_resources_dll" />
+      <ComponentRef Id="cmp_wpf_es_PresentationUI_resources_dll" />
+      <ComponentRef Id="cmp_wpf_es_ReachFramework_resources_dll" />
+      <ComponentRef Id="cmp_wpf_es_System_Windows_Controls_Ribbon_resources_dll" />
+      <ComponentRef Id="cmp_wpf_es_System_Windows_Forms_Design_resources_dll" />
+      <ComponentRef Id="cmp_wpf_es_System_Windows_Forms_Primitives_resources_dll" />
+      <ComponentRef Id="cmp_wpf_es_System_Windows_Forms_resources_dll" />
+      <ComponentRef Id="cmp_wpf_es_System_Windows_Input_Manipulations_resources_dll" />
+      <ComponentRef Id="cmp_wpf_es_System_Xaml_resources_dll" />
+      <ComponentRef Id="cmp_wpf_es_UIAutomationClient_resources_dll" />
+      <ComponentRef Id="cmp_wpf_es_UIAutomationClientSideProviders_resources_dll" />
+      <ComponentRef Id="cmp_wpf_es_UIAutomationProvider_resources_dll" />
+      <ComponentRef Id="cmp_wpf_es_UIAutomationTypes_resources_dll" />
+      <ComponentRef Id="cmp_wpf_es_WindowsBase_resources_dll" />
+      <ComponentRef Id="cmp_wpf_es_WindowsFormsIntegration_resources_dll" />
+      <ComponentRef Id="cmp_wpf_fr_Microsoft_VisualBasic_Forms_resources_dll" />
+      <ComponentRef Id="cmp_wpf_fr_PresentationCore_resources_dll" />
+      <ComponentRef Id="cmp_wpf_fr_PresentationFramework_resources_dll" />
+      <ComponentRef Id="cmp_wpf_fr_PresentationUI_resources_dll" />
+      <ComponentRef Id="cmp_wpf_fr_ReachFramework_resources_dll" />
+      <ComponentRef Id="cmp_wpf_fr_System_Windows_Controls_Ribbon_resources_dll" />
+      <ComponentRef Id="cmp_wpf_fr_System_Windows_Forms_Design_resources_dll" />
+      <ComponentRef Id="cmp_wpf_fr_System_Windows_Forms_Primitives_resources_dll" />
+      <ComponentRef Id="cmp_wpf_fr_System_Windows_Forms_resources_dll" />
+      <ComponentRef Id="cmp_wpf_fr_System_Windows_Input_Manipulations_resources_dll" />
+      <ComponentRef Id="cmp_wpf_fr_System_Xaml_resources_dll" />
+      <ComponentRef Id="cmp_wpf_fr_UIAutomationClient_resources_dll" />
+      <ComponentRef Id="cmp_wpf_fr_UIAutomationClientSideProviders_resources_dll" />
+      <ComponentRef Id="cmp_wpf_fr_UIAutomationProvider_resources_dll" />
+      <ComponentRef Id="cmp_wpf_fr_UIAutomationTypes_resources_dll" />
+      <ComponentRef Id="cmp_wpf_fr_WindowsBase_resources_dll" />
+      <ComponentRef Id="cmp_wpf_fr_WindowsFormsIntegration_resources_dll" />
+      <ComponentRef Id="cmp_wpf_it_Microsoft_VisualBasic_Forms_resources_dll" />
+      <ComponentRef Id="cmp_wpf_it_PresentationCore_resources_dll" />
+      <ComponentRef Id="cmp_wpf_it_PresentationFramework_resources_dll" />
+      <ComponentRef Id="cmp_wpf_it_PresentationUI_resources_dll" />
+      <ComponentRef Id="cmp_wpf_it_ReachFramework_resources_dll" />
+      <ComponentRef Id="cmp_wpf_it_System_Windows_Controls_Ribbon_resources_dll" />
+      <ComponentRef Id="cmp_wpf_it_System_Windows_Forms_Design_resources_dll" />
+      <ComponentRef Id="cmp_wpf_it_System_Windows_Forms_Primitives_resources_dll" />
+      <ComponentRef Id="cmp_wpf_it_System_Windows_Forms_resources_dll" />
+      <ComponentRef Id="cmp_wpf_it_System_Windows_Input_Manipulations_resources_dll" />
+      <ComponentRef Id="cmp_wpf_it_System_Xaml_resources_dll" />
+      <ComponentRef Id="cmp_wpf_it_UIAutomationClient_resources_dll" />
+      <ComponentRef Id="cmp_wpf_it_UIAutomationClientSideProviders_resources_dll" />
+      <ComponentRef Id="cmp_wpf_it_UIAutomationProvider_resources_dll" />
+      <ComponentRef Id="cmp_wpf_it_UIAutomationTypes_resources_dll" />
+      <ComponentRef Id="cmp_wpf_it_WindowsBase_resources_dll" />
+      <ComponentRef Id="cmp_wpf_it_WindowsFormsIntegration_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ja_Microsoft_VisualBasic_Forms_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ja_PresentationCore_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ja_PresentationFramework_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ja_PresentationUI_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ja_ReachFramework_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ja_System_Windows_Controls_Ribbon_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ja_System_Windows_Forms_Design_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ja_System_Windows_Forms_Primitives_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ja_System_Windows_Forms_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ja_System_Windows_Input_Manipulations_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ja_System_Xaml_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ja_UIAutomationClient_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ja_UIAutomationClientSideProviders_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ja_UIAutomationProvider_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ja_UIAutomationTypes_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ja_WindowsBase_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ja_WindowsFormsIntegration_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ko_Microsoft_VisualBasic_Forms_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ko_PresentationCore_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ko_PresentationFramework_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ko_PresentationUI_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ko_ReachFramework_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ko_System_Windows_Controls_Ribbon_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ko_System_Windows_Forms_Design_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ko_System_Windows_Forms_Primitives_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ko_System_Windows_Forms_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ko_System_Windows_Input_Manipulations_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ko_System_Xaml_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ko_UIAutomationClient_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ko_UIAutomationClientSideProviders_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ko_UIAutomationProvider_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ko_UIAutomationTypes_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ko_WindowsBase_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ko_WindowsFormsIntegration_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pl_Microsoft_VisualBasic_Forms_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pl_PresentationCore_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pl_PresentationFramework_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pl_PresentationUI_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pl_ReachFramework_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pl_System_Windows_Controls_Ribbon_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pl_System_Windows_Forms_Design_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pl_System_Windows_Forms_Primitives_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pl_System_Windows_Forms_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pl_System_Windows_Input_Manipulations_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pl_System_Xaml_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pl_UIAutomationClient_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pl_UIAutomationClientSideProviders_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pl_UIAutomationProvider_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pl_UIAutomationTypes_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pl_WindowsBase_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pl_WindowsFormsIntegration_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pt_BR_Microsoft_VisualBasic_Forms_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pt_BR_PresentationCore_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pt_BR_PresentationFramework_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pt_BR_PresentationUI_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pt_BR_ReachFramework_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pt_BR_System_Windows_Controls_Ribbon_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pt_BR_System_Windows_Forms_Design_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pt_BR_System_Windows_Forms_Primitives_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pt_BR_System_Windows_Forms_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pt_BR_System_Windows_Input_Manipulations_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pt_BR_System_Xaml_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pt_BR_UIAutomationClient_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pt_BR_UIAutomationClientSideProviders_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pt_BR_UIAutomationProvider_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pt_BR_UIAutomationTypes_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pt_BR_WindowsBase_resources_dll" />
+      <ComponentRef Id="cmp_wpf_pt_BR_WindowsFormsIntegration_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ru_Microsoft_VisualBasic_Forms_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ru_PresentationCore_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ru_PresentationFramework_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ru_PresentationUI_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ru_ReachFramework_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ru_System_Windows_Controls_Ribbon_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ru_System_Windows_Forms_Design_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ru_System_Windows_Forms_Primitives_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ru_System_Windows_Forms_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ru_System_Windows_Input_Manipulations_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ru_System_Xaml_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ru_UIAutomationClient_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ru_UIAutomationClientSideProviders_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ru_UIAutomationProvider_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ru_UIAutomationTypes_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ru_WindowsBase_resources_dll" />
+      <ComponentRef Id="cmp_wpf_ru_WindowsFormsIntegration_resources_dll" />
+      <ComponentRef Id="cmp_wpf_tr_Microsoft_VisualBasic_Forms_resources_dll" />
+      <ComponentRef Id="cmp_wpf_tr_PresentationCore_resources_dll" />
+      <ComponentRef Id="cmp_wpf_tr_PresentationFramework_resources_dll" />
+      <ComponentRef Id="cmp_wpf_tr_PresentationUI_resources_dll" />
+      <ComponentRef Id="cmp_wpf_tr_ReachFramework_resources_dll" />
+      <ComponentRef Id="cmp_wpf_tr_System_Windows_Controls_Ribbon_resources_dll" />
+      <ComponentRef Id="cmp_wpf_tr_System_Windows_Forms_Design_resources_dll" />
+      <ComponentRef Id="cmp_wpf_tr_System_Windows_Forms_Primitives_resources_dll" />
+      <ComponentRef Id="cmp_wpf_tr_System_Windows_Forms_resources_dll" />
+      <ComponentRef Id="cmp_wpf_tr_System_Windows_Input_Manipulations_resources_dll" />
+      <ComponentRef Id="cmp_wpf_tr_System_Xaml_resources_dll" />
+      <ComponentRef Id="cmp_wpf_tr_UIAutomationClient_resources_dll" />
+      <ComponentRef Id="cmp_wpf_tr_UIAutomationClientSideProviders_resources_dll" />
+      <ComponentRef Id="cmp_wpf_tr_UIAutomationProvider_resources_dll" />
+      <ComponentRef Id="cmp_wpf_tr_UIAutomationTypes_resources_dll" />
+      <ComponentRef Id="cmp_wpf_tr_WindowsBase_resources_dll" />
+      <ComponentRef Id="cmp_wpf_tr_WindowsFormsIntegration_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hans_Microsoft_VisualBasic_Forms_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hans_PresentationCore_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hans_PresentationFramework_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hans_PresentationUI_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hans_ReachFramework_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hans_System_Windows_Controls_Ribbon_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hans_System_Windows_Forms_Design_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hans_System_Windows_Forms_Primitives_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hans_System_Windows_Forms_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hans_System_Windows_Input_Manipulations_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hans_System_Xaml_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hans_UIAutomationClient_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hans_UIAutomationClientSideProviders_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hans_UIAutomationProvider_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hans_UIAutomationTypes_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hans_WindowsBase_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hans_WindowsFormsIntegration_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hant_Microsoft_VisualBasic_Forms_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hant_PresentationCore_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hant_PresentationFramework_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hant_PresentationUI_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hant_ReachFramework_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hant_System_Windows_Controls_Ribbon_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hant_System_Windows_Forms_Design_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hant_System_Windows_Forms_Primitives_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hant_System_Windows_Forms_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hant_System_Windows_Input_Manipulations_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hant_System_Xaml_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hant_UIAutomationClient_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hant_UIAutomationClientSideProviders_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hant_UIAutomationProvider_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hant_UIAutomationTypes_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hant_WindowsBase_resources_dll" />
+      <ComponentRef Id="cmp_wpf_zh_Hant_WindowsFormsIntegration_resources_dll" />
+    </ComponentGroup>
+  </Fragment>
+</Wix>

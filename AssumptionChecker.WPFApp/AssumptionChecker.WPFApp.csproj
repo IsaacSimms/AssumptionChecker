@@ -22,7 +22,10 @@
   </ItemGroup>
 
   <!-- == Copy Engine output into WPFApp bin so EnsureEngineRunning can find it == -->
-  <Target Name="CopyEngine" AfterTargets="Build">
+  <!-- Skipped during installer publish: the build script passes IsInstallerBuild=true. -->
+  <!-- RuntimeIdentifier alone is not reliable — publish profile properties are applied  -->
+  <!-- during the Publish target, after AfterTargets="Build" has already fired.          -->
+  <Target Name="CopyEngine" AfterTargets="Build" Condition="'$(IsInstallerBuild)' != 'true'">
     <MSBuild Projects="..\AssumptionChecker.Engine\AssumptionChecker.Engine.csproj"
              Targets="Build"
              Properties="Configuration=$(Configuration)" />
