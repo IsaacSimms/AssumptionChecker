@@ -1,7 +1,4 @@
 <Solution>
-  <Folder Name="/Assets/">
-    <File Path="../../Users/primi/Downloads/AClogo.ico" />
-  </Folder>
   <Project Path="AssumptionChecker.Cli/AssumptionChecker.Cli.csproj" Id="e7f0035c-86a1-433d-9149-389bb799ce8a" />
   <Project Path="AssumptionChecker.Contracts/AssumptionChecker.Contracts.csproj" />
   <Project Path="AssumptionChecker.Core/AssumptionChecker.Core.csproj" Id="efcc6136-a8b2-4ce7-b929-e8f11723e825" />

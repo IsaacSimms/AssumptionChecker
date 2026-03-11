@@ -1,6 +1,6 @@
-# Assumption Checker for Visual Studio
+# Assumption Checker
 
-> Analyzes Copilot prompts for hidden assumptions and suggests improved alternatives — directly inside Visual Studio 2022. Supports both **OpenAI** and **Anthropic** models.
+> Analyzes Copilot prompts for hidden assumptions and suggests improved alternatives. Available as a **Visual Studio 2022 extension** and a **standalone WPF desktop app**. Supports both **OpenAI** and **Anthropic** models.
 
 ---
 
@@ -8,7 +8,8 @@
 
 - [How It Works](#how-it-works)
 - [Prerequisites](#prerequisites)
-- [Quick Install](#quick-install)
+- [Quick Install (VS Extension)](#quick-install-vs-extension)
+- [WPF Standalone App](#wpf-standalone-app)
 - [Usage](#usage)
 - [Advanced Configuration](#advanced-configuration)
 - [Architecture Overview](#architecture-overview)
@@ -22,7 +23,8 @@
                          ┌──► OpenAI API   (gpt-4o-mini, gpt-4o, …)
 VS Extension  ──►  Engine│
    (net472)    (localhost:5046)
-                         └──► Anthropic API (claude-sonnet-4, claude-haiku-4, …)
+WPF App       ──►        └──► Anthropic API (claude-sonnet-4, claude-haiku-4, …)
+   (net8.0)
 ```
 
 1. You type a prompt into the tool window and choose a model.
@@ -38,14 +40,14 @@ The engine auto-starts when VS loads. A **`LlmClientRouter`** inspects the model
 
 | Requirement | Details |
 |---|---|
-| **Visual Studio 2022 or 2026** | v17.x — Community, Pro, or Enterprise |
-| **.NET 8 SDK** | [dotnet.microsoft.com/download/dotnet/8.0](https://dotnet.microsoft.com/download/dotnet/8.0) |
+| **Visual Studio 2022 or 2026** | v17.x — Community, Pro, or Enterprise (VS Extension only) |
+| **.NET 8 SDK** | [dotnet.microsoft.com/download/dotnet/8.0](https://dotnet.microsoft.com/download/dotnet/8.0) (source builds only — the MSI bundles the runtime) |
 | **API Key** | At least one: [OpenAI](https://platform.openai.com/api-keys) and/or [Anthropic](https://console.anthropic.com/settings/keys) |
 | **Windows** | Required — API keys are stored with Windows DPAPI |
 
 ---
 
-## Quick Install
+## Quick Install (VS Extension)
 
 ### 1. Clone the repo
 
@@ -111,6 +113,69 @@ Keys are encrypted with Windows DPAPI (per-user) and saved to `%AppData%\Assumpt
 > cd AssumptionChecker.WPFApp
 > dotnet run
 > ```
+
+---
+
+## WPF Standalone App
+
+The standalone WPF app provides the same assumption-checking experience outside of Visual Studio. It bundles its own Engine process and launches it automatically on startup.
+
+### Install from MSI (recommended)
+
+1. Download **`AssumptionChecker.Installer.msi`** from the [Releases](https://github.com/IsaacSimms/AssumptionChecker/releases) page.
+2. Double-click the `.msi` — no admin rights required.
+3. The app installs to `%LocalAppData%\AssumptionChecker` with Start Menu and Desktop shortcuts.
+4. Launch **Assumption Checker** from the Start Menu.
+
+> The MSI is a self-contained package — it includes the .NET 8 runtime, all libraries, and the Engine executable. No separate SDK or runtime install is needed.
+
+### Install from source
+
+```bash
+git clone https://github.com/IsaacSimms/AssumptionChecker.git
+cd AssumptionChecker\AssumptionChecker.WPFApp
+dotnet run
+```
+
+This requires the [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0). The Engine is built and copied automatically on first run.
+
+### Configure API keys
+
+1. Open the app and expand the **Settings** panel.
+2. Paste your API key for each provider you want to use and click **Save**.
+
+| Provider | Key prefix | Where to get one |
+|---|---|---|
+| OpenAI | `sk-proj-…` | [platform.openai.com/api-keys](https://platform.openai.com/api-keys) |
+| Anthropic | `sk-ant-…` | [console.anthropic.com/settings/keys](https://console.anthropic.com/settings/keys) |
+
+Keys are encrypted with **Windows DPAPI** (per-user) and stored in `%AppData%\AssumptionChecker\`. They are shared with the VS Extension — configuring a key in either place makes it available to both.
+
+### Build the MSI from source
+
+Prerequisites (one-time):
+
+```powershell
+dotnet tool install --global wix
+wix extension add WixToolset.Heat/4.0.5
+```
+
+Build:
+
+```powershell
+cd AssumptionChecker\AssumptionChecker.Installer
+.\build-installer.ps1
+```
+
+This publishes the WPF app and Engine as self-contained win-x64, then produces the MSI at:
+
+```
+AssumptionChecker.Installer\bin\Release\AssumptionChecker.Installer.msi
+```
+
+### Uninstall
+
+Uninstall via **Settings → Apps → Assumption Checker** (or Programs and Features). The installer removes all application files and cached preferences (`wpf-settings.json`) but **preserves your DPAPI-encrypted API keys** in `%AppData%\AssumptionChecker\` so they remain available if you reinstall or continue using the VS Extension.
 
 ---
 
@@ -221,6 +286,7 @@ The engine **hot-reloads** keys saved via the `/settings/apikey` endpoint — no
 | `AssumptionChecker.Engine` | net8.0 | ASP.NET Core API — LLM router, OpenAI + Anthropic clients, settings endpoints |
 | `AssumptionChecker.VsExtension` | net472 | VSIX — WPF tool window, model picker, key management, auto-launches engine |
 | `AssumptionChecker.WPFApp` | net8.0 | Standalone WPF chat UI with settings |
+| `AssumptionChecker.Installer` | WiX v4 | MSI installer — bundles WPFApp + Engine as self-contained win-x64 |
 | `AssumptionChecker.Cli` | net8.0 | Interactive CLI for testing the engine |
 | `AssumptionChecker.Tests` | net8.0 | Unit tests |
 

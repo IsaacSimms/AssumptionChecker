@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    AssumptionChecker WPF App — MSI Installer
+    ===========================================
+    • Per-user install to %LocalAppData%\AssumptionChecker
+    • Bundles the WPF app + Engine (self-contained .NET 8)
+    • Creates Start Menu shortcut
+    • On uninstall: removes cached settings (wpf-settings.json)
+      but preserves DPAPI-encrypted API keys in %AppData%
+-->
+
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+
+  <!-- == Product definition == -->
+  <Package Name="Assumption Checker"
+           Manufacturer="AssumptionChecker"
+           Version="1.0.0.0"
+           UpgradeCode="A3F1B2C4-D5E6-47F8-9A0B-1C2D3E4F5A6B"
+           Scope="perUser"
+           InstallerVersion="500"
+           Compressed="yes">
+
+    <!-- == Embed all files into the MSI (single .msi output) == -->
+    <MediaTemplate EmbedCab="yes" />
+
+    <!-- == Major upgrade: removes previous versions before installing == -->
+    <MajorUpgrade DowngradeErrorMessage="A newer version of Assumption Checker is already installed."
+                  Schedule="afterInstallInitialize" />
+
+    <!-- ================================================================ -->
+    <!--  Directory layout                                                -->
+    <!-- ================================================================ -->
+    <StandardDirectory Id="LocalAppDataFolder">
+      <Directory Id="INSTALLFOLDER" Name="AssumptionChecker">
+        <Directory Id="EngineFolder" Name="Engine" />
+      </Directory>
+    </StandardDirectory>
+
+    <StandardDirectory Id="ProgramMenuFolder">
+      <Directory Id="ShortcutFolder" Name="Assumption Checker" />
+    </StandardDirectory>
+
+    <!-- ================================================================ -->
+    <!--  Shortcut component (Start Menu + Desktop)                       -->
+    <!-- ================================================================ -->
+    <ComponentGroup Id="ShortcutComponents" Directory="ShortcutFolder">
+      <Component Id="StartMenuShortcut" Guid="B1C2D3E4-F5A6-4B7C-8D9E-0F1A2B3C4D5E">
+        <Shortcut Id="StartMenuLink"
+                  Name="Assumption Checker"
+                  Target="[INSTALLFOLDER]AssumptionChecker.WPFApp.exe"
+                  WorkingDirectory="INSTALLFOLDER"
+                  Icon="AppIcon.ico" />
+        <RemoveFolder Id="RemoveShortcutFolder" On="uninstall" />
+        <RegistryValue Root="HKCU"
+                       Key="Software\AssumptionChecker"
+                       Name="StartMenuShortcut"
+                       Type="integer"
+                       Value="1"
+                       KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="DesktopShortcutComponents" Directory="DesktopFolder">
+      <Component Id="DesktopShortcut" Guid="C2D3E4F5-A6B7-4C8D-9E0F-1A2B3C4D5E6F">
+        <Shortcut Id="DesktopLink"
+                  Name="Assumption Checker"
+                  Target="[INSTALLFOLDER]AssumptionChecker.WPFApp.exe"
+                  WorkingDirectory="INSTALLFOLDER"
+                  Icon="AppIcon.ico" />
+        <RegistryValue Root="HKCU"
+                       Key="Software\AssumptionChecker"
+                       Name="DesktopShortcut"
+                       Type="integer"
+                       Value="1"
+                       KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+
+    <StandardDirectory Id="DesktopFolder" />
+
+    <!-- ================================================================ -->
+    <!--  Uninstall cleanup: remove cached settings, keep API keys        -->
+    <!--  AppData\AssumptionChecker\wpf-settings.json  => REMOVED         -->
+    <!--  AppData\AssumptionChecker\settings*.dat       => PRESERVED       -->
+    <!-- ================================================================ -->
+    <StandardDirectory Id="AppDataFolder">
+      <Directory Id="AppDataACFolder" Name="AssumptionChecker" />
+    </StandardDirectory>
+
+    <ComponentGroup Id="CleanupComponents" Directory="AppDataACFolder">
+      <Component Id="UninstallCleanup" Guid="D3E4F5A6-B7C8-4D9E-0F1A-2B3C4D5E6F7A">
+        <RegistryValue Root="HKCU"
+                       Key="Software\AssumptionChecker"
+                       Name="Installed"
+                       Type="integer"
+                       Value="1"
+                       KeyPath="yes" />
+
+        <!-- remove wpf-settings.json on uninstall (cached preferences) -->
+        <RemoveFile Id="RemoveWpfSettings"
+                    Name="wpf-settings.json"
+                    On="uninstall" />
+
+        <!-- NOTE: settings.dat and settings-*.dat (DPAPI API keys) are NOT removed -->
+        <!-- NOTE: the AppData\AssumptionChecker folder is left if API key files remain -->
+      </Component>
+    </ComponentGroup>
+
+    <!-- ================================================================ -->
+    <!--  Icon                                                            -->
+    <!-- ================================================================ -->
+    <Icon Id="AppIcon.ico" SourceFile="..\AssumptionChecker.WPFApp\AClogo.ico" />
+    <Property Id="ARPPRODUCTICON" Value="AppIcon.ico" />
+
+    <!-- ================================================================ -->
+    <!--  Feature tree                                                    -->
+    <!-- ================================================================ -->
+    <Feature Id="MainFeature"
+             Title="Assumption Checker"
+             Level="1"
+             AllowAbsent="no">
+      <ComponentGroupRef Id="WPFAppFiles" />
+      <ComponentGroupRef Id="EngineFiles" />
+      <ComponentGroupRef Id="ShortcutComponents" />
+      <ComponentGroupRef Id="DesktopShortcutComponents" />
+      <ComponentGroupRef Id="CleanupComponents" />
+    </Feature>
+
+  </Package>
+
+</Wix>

@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon></ApplicationIcon>
+    <ApplicationIcon>AClogo.ico</ApplicationIcon>
     <AssemblyName>AssumptionChecker.WPFApp</AssemblyName>
     <RootNamespace>AssumptionChecker.WPFApp</RootNamespace>
   </PropertyGroup>
