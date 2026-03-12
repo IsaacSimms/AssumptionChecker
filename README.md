@@ -127,6 +127,13 @@ The standalone WPF app provides the same assumption-checking experience outside 
 3. The app installs to `%LocalAppData%\AssumptionChecker` with Start Menu and Desktop shortcuts.
 4. Launch **Assumption Checker** from the Start Menu.
 
+> **Silent / unattended install**
+> The MSI supports a fully silent install with no UI prompts — useful for scripted deployments or IT provisioning:
+> ```powershell
+> msiexec /i AssumptionChecker.Installer.msi /quiet /norestart
+> ```
+> Use `/passive` instead of `/quiet` to show a minimal progress bar with no interaction required.
+
 > The MSI is a self-contained package — it includes the .NET 8 runtime, all libraries, and the Engine executable. No separate SDK or runtime install is needed.
 
 ### Install from source
