@@ -35,7 +35,7 @@ WPF App        ──►
 3. It sends both to a local ASP.NET Core engine, which routes to the correct LLM provider.
 4. Results come back as a structured list of assumptions (risk-rated and categorized) plus suggested improved prompts.
 
-The engine auto-starts when VS loads. A **`LlmClientRouter`** inspects the model name — anything starting with `claude` goes to `AnthropicLlmClient`, everything else goes to `OpenAILlmClient`.
+The engine auto-starts when VS or the VS Code extension activates. A **`LlmClientRouter`** inspects the model name — anything starting with `claude` goes to `AnthropicLlmClient`, everything else goes to `OpenAILlmClient`.
 
 ---
 
@@ -156,16 +156,23 @@ The VS Code extension provides the same assumption-checking sidebar experience i
      ```
 4. Reload VS Code when prompted.
 
-### Start the Engine
+### Engine auto-start
 
-The VS Code extension does **not** auto-launch the Engine — you must start it yourself:
+The extension automatically starts the Engine when VS Code activates - no manual step required. It resolves the Engine executable in this order:
 
-```bash
-cd AssumptionChecker/AssumptionChecker.Engine
-dotnet run
-```
+1. The path set in `assumptionChecker.enginePath` (if configured)
+2. The MSI install location: `%LocalAppData%\AssumptionChecker\Engine\AssumptionChecker.Engine.exe`
+3. A workspace source build: `AssumptionChecker.Engine\bin\Debug\net8.0\` or `bin\Release\net8.0\`
 
-Or, if you installed the WPF app via MSI, the Engine executable is already at `%LocalAppData%\AssumptionChecker\Engine\AssumptionChecker.Engine.exe`.
+Engine stdout/stderr is streamed to the **AssumptionChecker Engine** output channel (**View -> Output**, then select the channel from the dropdown) for diagnostics.
+
+The Engine is killed automatically when VS Code closes or the extension is disabled.
+
+> To disable auto-start, set `assumptionChecker.autoStartEngine` to `false` in **Settings** (`Ctrl+,`) and start the Engine manually:
+> ```bash
+> cd AssumptionChecker/AssumptionChecker.Engine
+> dotnet run
+> ```
 
 ### Configure the Engine URL
 
