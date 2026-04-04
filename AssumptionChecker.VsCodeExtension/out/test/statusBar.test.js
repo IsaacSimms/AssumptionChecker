@@ -2,7 +2,6 @@
 // <summary>
 // Tests for StatusBarManager health polling with stubbed EngineClient.
 // Covers: connected/disconnected states, polling, dispose, state transitions.
-// Uses mocked vscode.window.createStatusBarItem.
 // </summary>
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
@@ -37,47 +36,10 @@ var __importStar = (this && this.__importStar) || (function () {
         return result;
     };
 })();
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const assert = __importStar(require("assert"));
 const sinon = __importStar(require("sinon"));
-// == mock vscode module == //
-const module_1 = __importDefault(require("module"));
-const vscode_1 = require("./mocks/vscode");
-let lastCreatedItem;
-const mockVscode = {
-    window: {
-        createStatusBarItem: (alignment, priority) => {
-            lastCreatedItem = new vscode_1.MockStatusBarItem();
-            lastCreatedItem.alignment = alignment ?? 1;
-            lastCreatedItem.priority = priority ?? 0;
-            return lastCreatedItem;
-        },
-    },
-    StatusBarAlignment: { Left: 1, Right: 2 },
-    ThemeColor: vscode_1.ThemeColor,
-};
-const originalResolveFilename = module_1.default._resolveFilename;
-module_1.default._resolveFilename = function (request, ...args) {
-    if (request === "vscode") {
-        return request;
-    }
-    return originalResolveFilename.call(this, request, ...args);
-};
-require.cache["vscode"] = {
-    id: "vscode",
-    filename: "vscode",
-    loaded: true,
-    exports: mockVscode,
-    parent: null,
-    children: [],
-    paths: [],
-    path: "",
-    require: require,
-    isPreloading: false,
-};
+const vscodeSetup_1 = require("./mocks/vscodeSetup"); // registers vscode mock
 const statusBar_1 = require("../statusBar");
 describe("StatusBarManager", () => {
     let mockEngine;
@@ -90,13 +52,17 @@ describe("StatusBarManager", () => {
         clock.restore();
         sinon.restore();
     });
+    // == helper to get the last created status bar item == //
+    function getItem() {
+        return vscodeSetup_1.sharedMock._lastStatusBarItem;
+    }
     // == shows Connected when health check succeeds == //
     it("shows Connected when engine is healthy", async () => {
         mockEngine.checkHealth.resolves(true);
         const manager = new statusBar_1.StatusBarManager(mockEngine);
         await manager.startPolling();
-        assert.ok(lastCreatedItem.text.includes("Connected"));
-        assert.ok(lastCreatedItem.shown);
+        assert.ok(getItem().text.includes("Connected"));
+        assert.ok(getItem().shown);
         manager.dispose();
     });
     // == shows Disconnected when health check fails == //
@@ -108,13 +74,13 @@ describe("StatusBarManager", () => {
         for (let i = 0; i < 8; i++) {
             await clock.tickAsync(2000);
         }
-        assert.ok(lastCreatedItem.text.includes("Disconnected"));
+        assert.ok(getItem().text.includes("Disconnected"));
         manager.dispose();
     });
     // == shows Connecting initially == //
     it("shows Connecting on creation", () => {
         const manager = new statusBar_1.StatusBarManager(mockEngine);
-        assert.ok(lastCreatedItem.text.includes("Connecting"));
+        assert.ok(getItem().text.includes("Connecting"));
         manager.dispose();
     });
     // == dispose stops polling == //
@@ -130,7 +96,6 @@ describe("StatusBarManager", () => {
     });
     // == transitions from disconnected to connected == //
     it("transitions from disconnected to connected on recovery", async () => {
-        // first fail, then succeed
         mockEngine.checkHealth.resolves(false);
         const manager = new statusBar_1.StatusBarManager(mockEngine);
         const pollPromise = manager.startPolling();
@@ -138,12 +103,12 @@ describe("StatusBarManager", () => {
         for (let i = 0; i < 8; i++) {
             await clock.tickAsync(2000);
         }
-        assert.ok(lastCreatedItem.text.includes("Disconnected"));
+        assert.ok(getItem().text.includes("Disconnected"));
         // now engine recovers
         mockEngine.checkHealth.resolves(true);
         // advance to next background poll (30s)
         await clock.tickAsync(30000);
-        assert.ok(lastCreatedItem.text.includes("Connected"));
+        assert.ok(getItem().text.includes("Connected"));
         manager.dispose();
     });
 });

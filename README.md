@@ -1,6 +1,6 @@
 # Assumption Checker
 
-> Analyzes Copilot prompts for hidden assumptions and suggests improved alternatives. Available as a **Visual Studio 2022 extension** and a **standalone WPF desktop app**. Supports both **OpenAI** and **Anthropic** models.
+> Analyzes Copilot prompts for hidden assumptions and suggests improved alternatives. Available as a **Visual Studio 2022 extension**, a **VS Code extension**, and a **standalone WPF desktop app**. Supports both **OpenAI** and **Anthropic** models.
 
 ---
 
@@ -9,6 +9,7 @@
 - [How It Works](#how-it-works)
 - [Prerequisites](#prerequisites)
 - [Quick Install (VS Extension)](#quick-install-vs-extension)
+- [VS Code Extension](#vs-code-extension)
 - [WPF Standalone App](#wpf-standalone-app)
 - [Usage](#usage)
 - [Advanced Configuration](#advanced-configuration)
@@ -20,10 +21,12 @@
 ## How It Works
 
 ```
-                         ┌──► OpenAI API   (gpt-4o-mini, gpt-4o, …)
-VS Extension  ──►  Engine│
-   (net472)    (localhost:5046)
-WPF App       ──►        └──► Anthropic API (claude-sonnet-4, claude-haiku-4, …)
+                            ┌──► OpenAI API   (gpt-4o-mini, gpt-4o, …)
+VS Extension   ──►  Engine  │
+   (net472)     (localhost:5046)
+VS Code Ext    ──►          └──► Anthropic API (claude-sonnet-4, claude-haiku-4, …)
+   (TypeScript)
+WPF App        ──►
    (net8.0)
 ```
 
@@ -126,6 +129,51 @@ Keys are encrypted with Windows DPAPI (per-user) and saved to `%AppData%\Assumpt
 > cd AssumptionChecker.WPFApp
 > dotnet run
 > ```
+
+---
+
+## VS Code Extension
+
+The VS Code extension provides the same assumption-checking sidebar experience inside Visual Studio Code. It communicates with the same Engine backend.
+
+### Install from VSIX (recommended)
+
+1. Clone the repo and build the `.vsix`:
+   ```bash
+   git clone https://github.com/IsaacSimms/AssumptionChecker.git
+   cd AssumptionChecker/AssumptionChecker.VsCodeExtension
+   npm install
+   npm run compile
+   npx vsce package --allow-missing-repository
+   ```
+2. This produces **`assumption-checker-0.1.0.vsix`** in the extension folder.
+3. Install in VS Code:
+   - Open VS Code → **Extensions** sidebar → click the `···` menu (top-right) → **Install from VSIX…**
+   - Select the `.vsix` file.
+   - Alternatively, from the terminal:
+     ```bash
+     code --install-extension assumption-checker-0.1.0.vsix
+     ```
+4. Reload VS Code when prompted.
+
+### Start the Engine
+
+The VS Code extension does **not** auto-launch the Engine — you must start it yourself:
+
+```bash
+cd AssumptionChecker/AssumptionChecker.Engine
+dotnet run
+```
+
+Or, if you installed the WPF app via MSI, the Engine executable is already at `%LocalAppData%\AssumptionChecker\Engine\AssumptionChecker.Engine.exe`.
+
+### Configure the Engine URL
+
+By default the extension connects to `http://localhost:5046`. To change this, open **Settings** (`Ctrl+,`) and search for `assumptionChecker.engineUrl`.
+
+### Usage
+
+Once installed, click the **AssumptionChecker** icon in the Activity Bar (left sidebar). The sidebar panel lets you type a prompt, choose a model, and view assumption analysis results — the same workflow as the VS and WPF clients.
 
 ---
 
@@ -305,6 +353,7 @@ The engine **hot-reloads** keys saved via the `/settings/apikey` endpoint — no
 | `AssumptionChecker.Core` | netstandard2.0 / net8.0 | HTTP client, DI wiring, multi-provider DPAPI key storage |
 | `AssumptionChecker.Engine` | net8.0 | ASP.NET Core API — LLM router, OpenAI + Anthropic clients, settings endpoints |
 | `AssumptionChecker.VsExtension` | net472 | VSIX — WPF tool window, model picker, key management, auto-launches engine |
+| `AssumptionChecker.VsCodeExtension` | TypeScript | VS Code sidebar extension — webview UI, engine health polling |
 | `AssumptionChecker.WPFApp` | net8.0 | Standalone WPF chat UI with settings |
 | `AssumptionChecker.Installer` | WiX v4 | MSI installer — bundles WPFApp + Engine as self-contained win-x64 |
 | `AssumptionChecker.Cli` | net8.0 | Interactive CLI for testing the engine |

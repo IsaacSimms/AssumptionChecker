@@ -36,45 +36,19 @@ var __importStar = (this && this.__importStar) || (function () {
         return result;
     };
 })();
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const assert = __importStar(require("assert"));
 const sinon = __importStar(require("sinon"));
-// == mock vscode module before imports == //
-const module_1 = __importDefault(require("module"));
-const mockVscode = {
-    workspace: { textDocuments: [] },
-    Uri: { file: (p) => ({ scheme: "file", fsPath: p }) },
-};
-const originalResolveFilename = module_1.default._resolveFilename;
-module_1.default._resolveFilename = function (request, ...args) {
-    if (request === "vscode") {
-        return request;
-    }
-    return originalResolveFilename.call(this, request, ...args);
-};
-require.cache["vscode"] = {
-    id: "vscode",
-    filename: "vscode",
-    loaded: true,
-    exports: mockVscode,
-    parent: null,
-    children: [],
-    paths: [],
-    path: "",
-    require: require,
-    isPreloading: false,
-};
+const vscodeSetup_1 = require("./mocks/vscodeSetup"); // registers vscode mock
 const sidebarProvider_1 = require("../sidebarProvider");
 const vscode_1 = require("./mocks/vscode");
 describe("SidebarProvider", () => {
     let provider;
     let mockEngine;
-    let mockSecrets;
+    let mockSecretsManager;
     let mockView;
     beforeEach(() => {
+        vscodeSetup_1.sharedMock.workspace.textDocuments = [];
         mockEngine = {
             analyze: sinon.stub().resolves({
                 assumptions: [{ id: "a1", assumptionText: "Test", category: "other", riskLevel: "low", clarifyingQuestion: null, rationale: "R", confidence: 0.8 }],
@@ -84,8 +58,7 @@ describe("SidebarProvider", () => {
             saveApiKey: sinon.stub().resolves({ saved: true, provider: "openai" }),
             getProviders: sinon.stub().resolves({ openai: true, anthropic: false }),
         };
-        mockSecrets = (0, vscode_1.createMockSecretStorage)();
-        const mockSecretsManager = {
+        mockSecretsManager = {
             saveApiKey: sinon.stub().resolves(),
             getApiKey: sinon.stub().resolves(undefined),
             hasApiKey: sinon.stub().resolves(false),
@@ -95,6 +68,7 @@ describe("SidebarProvider", () => {
         provider.resolveWebviewView(mockView.webviewView);
     });
     afterEach(() => {
+        vscodeSetup_1.sharedMock.workspace.textDocuments = [];
         sinon.restore();
     });
     // == analyze message calls engineClient.analyze() == //
@@ -103,7 +77,6 @@ describe("SidebarProvider", () => {
             command: "analyze",
             payload: { prompt: "Test prompt", model: "gpt-4o", maxAssumptions: 5 },
         });
-        // wait for async handling
         await new Promise(resolve => setTimeout(resolve, 50));
         assert.ok(mockEngine.analyze.calledOnce);
         const request = mockEngine.analyze.firstCall.args[0];
@@ -114,7 +87,7 @@ describe("SidebarProvider", () => {
     });
     // == analyze message attaches file contexts == //
     it("analyze message includes file contexts from open editors", async () => {
-        mockVscode.workspace.textDocuments = [
+        vscodeSetup_1.sharedMock.workspace.textDocuments = [
             { uri: { scheme: "file", fsPath: "/test.ts" }, getText: () => "const x = 1;" },
         ];
         mockView.fireMessage({
@@ -125,7 +98,6 @@ describe("SidebarProvider", () => {
         const request = mockEngine.analyze.firstCall.args[0];
         assert.strictEqual(request.fileContexts.length, 1);
         assert.strictEqual(request.fileContexts[0].filePath, "/test.ts");
-        mockVscode.workspace.textDocuments = []; // cleanup
     });
     // == analyze message posts result back to webview == //
     it("posts analyzeResult back to webview on success", async () => {
@@ -149,6 +121,16 @@ describe("SidebarProvider", () => {
         const errorMsg = mockView.messages.find((m) => m.command === "analyzeError");
         assert.ok(errorMsg, "Should have posted analyzeError");
         assert.ok(errorMsg.payload.includes("Engine exploded"));
+    });
+    // == saveApiKey message calls secretsManager == //
+    it("saveApiKey message calls secrets manager", async () => {
+        mockView.fireMessage({
+            command: "saveApiKey",
+            payload: { provider: "openai", apiKey: "sk-test" },
+        });
+        await new Promise(resolve => setTimeout(resolve, 50));
+        assert.ok(mockSecretsManager.saveApiKey.calledOnce);
+        assert.deepStrictEqual(mockSecretsManager.saveApiKey.firstCall.args, ["openai", "sk-test"]);
     });
     // == getInitialState returns provider status == //
     it("getInitialState returns provider status", async () => {
