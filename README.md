@@ -49,14 +49,27 @@ The engine auto-starts when VS loads. A **`LlmClientRouter`** inspects the model
 
 ## Quick Install (VS Extension)
 
-### 1. Clone the repo
+### Install from VSIX (recommended)
+
+1. Download **`AssumptionChecker.VsExtension.vsix`** from the [Releases](https://github.com/IsaacSimms/AssumptionChecker/releases) page.
+2. Double-click the `.vsix` file — the VSIX Installer will open automatically.
+3. Follow the prompts and restart Visual Studio when asked.
+4. Open the tool window: **View → Other Windows → Assumption Checker**.
+
+> The VSIX is compatible with **Visual Studio 2022** and **Visual Studio 2026** (Community, Professional, and Enterprise — amd64).
+
+> The extension auto-launches the Engine on startup. If you installed the WPF app via MSI, the Engine is already on disk; otherwise the VSIX bundles its own copy.
+
+### Install from source
+
+#### 1. Clone the repo
 
 ```bash
 git clone https://github.com/IsaacSimms/AssumptionChecker.git
 cd AssumptionChecker
 ```
 
-### 2. Build the engine
+#### 2. Build the engine
 
 ```bash
 cd AssumptionChecker.Engine
@@ -65,7 +78,7 @@ dotnet build -c Release
 
 > For a permanent VSIX install the engine `.exe` must be built first so the extension can auto-launch it.
 
-### 3. Install the extension
+#### 3. Install the extension
 
 **Option A — F5 experimental instance (quickest for development)**
 
@@ -87,7 +100,7 @@ AssumptionChecker.VsExtension\bin\Release\AssumptionChecker.VsExtension.vsix
 
 Follow the installer prompts, then restart Visual Studio.
 
-### 4. Open the tool window and add your API key(s)
+#### 4. Open the tool window and add your API key(s)
 
 **View → Other Windows → Assumption Checker**
 

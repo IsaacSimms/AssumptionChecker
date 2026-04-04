@@ -1,0 +1,64 @@
+{
+  "name": "assumption-checker",
+  "displayName": "AssumptionChecker",
+  "description": "Analyze prompts for hidden assumptions before they reach an AI",
+  "version": "0.1.0",
+  "publisher": "assumption-checker",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "assumption-checker",
+          "title": "AssumptionChecker",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "assumption-checker": [
+        {
+          "type": "webview",
+          "id": "assumptionChecker.sidebar",
+          "name": "Analyze"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "AssumptionChecker",
+      "properties": {
+        "assumptionChecker.engineUrl": {
+          "type": "string",
+          "default": "http://localhost:5046",
+          "description": "Base URL of the AssumptionChecker Engine"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "test": "mocha --require ts-node/register \"src/test/**/*.test.ts\"",
+    "test:watch": "mocha --require ts-node/register --watch \"src/test/**/*.test.ts\"",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "^20.0.0",
+    "@types/mocha": "^10.0.0",
+    "@types/sinon": "^17.0.0",
+    "typescript": "^5.3.0",
+    "mocha": "^10.2.0",
+    "sinon": "^17.0.0",
+    "ts-node": "^10.9.0",
+    "@vscode/vsce": "^2.22.0"
+  }
+}
